@@ -6,11 +6,13 @@ import {
   editLinguisticValue,
   addLinguisticValue,
 } from "@/api/linguisticValue";
+import image1 from '../../assets/imagesCriteria/image1.png';
 
 import TypingCard from "@/components/TypingCard";
 import EditLinguisticValueForm from "./forms/edit-linguistic-value-form";
 import AddLinguisticValueForm from "./forms/add-linguistic-value-form";
 const { Column } = Table;
+
 
 class LinguisticValue extends Component {
     state = {
@@ -66,7 +68,20 @@ class LinguisticValue extends Component {
             return;
         }
         this.setState({ addLinguisticValueModalLoading: true });
-        addLinguisticValue(values)
+        const { file, ...otherValues } = values;
+      
+        const formData = new FormData();
+        if (file && file.fileList.length > 0) {
+            formData.append("file", file.fileList[0].originFileObj);
+        } 
+        formData.append("name", otherValues.name);  
+        formData.append("value1", otherValues.value1);
+        formData.append("value2", otherValues.value2);
+        formData.append("value3", otherValues.value3);
+        formData.append("value4", otherValues.value4);
+        
+
+        addLinguisticValue(formData)
             .then((response) => {
             form.resetFields();
             this.setState({
@@ -107,6 +122,10 @@ class LinguisticValue extends Component {
 
     render() {
         const { linguisticValues } = this.state;
+        const sortedLinguisticValues = [...linguisticValues].sort((a, b) => a.avg - b.avg);
+        const BASE_URL = 'http://hadoop-primary:9870/';
+
+        
         const title = (
         <span>    
             <Button type="primary" onClick={this.handleAddLinguisticValue}>
@@ -118,14 +137,35 @@ class LinguisticValue extends Component {
         <div className="app-container">
             <TypingCard source="模糊集合语言值管理" />
             <Card title = {title} >
-            <Table dataSource={linguisticValues} rowKey="id">
-                <Column title="ID" dataIndex="id" key="id" />
-                <Column title="Name" dataIndex="name" key="name" />
+            <Table dataSource={sortedLinguisticValues}  rowKey="id">
+                <Column
+                title="ID"
+                key="id"
+                align="center"
+                render={(value, record, index) => index + 1}
+                />                
+                <Column
+                title="Name"
+                dataIndex="name"
+                key="name"
+                render={(text, record) => {
+                    if (record.file_path) {
+                        return (
+                          <>
+                            {text}
+                            <img src={`${BASE_URL}${record.file_path}`} alt={text} style={{width: '200px', height: '200px', marginLeft: '10px'}}/>                    </>
+                        );
+                      }
+                      else {
+                        return text;
+                      }
+                }}
+                />
                 <Column title="Value 1" dataIndex="value1" key="value1" />
                 <Column title="Value 2" dataIndex="value2" key="value2" />
                 <Column title="Value 3" dataIndex="value3" key="value3" />
                 <Column title="Value 4" dataIndex="value4" key="value4" />
-                <Column title="Average" dataIndex="avg" key="avg" />
+                {/* <Column title="Average" dataIndex="avg" key="avg" /> */}
                 <Column
                     title="Operasi"
                     key="action"
@@ -160,6 +200,8 @@ class LinguisticValue extends Component {
             onCancel={this.handleCancel}
             onOk={this.handleEditLinguisticValueOk}
             currentRowData={this.state.currentRowData}
+            file_path={this.state.currentRowData.file_path} // Add this line
+
             />
             <AddLinguisticValueForm
             wrappedComponentRef={(form) => (this.addLinguisticValueFormRef = form)}

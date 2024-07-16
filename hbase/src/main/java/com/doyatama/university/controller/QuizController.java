@@ -6,8 +6,11 @@ import com.doyatama.university.payload.ApiResponse;
 import com.doyatama.university.payload.DefaultResponse;
 import com.doyatama.university.payload.QuizRequest;
 import com.doyatama.university.payload.PagedResponse;
+import com.doyatama.university.repository.QuizRepository;
+import com.doyatama.university.repository.RPSRepository;
 import com.doyatama.university.service.QuizService;
 import com.doyatama.university.util.AppConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +23,12 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api/quiz")
 public class QuizController {
-    private QuizService quizService = new QuizService();
+    private final QuizService quizService;
+
+    @Autowired
+    public QuizController(QuizRepository quizRepository, RPSRepository rpsRepository) {
+        this.quizService = new QuizService(quizRepository, rpsRepository);
+    }
 
     @GetMapping
     public PagedResponse<Quiz> getQuiz(@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,

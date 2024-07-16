@@ -171,7 +171,7 @@ class Student extends Component {
         <br />
         <Card title={title}>
           <Table bordered rowKey="id" dataSource={students} pagination={false}>
-            <Column title="NIDN" dataIndex="id" key="id" align="center" />
+            <Column title="NIM" dataIndex="nim" key="nim" align="center" />
             <Column title="Nama" dataIndex="name" key="name" align="center" />
             <Column
               title="Program Studi"

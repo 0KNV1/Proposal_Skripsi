@@ -40,7 +40,7 @@ class StudentExercise extends Component {
       if (attemptExerciseStatusCode === 200) {
         const exerciseWithStatus = content.map((exercise) => {
           const attemptExercise = attemptExerciseContent.find(
-            (attempt) => attempt.exercise.id === exercise.id
+            (attempt) => attempt.exercise && attempt.exercise.id === exercise.id
           );
 
           // Jika ada data nilai ujian, tambahkan properti status ke exercise dengan nilai dari attemptExercise.status
@@ -49,7 +49,11 @@ class StudentExercise extends Component {
               ...exercise,
               status: "sudah",
               grade: attemptExercise.grade,
+              total_right: attemptExercise.total_right,
               state: attemptExercise.state,
+              total_wrong: attemptExercise.student_answers.length - attemptExercise.total_right,
+              attemptExerciseId: attemptExercise.id, // Added this line
+
             };
           }
 
@@ -116,7 +120,22 @@ class StudentExercise extends Component {
       },
     });
   };
-
+  handleDoExerciseReview = (row) => {
+    const { history } = this.props;
+  
+    Modal.confirm({
+      title: "Konfirmasi",
+      content: "Apakah Anda yakin ingin melihat review ujian anda?",
+      okText: "OK",
+      cancelText: "Batal",
+      onOk: () => {
+        history.push(`/exercise-review/${row.attemptExerciseId}`); // Modified this line
+      },
+      onCancel: () => {
+        // Code to run when the user clicks "Cancel"
+      },
+    });
+  };
   componentDidMount() {
     this.getExercise();
     this.getQuestions();
@@ -163,6 +182,7 @@ class StudentExercise extends Component {
               dataIndex="duration"
               key="duration"
               align="center"
+              render={(text) => `${text} minute`}
             />
             <Column
               title="Nilai"
@@ -173,7 +193,18 @@ class StudentExercise extends Component {
                 <>{row.status === "sudah" ? <span>{grade}</span> : null}</>
               )}
             />
-
+            <Column
+              title="Jumlah benar"
+              dataIndex="total_right"
+              key="total_right"
+              align="center"
+            />
+            <Column
+              title="Jumlah salah"
+              dataIndex="total_wrong"
+              key="total_wrong"
+              align="center"
+            />
             <Column
               title="Status"
               dataIndex="state"
@@ -199,6 +230,17 @@ class StudentExercise extends Component {
                         title="Ujian Sudah Dikerjakan"
                         disabled
                       />
+                      <Button
+                      type="primary"
+                      shape="circle"
+                      icon="container"
+                      title="Review  Sekarang"
+                      onClick={this.handleDoExerciseReview.bind(null, row)}
+                      // disabled={
+                      //   moment().isBefore(row.date_start) ||
+                      //   moment().isAfter(row.date_end)
+                      // }
+                    />
                     </>
                   ) : (
                     <Button
@@ -207,10 +249,10 @@ class StudentExercise extends Component {
                       icon="container"
                       title="Ujian Sekarang"
                       onClick={this.handleDoExercise.bind(null, row)}
-                      disabled={
-                        moment().isBefore(row.date_start) ||
-                        moment().isAfter(row.date_end)
-                      }
+                      // disabled={
+                      //   moment().isBefore(row.date_start) ||
+                      //   moment().isAfter(row.date_end)
+                      // }
                     />
                   )}
                 </span>

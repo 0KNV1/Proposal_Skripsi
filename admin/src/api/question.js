@@ -3,12 +3,9 @@ import requestForm from "@/utils/requestForm";
 
 import axios from "axios";
 
-export const GET_IMAGE = "GET_IMAGE";
-export const UPLOAD_IMAGE = "UPLOAD_IMAGE";
 
 // Your existing code goes here...
 export function addQuestion(data) {
-  console.log(data); // Log data to the console
 
   return requestForm({
     url: "/question",
@@ -32,13 +29,13 @@ export function getQuestionsByRPS(rpsID) {
   });
 }
 
-// export function getImageFromServer(imageName) {
-//   return request({
-//     url: `/question/images/${imageName}`,
-//     method: "get",
-//     responseType: 'arraybuffer', // This is important for receiving binary data
-//   });
-// }
+export function getQuestionByIdPaged(questionId) {
+  return request({
+    url: `question/paged/${questionId}`,
+    method: "get",
+  });
+}
+
 
 export function editQuestion(data, id) {
   return request({
@@ -49,14 +46,6 @@ export function editQuestion(data, id) {
 }
 
 
-export const getImage = (imageName) => async dispatch => {
-  const response = await axios.get(axios.defaults.baseURL + `/api/image/${imageName}`);
-
-  dispatch({
-    type: GET_IMAGE,
-    payload: response.data
-  });
-};
 
 export function deleteQuestion(data) {
   return request({

@@ -1,5 +1,6 @@
 package com.doyatama.university.controller;
 
+import com.doyatama.university.model.Question;
 import com.doyatama.university.model.StudyProgram;
 import com.doyatama.university.model.ExerciseAttempt;
 import com.doyatama.university.payload.ApiResponse;
@@ -8,6 +9,7 @@ import com.doyatama.university.payload.ExerciseAttemptRequest;
 import com.doyatama.university.payload.PagedResponse;
 import com.doyatama.university.service.ExerciseAttemptService;
 import com.doyatama.university.util.AppConstants;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +18,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/exercise-attempt")
 public class ExerciseAttemptController {
-    private ExerciseAttemptService exerciseAttemptService = new ExerciseAttemptService();
+    private final ExerciseAttemptService exerciseAttemptService;
 
+    @Autowired
+    public ExerciseAttemptController(ExerciseAttemptService exerciseAttemptService) {
+        this.exerciseAttemptService = exerciseAttemptService;
+    }
     @GetMapping
     public PagedResponse<ExerciseAttempt> getExerciseAttempts(@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                                               @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
@@ -29,7 +36,12 @@ public class ExerciseAttemptController {
                                                               @RequestParam(value = "exerciseID", defaultValue = "*") String exerciseID) throws IOException {
         return exerciseAttemptService.getAllExerciseAttempt(page, size, userID, exerciseID);
     }
-
+    @GetMapping("/exercise-attempt-id")
+    public PagedResponse<ExerciseAttempt> getExerciseAttemptsById(@RequestParam(value = "exerciseAttemptId", defaultValue = "*") String exerciseAttemptId,
+                                                                @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+                                                                @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) throws IOException {
+        return exerciseAttemptService.getExerciseAttemptById(exerciseAttemptId, page, size);
+    }
     @PostMapping
     public ResponseEntity<?> createExerciseAttempt(@Valid @RequestBody ExerciseAttemptRequest exerciseAttemptRequest) throws IOException {
         ExerciseAttempt exerciseAttempt = exerciseAttemptService.createExerciseAttempt(exerciseAttemptRequest);
@@ -48,9 +60,11 @@ public class ExerciseAttemptController {
     }
 
     @GetMapping("/{exerciseAttemptId}")
-    public DefaultResponse<ExerciseAttempt> getExerciseAttemptById(@PathVariable String exerciseAttemptId) throws IOException {
+    public PagedResponse<ExerciseAttempt> getExerciseAttemptById(@PathVariable String exerciseAttemptId) throws IOException {
         return exerciseAttemptService.getExerciseAttemptById(exerciseAttemptId);
     }
+
+
 
 
     @PutMapping("/{exerciseAttemptId}")

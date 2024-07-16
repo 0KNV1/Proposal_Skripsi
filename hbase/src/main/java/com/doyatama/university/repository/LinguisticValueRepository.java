@@ -36,6 +36,10 @@ public class LinguisticValueRepository {
         columnMapping.put("value3", "value3");
         columnMapping.put("value4", "value4");
         columnMapping.put("avg", "avg");
+        columnMapping.put("file_path", "file_path");
+        
+
+
 
         return client.showListTable(tableUsers.toString(), columnMapping, LinguisticValue.class, size);
     }
@@ -72,6 +76,9 @@ public class LinguisticValueRepository {
         if (linguisticValue.getAvg() != 0) {
             client.insertRecord(tableLinguisticValue, rowKey, "main", "avg", String.valueOf(linguisticValue.getAvg()));
         }
+        if (linguisticValue.getFile_path() != null) {
+            client.insertRecord(tableLinguisticValue, rowKey, "main", "file_path", linguisticValue.getFile_path());
+        }
 
         return linguisticValue;
     }
@@ -93,6 +100,7 @@ public class LinguisticValueRepository {
         columnMapping.put("value3", "value3");
         columnMapping.put("value4", "value4");
         columnMapping.put("avg", "avg");
+        columnMapping.put("file_path", "file_path");
 
         return client.showDataTable(tableUsers.toString(), columnMapping, linguisticValueId, LinguisticValue.class);
     }
@@ -124,7 +132,7 @@ public class LinguisticValueRepository {
         if (String.valueOf(linguisticValue.getAvg()) != null) {
             client.insertRecord(tableLinguisticValue, linguisticValueId, "main", "avg", String.valueOf(linguisticValue.getAvg()));
         }
-
+        
         return linguisticValue;
     }
     public boolean deleteById(String linguisticValueId) throws IOException {

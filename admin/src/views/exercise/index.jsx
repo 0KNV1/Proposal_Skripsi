@@ -5,6 +5,7 @@ import {
   deleteExercise,
   editExercise,
   addExercise,
+  getQuestionsByRPS
 } from "@/api/exercise";
 import { getQuestions } from "@/api/question";
 import { getRPS } from "@/api/rps";
@@ -13,20 +14,36 @@ import { Link } from "react-router-dom";
 import TypingCard from "@/components/TypingCard";
 import EditExerciseForm from "./forms/edit-exercise-form";
 import AddExerciseForm from "./forms/add-exercise-form";
-import { getQuestionsByRPS } from "../../api/question";
+// import { getQuestionsByRPS } from "../../api/question";
+import {
+  getRPSDetail,
+} from "@/api/rpsDetail";
 import moment from "moment";
 const { Column } = Table;
+
 class Exercise extends Component {
   state = {
+    rps_id: null,
+    type_exercise: null,
     exercise: [],
     questions: [],
     rps: [],
+    rpsDetail: [],
     editExerciseModalVisible: false,
     editExerciseModalLoading: false,
     currentRowData: {},
     addExerciseModalVisible: false,
     addExerciseModalLoading: false,
   };
+ 
+  handleRPSChange = (value) => {
+    this.setState({ rps_id: value }, this.updateQuestion);
+  };
+
+  handleExerciseTypeChange = (value) => {
+    this.setState({ type_exercise: value }, this.updateQuestion);
+  };
+
   getExercise = async () => {
     const result = await getExercise();
     const { content, statusCode } = result.data;
@@ -47,16 +64,34 @@ class Exercise extends Component {
       });
     }
   };
-  updateQuestion = async (id) => {
-    const result = await getQuestionsByRPS(id);
-    const { content, statusCode } = result.data;
+  handleUpdateQuestion = (value, type) => {
+    // Update the value of the field that changed
+    this.props.form.setFieldsValue({ [type]: value }, () => {
+      // Get updated values of rps_id and type_exercise from the form
+      const { rps_id, type_exercise } = this.props.form.getFieldsValue(['rps_id', 'type_exercise']);
+  
+      // Call updateQuestion with the updated values of rps_id and type_exercise
+      this.updateQuestion(rps_id, type_exercise);
+    });
+  };
+  updateQuestion = async () => {
+    const { rps_id, type_exercise } = this.state;
 
-    if (statusCode === 200) {
-      this.setState({
-        questions: content,
-      });
+    if (rps_id && type_exercise) {
+      console.log('updateQuestion', { rps_id, type_exercise });
+
+      const result = await getQuestionsByRPS(rps_id, type_exercise);
+      const { content, statusCode } = result.data;
+
+      if (statusCode === 200) {
+        const filteredQuestions = content.filter(question => question.examType === "EXERCISE");
+        this.setState({
+          questions: filteredQuestions,
+        });
+      }
     }
   };
+
   getRps = async () => {
     const result = await getRPS();
     const { content, statusCode } = result.data;
@@ -64,6 +99,18 @@ class Exercise extends Component {
     if (statusCode === 200) {
       this.setState({
         rps: content,
+      });
+    }
+  };
+  getRPSDetail = async (id) => {
+    const { rpsId } = this.state; // Get the rps id from the state
+    const result = await getRPSDetail(rpsId);
+  
+    const { content, statusCode } = result.data;
+
+    if (statusCode === 200) {
+      this.setState({
+        rpsDetail: content,
       });
     }
   };
@@ -147,10 +194,11 @@ class Exercise extends Component {
   componentDidMount() {
     this.getExercise();
     this.getQuestions();
+    this.getRPSDetail();
     this.getRps();
   }
   render() {
-    const { exercise, questions, rps } = this.state;
+    const { exercise, rpsDetail,questions, rps } = this.state;
     const title = (
       <span>
         <Button type="primary" onClick={this.handleAddExercise}>
@@ -183,6 +231,13 @@ class Exercise extends Component {
               key="min_grade"
               align="center"
             />
+            <Column
+            title="Pilihan ujian"
+            dataIndex="type_exercise"
+            key="type_exercise"
+            align="center"
+            
+          />
             <Column
               title="Tanggal Mulai"
               dataIndex="date_start"
@@ -226,6 +281,16 @@ class Exercise extends Component {
                       title="Detail Hasil"
                     />
                   </Link>
+                  {/* <Divider type="vertical" />
+                    <Link to={`/index/exercise/${row.id}`}>
+                    <Button
+                        type="primary"
+                        shape="circle"
+                        icon="diff"
+                        title="Detail Latihan"
+                    />
+                    </Link>
+                    <Divider type="vertical" /> */}
                   <Divider type="vertical" />
                   <Button
                     type="primary"
@@ -234,6 +299,7 @@ class Exercise extends Component {
                     title="Hapus Data"
                     onClick={this.handleDeleteExercise.bind(null, row)}
                   />
+
                 </span>
               )}
             />
@@ -255,10 +321,13 @@ class Exercise extends Component {
         <AddExerciseForm
           wrappedComponentRef={(formRef) => (this.addExerciseFormRef = formRef)}
           visible={this.state.addExerciseModalVisible}
+          handleRPSChange={this.handleRPSChange}
+          handleExerciseTypeChange={this.handleExerciseTypeChange}
           confirmLoading={this.state.addExerciseModalLoading}
           onCancel={this.handleCancel}
           onOk={this.handleAddExerciseOk}
           handleUpdateQuestion={this.updateQuestion}
+          handleGetRPS = {this.handleGetRPS}
           questions={questions}
           rps={rps}
         />

@@ -14,18 +14,26 @@ public class Quiz {
     private Instant date_start;
     private Instant date_end;
     private Instant created_at;
+    private List<String> devLecturerIds;
+    private List<TodoQuestion> todos;
+    private String message;
+    private String type_quiz;
+
+
 
     public Quiz() {
     }
 
-    public Quiz(String id, String name, String description, List<Question> questions, RPS rps, Integer min_grade, Integer duration, Instant date_start, Instant date_end, Instant created_at) {
+    public Quiz(String id, String name, String description, List<Question> questions, RPS rps, Integer min_grade,String message,String type_quiz ,Integer duration, Instant date_start, Instant date_end, Instant created_at) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.questions = questions;
         this.rps = rps;
         this.min_grade = min_grade;
+        this.message = message;
         this.duration = duration;
+        this.type_quiz = type_quiz;
         this.date_start = date_start;
         this.date_end = date_end;
         this.created_at = created_at;
@@ -37,6 +45,13 @@ public class Quiz {
 
     public void setId(String id) {
         this.id = id;
+    }
+    public List<String> getDevLecturerIds() {
+        return devLecturerIds;
+    }
+
+    public void setDevLecturerIds(List<String> devLecturerIds) {
+        this.devLecturerIds = devLecturerIds;
     }
 
     public String getName() {
@@ -85,6 +100,39 @@ public class Quiz {
 
     public void setDuration(Integer duration) {
         this.duration = duration;
+    }
+
+    public String getMessage() {
+        if (this.getRps() == null) {
+            return "RPS is not set";
+        }
+        String message = String.format(
+            "Berdasarkan %s Anda diwajibkan menilai soal yang terdapat pada %s dimulai pada tanggal %s ",
+            this.getRps().getName(),
+            this.getName(),
+            this.getDate_start()
+        );
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    private List<TodoQuestion> getTodos() {
+        return todos;
+    }
+
+    private void setTodos(List<TodoQuestion> todos) {
+        this.todos = todos;
+    }
+
+    public String getType_quiz() {
+        return type_quiz;
+    }
+
+    public void setType_quiz(String type_quiz) {
+        this.type_quiz = type_quiz;
     }
 
     public Instant getDate_start() {
@@ -137,6 +185,12 @@ public class Quiz {
                 break;
             case "duration":
                 this.duration = Integer.parseInt(value);
+                break;
+            case "message":
+                this.message = value;
+                break;
+            case "type_quiz":
+                this.type_quiz = value;
                 break;
             case "date_start":
                 this.date_start = Instant.parse(value);

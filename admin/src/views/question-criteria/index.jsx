@@ -116,7 +116,12 @@ class QuestionCriteria extends Component {
                 bordered rowKey="id"
                 dataSource={questionCriterias}
                 pagination={false}>
-                <Column title="ID " dataIndex="id" key="id" align="center" />
+                <Column
+                title="ID"
+                key="id"
+                align="center"
+                render={(value, record, index) => index + 1}
+                />                
                 <Column title="Nama" dataIndex="name" key="name" align="center" />
                 <Column 
                     title="Deskripsi Kriteria Pertanyaan" 

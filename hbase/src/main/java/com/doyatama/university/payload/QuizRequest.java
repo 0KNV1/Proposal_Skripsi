@@ -11,18 +11,22 @@ public class QuizRequest {
     private String rps_id;
     private Integer min_grade;
     private Integer duration;
+    private String message;
     private Instant date_start;
     private Instant date_end;
+    private String type_quiz;
     public QuizRequest() {
     }
 
-    public QuizRequest(String name, String description, List<String> questions, String rps_id, Integer min_grade, Integer duration, Instant date_start, Instant date_end) {
+    public QuizRequest(String name, String description, List<String> questions, String rps_id, Integer min_grade, Integer duration,String message ,String type_quiz,Instant date_start, Instant date_end) {
         this.name = name;
         this.description = description;
         this.questions = questions;
         this.rps_id = rps_id;
         this.min_grade = min_grade;
         this.duration = duration;
+        this.message = message;
+        this.type_quiz = type_quiz;
         this.date_start = date_start;
         this.date_end = date_end;
     }
@@ -75,6 +79,14 @@ public class QuizRequest {
         this.duration = duration;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public Instant getDate_start() {
         return date_start;
     }
@@ -89,6 +101,14 @@ public class QuizRequest {
 
     public void setDate_end(Instant date_end) {
         this.date_end = date_end;
+    }
+
+    public String getType_quiz() {
+        return type_quiz;
+    }
+
+    public void setType_quiz(String type_quiz) {
+        this.type_quiz = type_quiz;
     }
 
     public void set(String fieldName, String value) {
@@ -110,6 +130,12 @@ public class QuizRequest {
                 break;
             case "duration":
                 this.duration = Integer.parseInt(value);
+                break;
+            case "message":
+                this.message = value;
+                break;
+            case "type_quiz":
+                this.type_quiz = value;
                 break;
             case "date_start":
                 this.date_start = Instant.parse(value);

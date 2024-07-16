@@ -211,12 +211,12 @@ class RPS extends Component {
               align="center"
             />
             <Column
-              title="Dosen Pengembang"
-              dataIndex="dev_lecturers"
-              key="dev_lecturers"
-              align="center"
-              render={dev_lecturers => (dev_lecturers ? dev_lecturers.join(', ') : '')}
-            />
+            title="Dosen Pengembang"
+            dataIndex="dev_lecturers"
+            key="dev_lecturers"
+            align="center"
+            render={dev_lecturers => (dev_lecturers ? dev_lecturers.map(lecturer => lecturer.name).join(', ') : '')}
+          />
             
             <Column
               title="Operasi"

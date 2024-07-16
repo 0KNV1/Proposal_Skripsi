@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ExamRepository {
     Configuration conf = HBaseConfiguration.create();
@@ -36,6 +37,8 @@ public class ExamRepository {
         columnMapping.put("date_start", "date_start");
         columnMapping.put("date_end", "date_end");
         columnMapping.put("created_at", "created_at");
+        columnMapping.put("rps_detail", "rps_detail");
+        columnMapping.put("type_exercise", "type_exercise");
         return client.showListTable(tableUsers.toString(), columnMapping, Exam.class, size);
     }
 
@@ -52,11 +55,15 @@ public class ExamRepository {
         client.insertRecord(tableExam, rowKey, "main", "duration", exam.getDuration().toString());
         client.insertRecord(tableExam, rowKey, "main", "date_start", exam.getDate_start().toString());
         client.insertRecord(tableExam, rowKey, "main", "date_end", exam.getDate_end().toString());
+        client.insertRecord(tableExam, rowKey, "main", "type_exercise", exam.getType_exercise());
 
-        // questions
-        for (int i = 0; i < exam.getQuestions().size(); i++) {
-            Question question = exam.getQuestions().get(i);
-            client.insertRecord(tableExam, rowKey, "questions", "q_" + i, new Gson().toJson(question));
+        if (exam.getQuestions() != null) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            for (int i = 0; i < exam.getQuestions().size(); i++) {
+                Question question = exam.getQuestions().get(i);
+                String questionJson = objectMapper.writeValueAsString(question);
+                client.insertRecord(tableExam, rowKey, "questions", "q_" + i, questionJson);
+            }
         }
 
         client.insertRecord(tableExam, rowKey, "rps", "id", exam.getRps().getId());
@@ -89,6 +96,7 @@ public class ExamRepository {
         columnMapping.put("date_start", "date_start");
         columnMapping.put("date_end", "date_end");
         columnMapping.put("created_at", "created_at");
+        columnMapping.put("type_exercise", "type_exercise");
         return client.showDataTable(tableUsers.toString(), columnMapping, examId, Exam.class);
     }
 
@@ -109,6 +117,7 @@ public class ExamRepository {
         columnMapping.put("date_start", "date_start");
         columnMapping.put("date_end", "date_end");
         columnMapping.put("created_at", "created_at");
+        columnMapping.put("type_exercise", "type_exercise");
         return client.showDataTable(tableUsers.toString(), columnMapping, examId, Exam.class);
     }
 
@@ -124,9 +133,17 @@ public class ExamRepository {
         client.insertRecord(tableExam, examId, "main", "date_end", exam.getDate_end().toString());
 
         // questions
-        for (int i = 0; i < exam.getQuestions().size(); i++) {
-            Question question = exam.getQuestions().get(i);
-            client.insertRecord(tableExam, examId, "questions", "q_" + i, new Gson().toJson(question));
+        if (exam.getQuestions() != null) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            for (int i = 0; i < exam.getQuestions().size(); i++) {
+                Question question = exam.getQuestions().get(i);
+                try {
+                    String questionJson = objectMapper.writeValueAsString(question);
+                    client.insertRecord(tableExam, examId, "questions", "q_" + i, questionJson);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         client.insertRecord(tableExam, examId, "rps", "id", exam.getRps().getId());

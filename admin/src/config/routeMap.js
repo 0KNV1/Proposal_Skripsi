@@ -180,13 +180,34 @@ const CriteriaValue = Loadable({
   loader: () => import(/*webpackChunkName:'criteriaValue'*/ "@/views/criteria-value"),
   loading: Loading,
 });
+const ListTodo = Loadable({
+  loader: () => import(/*webpackChunkName:'criteriaValue'*/ "@/views/list-todo"),
+  loading: Loading,
+});
+const ListTodoAdmin = Loadable({
+  loader: () => import(/*webpackChunkName:'criteriaValue'*/ "@/views/list-todo-admin"),
+  loading: Loading,
+});
+
 //questionIndex
 const QuestionIndex = Loadable({
   loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/question-index"),
   loading: Loading,
 });
+const QuestionIndexQuiz1 = Loadable({
+  loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/question-index-quiz1"),
+  loading: Loading,
+});
+const QuestionIndexQuiz2 = Loadable({
+  loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/question-index-quiz2"),
+  loading: Loading,
+});
 const CriteriaIndex = Loadable({
   loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/criteria-index"),
+  loading: Loading,
+});
+const ExerciseIndex = Loadable({
+  loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/exercise-index"),
   loading: Loading,
 });
 const AppraisalForm = Loadable({
@@ -243,6 +264,11 @@ const StudentQuiz = Loadable({
 const StudentExercise = Loadable({
   loader: () =>
     import(/*webpackChunkName:'Exercise'*/ "@/views/student-exercise"),
+  loading: Loading,
+});
+const StudentExerciseReview = Loadable({
+  loader: () =>
+    import(/*webpackChunkName:'Exercise'*/ "@/views/student-exercise-review"),
   loading: Loading,
 });
 const Grade = Loadable({
@@ -378,7 +404,7 @@ export default [
   {
     path: "/question-criteria",
     component: QuestionCriteria,
-    roles: ["ROLE_ADMINISTRATOR"],
+    roles: ["ROLE_ADMINISTRATOR","ROLE_LECTURE"],
   },
   {
     path: "/team-teaching",
@@ -388,11 +414,21 @@ export default [
   {
     path: "/linguistic-value",
     component: LinguiticValue,
-    roles: ["ROLE_ADMINISTRATOR"],
+    roles: ["ROLE_ADMINISTRATOR","ROLE_LECTURE"],
   },
   {
     path: "/criteria-value",
     component : CriteriaValue,
+    roles: ["ROLE_ADMINISTRATOR","ROLE_LECTURE"]
+  },
+  {
+    path: "/list-todo",
+    component : ListTodo,
+    roles: ["ROLE_ADMINISTRATOR","ROLE_LECTURE"]
+  },
+  {
+    path: "/list-todo-admin",
+    component : ListTodoAdmin,
     roles: ["ROLE_ADMINISTRATOR"]
   },
   {
@@ -401,11 +437,25 @@ export default [
     roles: ["ROLE_ADMINISTRATOR"]
   },
   {
+    path: "/index/question/quiz1/:rpsID",
+    component : QuestionIndexQuiz1,
+    roles: ["ROLE_ADMINISTRATOR"]
+  },
+  {
+    path: "/index/question/quiz2/:rpsID",
+    component : QuestionIndexQuiz2,
+    roles: ["ROLE_ADMINISTRATOR"]
+  },
+  {
     path: "/index/criteria/:questionID",
     component : CriteriaIndex,
     roles: ["ROLE_ADMINISTRATOR"]
   },
-
+  {
+    path: "/index/exercise/:exerciseID",
+    component : ExerciseIndex,
+    roles: ["ROLE_ADMINISTRATOR"]
+  },
   { path: "/student", component: Student, roles: ["ROLE_ADMINISTRATOR"] },
   {
     path: "/rps",
@@ -494,6 +544,12 @@ export default [
   {
     path: "/exercise",
     component: StudentExercise,
+    roles: ["ROLE_STUDENT"],
+    exact: true,
+  },
+  {
+    path: "/exercise-review/:id",
+    component: StudentExerciseReview,
     roles: ["ROLE_STUDENT"],
     exact: true,
   },

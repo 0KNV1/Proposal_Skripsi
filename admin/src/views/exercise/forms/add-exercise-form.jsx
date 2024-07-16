@@ -4,6 +4,37 @@ import { DatePicker, Form, Input, InputNumber, Modal, Select } from "antd";
 const { TextArea } = Input;
 
 class AddExerciseForm extends Component {
+  state = {
+    selectedOption: null,
+    randomQuestions: [],
+  };
+
+  handleSelectChange = (value) => {
+    this.setState({ selectedOption: value }, () => {
+      this.generateRandomQuestions();
+      const selectedQuestionIds = this.state.randomQuestions.map(question => question.id);
+      this.props.form.setFieldsValue({ questions: selectedQuestionIds });
+    });
+  };
+
+  generateRandomQuestions = () => {
+    const { selectedOption } = this.state;
+    const { questions } = this.props; // Assuming questions are passed as props
+
+    // Create a copy of the questions array
+    const questionsCopy = [...questions];
+
+    // Shuffle the questions
+    for (let i = questionsCopy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [questionsCopy[i], questionsCopy[j]] = [questionsCopy[j], questionsCopy[i]];
+    }
+
+    // Get the first 'selectedOption' questions
+    const randomQuestions = questionsCopy.slice(0, selectedOption);
+
+    this.setState({ randomQuestions });
+  };
   render() {
     const {
       visible,
@@ -14,6 +45,9 @@ class AddExerciseForm extends Component {
       questions,
       rps,
       handleUpdateQuestion,
+      rpsDetail,
+      handleRPSChange,
+      handleExerciseTypeChange,
     } = this.props;
     const { getFieldDecorator } = form;
     const formItemLayout = {
@@ -92,8 +126,8 @@ class AddExerciseForm extends Component {
               <Select
                 style={{ width: 300 }}
                 placeholder="Pilih RPS"
-                onChange={handleUpdateQuestion}
-              >
+                onChange={handleRPSChange}
+                >
                 {rps.map((arr, key) => {
                   return (
                     <Select.Option value={arr.id} key={"rps-" + key}>
@@ -104,30 +138,75 @@ class AddExerciseForm extends Component {
               </Select>
             )}
           </Form.Item>
-          <Form.Item label="Pertanyaan:">
-            {getFieldDecorator("questions", {
+          <Form.Item label="Pilih ujian:">
+            {getFieldDecorator("type_exercise", {
               rules: [
                 {
                   required: true,
-                  message: "Silahkan pilih pertanyaan",
+                  message: "Silahkan pilih RPS Detail",
                 },
               ],
             })(
-              <Select
+            <Select
+              style={{ width: 300 }}
+              placeholder="Pilih tipe latihan ujian"
+              onChange={handleExerciseTypeChange}
+
+              >
+              <Select.Option value="Latihan quiz 1">
+              Latihan quiz 1 (Weeks 1-4)
+              </Select.Option>
+              <Select.Option value="Latihan quiz 2">
+              Latihan quiz 2 (Weeks 9-13)
+              </Select.Option>
+              <Select.Option value="Latihan UTS">
+              Latihan UTS (Weeks 1-8): 
+              </Select.Option>
+              <Select.Option value="Latihan UAS">
+              Latihan UAS (Weeks 1-18):
+              </Select.Option>
+            </Select>
+            )}
+          </Form.Item>
+          <Form.Item label="Pilih Pertanyaan">
+            {getFieldDecorator("questions", {
+                rules: [
+                {
+                    required: true,
+                    message: "Silahkan pilih pertanyaan",
+                },
+                ],
+            })(
+                <Select
                 mode="multiple"
                 style={{ width: 300 }}
                 placeholder="Pilih Pertanyaan"
-              >
-                {questions.map((arr, key) => {
-                  return (
+                value={this.state.selectedQuestionIds} // Set the value to the IDs of the selected questions
+                >
+                {this.state.randomQuestions.map((arr, key) => {
+                    return (
                     <Select.Option value={arr.id} key={"question-" + key}>
-                      {arr.title}
+                        {arr.title}
                     </Select.Option>
-                  );
+                    );
                 })}
-              </Select>
+                </Select>
             )}
-          </Form.Item>
+            </Form.Item>
+            <Form.Item label="pilih jumlah soal:">
+              <Select
+                style={{ width: 300 }}
+                placeholder="pilih jumlah soal yang akan di ujikan"
+                onChange={this.handleSelectChange}
+              >
+                {[10, 20, 30, 40, 50].map((value, key) => (
+                  <Select.Option value={value} key={"option-" + key}>
+                    {value}
+                  </Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+
           <Form.Item label="Tanggal Mulai:">
             {getFieldDecorator("date_start", {
               rules: [{ required: true, message: "Tanggal Mulai wajib diisi" }],

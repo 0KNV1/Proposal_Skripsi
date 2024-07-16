@@ -1,7 +1,12 @@
 package com.doyatama.university.model;
 
+import java.io.IOException;
 import java.time.Instant;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class ExerciseAttempt {
     private String id;
@@ -14,6 +19,8 @@ public class ExerciseAttempt {
     private Student student;
     private Integer duration;
     private Instant created_at;
+    private List<String> explanations;
+
 
     public ExerciseAttempt() {
     }
@@ -102,7 +109,19 @@ public class ExerciseAttempt {
     public void setDuration(Integer duration) {
         this.duration = duration;
     }
+    public List<StudentAnswer> getStudentAnswers() {
+        return this.student_answers;
+    }
 
+
+    
+    public List<String> getExplanations() {
+        return explanations;
+    }
+
+    public void setExplanations(List<String> explanations) {
+        this.explanations = explanations;
+    }
     public Instant getCreated_at() {
         return created_at;
     }

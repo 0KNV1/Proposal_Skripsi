@@ -14,7 +14,9 @@ import { Link } from "react-router-dom";
 import TypingCard from "@/components/TypingCard";
 import EditRPSDetailForm from "./forms/edit-rpsDetail-form";
 import AddRPSDetailForm from "./forms/add-rpsDetail-form";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router"; 
+import {getRPSById} from "@/api/rps"
+
 const { Column } = Table;
 
 class RPSDetailDetail extends Component {
@@ -22,7 +24,9 @@ class RPSDetailDetail extends Component {
     rpsDetail: [],
     formLearnings: [],
     learningMethods: [],
+    dev_lecturers: [],
     assessmentCriterias: [],
+    rps: [],  
     appraisalForms: [],
     editRPSDetailModalVisible: false,
     editRPSDetailModalLoading: false,
@@ -40,6 +44,18 @@ class RPSDetailDetail extends Component {
       this.setState({
         rpsDetail: content,
       });
+    }
+  };
+
+  getRPSById = async (rpsID) => {
+    const result = await getRPSById(rpsID);
+    const { content, statusCode } = result.data;
+    console.log(result.data);
+    if (statusCode === 200) {
+      this.setState({
+        rps: content,
+        dev_lecturers: content.dev_lecturers, // Extract dev_lecturers from content
+      }, () => console.log(this.state.rps)); // Log the new state
     }
   };
 
@@ -166,10 +182,14 @@ class RPSDetailDetail extends Component {
     });
   };
   componentDidMount() {
+    const rpsID = this.props.match.params.rpsID;
+
     this.setState({
       rpsID: this.props.match.params.rpsID,
+
     });
     this.getRPSDetail(this.props.match.params.rpsID);
+    this.getRPSById(rpsID);
     this.getFormLearnings();
     this.getLearningMethods();
     this.getAssessmentCriterias();
@@ -183,11 +203,15 @@ class RPSDetailDetail extends Component {
       assessmentCriterias,
       appraisalForms,
       rpsID,
+      dev_lecturers,
+      
+      rps
     } = this.state;
+
     const title = (
       <span>
         <Button type="primary" onClick={this.handleAddRPSDetail}>
-          Tambahkan Detail RPSDetail
+          Tambahkan Detail RPSDetail 
         </Button>
       </span>
     );
@@ -196,9 +220,10 @@ class RPSDetailDetail extends Component {
       <div className="app-container">
         <TypingCard title="Manajemen RPSDetail" source={cardContent} />
         <br />
-        <Card title={title}>
+            
+         <Card title={title}>
           <Table bordered rowKey="id" dataSource={rpsDetail} pagination={false}>
-            <Column
+            {/* <Column
               title="Filter quiz"
               dataIndex="weekLabel"
               key="weekLabel"
@@ -209,7 +234,7 @@ class RPSDetailDetail extends Component {
                 // Add more filters as needed
               ]}
               onFilter={(value, record) => record.weekLabel.includes(value)}
-            />
+            /> */}
             <Column
               title="ID RPSDetail"
               dataIndex="id"
@@ -221,6 +246,7 @@ class RPSDetailDetail extends Component {
               dataIndex="week"
               key="week"
               align="center"
+              sorter={(a, b) => b.week - a.week}
             />
             <Column
               title="Bobot"
@@ -228,12 +254,12 @@ class RPSDetailDetail extends Component {
               key="weight"
               align="center"
             />
-            <Column
+            {/* <Column
               title="Jumlah Soal"
               dataIndex="weight"
               key="weight"
               align="center"
-            />
+            /> */}
             <Column
               title="Materi Pembelajaran"
               dataIndex="learning_materials"

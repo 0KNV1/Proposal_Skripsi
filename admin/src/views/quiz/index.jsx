@@ -28,6 +28,7 @@ class Quiz extends Component {
     console.log(result.data);
     if (statusCode === 200) {
       this.setState({
+
         quiz: content,
       });
     }
@@ -37,6 +38,7 @@ class Quiz extends Component {
     const { content, statusCode } = result.data;
 
     if (statusCode === 200) {
+      
       this.setState({
         questions: content,
       });
@@ -47,8 +49,9 @@ class Quiz extends Component {
     const { content, statusCode } = result.data;
 
     if (statusCode === 200) {
+      const filteredQuestions = content.filter(question => question.examType2 === 'QUIZ');
       this.setState({
-        questions: content,
+        questions: filteredQuestions,
       });
     }
   };
@@ -171,6 +174,12 @@ class Quiz extends Component {
               title="Nilai Minimal"
               dataIndex="min_grade"
               key="min_grade"
+              align="center"
+            />
+            <Column
+              title="Tipe Kuis"
+              dataIndex="type_quiz"
+              key="type_quiz"
               align="center"
             />
             <Column

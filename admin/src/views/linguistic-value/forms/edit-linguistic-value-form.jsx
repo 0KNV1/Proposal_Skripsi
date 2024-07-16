@@ -11,6 +11,7 @@ class EditLinguisticValueForm extends Component {
         form,
         confirmLoading,
         currentRowData,
+        file_path,
       } = this.props;
       const { getFieldDecorator } = form;
       const { id, name,value1,value2,value3,value4 } = currentRowData;
@@ -24,7 +25,8 @@ class EditLinguisticValueForm extends Component {
             sm: { span: 16 },
         },
     };
-    
+    const BASE_URL = 'http://hadoop-primary:9870/';
+
     return (
         <Modal
             title="Edit Linguistic Value"
@@ -79,6 +81,9 @@ class EditLinguisticValueForm extends Component {
                         initialValue: value4,
                     })(<Input placeholder="Value 4" />)}
                 </Form.Item>
+                {file_path && (
+                    <img src={`${BASE_URL}${file_path}`} alt="Linguistic Value" style={{width: '200px', height: '200px', marginLeft: '10px'}}/>
+                )}
             </Form>
         </Modal>
     );

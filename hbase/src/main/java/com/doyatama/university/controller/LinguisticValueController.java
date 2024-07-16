@@ -12,10 +12,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.validation.Valid;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-
+import java.util.UUID;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import com.doyatama.university.config.PathConfig;
 /**
  * @author alfa
  */
@@ -31,15 +38,68 @@ public class LinguisticValueController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createLinguisticValue(@Valid @RequestBody LinguisticValueRequest linguisticValueRequest) throws IOException {
-        LinguisticValue linguisticValue = linguisticValueService.createLinguisticValue(linguisticValueRequest);
+    public ResponseEntity<?> createLinguisticValue(@RequestParam(value = "file", required = false) MultipartFile file,
+                                                @ModelAttribute LinguisticValueRequest linguisticValueRequest) {
+        if (file == null || file.isEmpty()) {
+            try {
+                LinguisticValue linguisticValue = linguisticValueService.createLinguisticValue(linguisticValueRequest, "");
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/{linguisticValueId}")
-                .buildAndExpand(linguisticValue.getId()).toUri();
+                if(linguisticValue == null){
+                    return ResponseEntity.badRequest()
+                            .body(new ApiResponse(false, "Please check relational ID"));
+                } else {
+                    URI location = ServletUriComponentsBuilder
+                            .fromCurrentRequest().path("/{linguisticValueId}")
+                            .buildAndExpand(linguisticValue.getId()).toUri();
 
-        return ResponseEntity.created(location)
-                .body(new ApiResponse(true, "Linguistic Value Created Successfully"));
+                    return ResponseEntity.created(location)
+                            .body(new ApiResponse(true, "Linguistic Value Created Successfully"));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return ResponseEntity.badRequest()
+                        .body(new ApiResponse(false, "Cannot Upload File into Hadoop"));
+            }
+        } else {
+            try {
+                String originalFileName = file.getOriginalFilename();
+                String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+                String timestamp = String.valueOf(System.currentTimeMillis());
+                String uuid = UUID.randomUUID().toString();
+                String newFileName = "file_" + timestamp + "_" + uuid;
+                String filePath = PathConfig.storagePath + "/" + newFileName + fileExtension;
+                File newFile = new File(filePath);
+
+                file.transferTo(newFile);
+
+                String localPath = newFile.getAbsolutePath();
+                String uri = "hdfs://hadoop-primary:9000";
+                String hdfsDir = "hdfs://hadoop-primary:9000/linguistic-values/" + newFileName + fileExtension;
+                Configuration configuration = new Configuration();
+                FileSystem fs = FileSystem.get(URI.create(uri), configuration);
+                fs.copyFromLocalFile(new Path(localPath), new Path(hdfsDir));
+                String savePath = "webhdfs/v1/linguistic-values/"+ newFileName + fileExtension +"?op=OPEN";
+
+                newFile.delete();
+                LinguisticValue linguisticValue = linguisticValueService.createLinguisticValue(linguisticValueRequest, savePath);
+
+                if(linguisticValue == null){
+                    return ResponseEntity.badRequest()
+                            .body(new ApiResponse(false, "Please check relational ID"));
+                } else {
+                    URI location = ServletUriComponentsBuilder
+                            .fromCurrentRequest().path("/{linguisticValueId}")
+                            .buildAndExpand(linguisticValue.getId()).toUri();
+
+                    return ResponseEntity.created(location)
+                            .body(new ApiResponse(true, "Linguistic Value Created Successfully"));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                return ResponseEntity.badRequest()
+                        .body(new ApiResponse(false, "Cannot Upload File into Hadoop"));
+            }
+        }
     }
 
     @GetMapping("/{linguisticValueId}")

@@ -1,5 +1,11 @@
 package com.doyatama.university.payload;
 
+import com.doyatama.university.model.*;
+
+import java.time.Instant;
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class QuestionRequest {
@@ -9,18 +15,27 @@ public class QuestionRequest {
     private String question_type;
     private String answer_type;
     private String rps_detail_id;
+    private String examType;
+    private String examType2;
+    private String examType3;
+    private String explanation;
 
     public QuestionRequest() {
     }
 
-    public QuestionRequest(String id, String title, String description, String question_type, String answer_type, String rps_detail_id) {
+    public QuestionRequest(String id, String title, String description, String question_type, String answer_type, String rps_detail_id, String examType, String examType2, String examType3, String explanation) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.question_type = question_type;
         this.answer_type = answer_type;
         this.rps_detail_id = rps_detail_id;
+        this.examType = examType;
+        this.examType2 = examType2;
+        this.examType3 = examType3;
+        this.explanation = explanation;
     }
+
 
     public String getId() {
         return id;
@@ -58,8 +73,33 @@ public class QuestionRequest {
         return answer_type;
     }
 
-    public void setAnswer_type(String answer_type) {
+    public void setAnswer_types(String answer_type) {
         this.answer_type = answer_type;
+    }
+
+    
+    public String getExamType() {
+        return examType;
+    }
+
+    public void setExamType(String examType) {
+        this.examType = examType;
+    }
+
+    public String getExamType2() {
+        return examType2;
+    }
+
+    public void setExamType2(String examType2) {
+        this.examType2 = examType2;
+    }
+
+    public String getExamType3() {
+        return examType3;
+    }
+
+    public void setExamType3(String examType3) {
+        this.examType3 = examType3;
     }
 
     public String getRps_detail_id() {
@@ -68,6 +108,14 @@ public class QuestionRequest {
 
     public void setRps_detail_id(String rps_detail_id) {
         this.rps_detail_id = rps_detail_id;
+    }
+
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
     }
 
     public void set(String fieldName, String value) {
@@ -90,6 +138,16 @@ public class QuestionRequest {
             case "answer_type":
                 this.answer_type = value;
                 break;
+            case "examType":
+                this.examType = value;
+                break;
+            case "examType2":
+                this.examType2 = value;
+                break;
+            case "examType3":
+                this.examType3 = value;
+                break;
+
             default:
                 throw new IllegalArgumentException("Invalid field name: " + fieldName);
         }

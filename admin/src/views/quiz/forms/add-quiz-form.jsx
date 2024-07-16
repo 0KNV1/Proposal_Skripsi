@@ -102,7 +102,7 @@ class AddQuizForm extends Component {
               </Select>
             )}
           </Form.Item>
-          <Form.Item label="Pertanyaan:">
+          {/* <Form.Item label="Pertanyaan:">
             {getFieldDecorator("questions", {
               rules: [
                 {
@@ -123,6 +123,16 @@ class AddQuizForm extends Component {
                     </Select.Option>
                   );
                 })}
+              </Select>
+            )}
+          </Form.Item> */}
+          <Form.Item label="Tipe Kuis:">
+            {getFieldDecorator("type_quiz", {
+              rules: [{ required: true, message: "Tipe Kuis Wajib diisi" }],
+            })(
+              <Select style={{ width: 120 }} placeholder="Tipe Kuis">
+                <Select.Option value="Kuis 1">quiz1</Select.Option>
+                <Select.Option value="Kuis 2">quiz2</Select.Option>
               </Select>
             )}
           </Form.Item>

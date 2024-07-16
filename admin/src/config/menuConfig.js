@@ -227,46 +227,7 @@ const menuList = [
       },
     ],
   },
-  {  title: "Master Soal",
-    path: "/master_question",
-    icon: "database",
-    roles: ["ROLE_ADMINISTRATOR"],
-    children: [
-      {
-        title: "Kriteria Pertanyaan",
-        path: "/question-criteria",
-        icon: "apartment",
-        roles: ["ROLE_ADMINISTRATOR"],
-      },
-      {
-        title: "Tabel Nilai Linguistik",
-        path: "/linguistic-value",
-        icon: "file-text",
-        roles: ["ROLE_ADMINISTRATOR"],
-      },
-      // {
-      //   title : "Group Team Teaching",
-      //   path : "/team-teaching",
-      //   icon : "team",
-      //   roles : ["ROLE_ADMINISTRATOR"],
-
-      // },
-      {
-        title : "Pengujian Soal",
-        path : "/criteria-value",
-        icon : "file-search",
-        // roles : ["ROLE_ADMINISTRATOR"],
-        roles : ["ROLE_ADMINISTRATOR","ROLE_LECTURE"],
-      },
-    ],
-  },
-  {
-    title: "Pengguna",
-    path: "/user",
-    icon: "usergroup-add",
-    roles: ["ROLE_ADMINISTRATOR"],
-  },
-
+  
   {
     title: "Dosen",
     path: "/lecture",
@@ -280,7 +241,52 @@ const menuList = [
     icon: "team",
     roles: ["ROLE_ADMINISTRATOR"],
   },
+  {
+    title: "List Todo",
+    path: "/list-todo-admin",
+    icon: "solution",
+    roles: ["ROLE_ADMINISTRATOR","ROLE_LECTURE"]
+  },
   // Lecture
+  {  title: "Master Soal",
+    path: "/question",
+    icon: "database",
+    roles: ["ROLE_LECTURE","ROLE_ADMINISTRATOR"],
+    children: [
+      {
+        title: "Kriteria Pertanyaan",
+        path: "/question-criteria",
+        icon: "apartment",
+        roles: ["ROLE_LECTURE","ROLE_ADMINISTRATOR"],
+      },
+      {
+        title: "Tabel Nilai Linguistik",
+        path: "/linguistic-value",
+        icon: "file-text",
+        roles: ["ROLE_LECTURE","ROLE_ADMINISTRATOR"],
+      },
+      {
+        title : "Pengujian Soal",
+        path : "/criteria-value",
+        icon : "file-search",
+        // roles : ["ROLE_ADMINISTRATOR"],
+        roles : ["ROLE_LECTURE","ROLE_ADMINISTRATOR"],
+      },
+    ],
+  },
+  {
+    title: "List Todo",
+    path: "/list-todo",
+    icon: "solution",
+    roles: ["ROLE_LECTURE"]
+  },
+  {
+    title: "Pengguna",
+    path: "/user",
+    icon: "usergroup-add",
+    roles: ["ROLE_ADMINISTRATOR"],
+  },
+
   {
     title: "RPS",
     path: "/rps",

@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,27 +29,31 @@ public class ExamService {
 
     private static final Logger logger = LoggerFactory.getLogger(ExamService.class);
 
-    public PagedResponse<Exam> getAllExam(int page, int size) throws IOException {
-        validatePageNumberAndSize(page, size);
+    public PagedResponse<Exam> getAllExam(int page, int size, ExamRequest examRequest) throws IOException {
+        // Get all exams from the repository
+        List<Exam> allExams = examRepository.findAll(size);
 
-        // Retrieve Polls
-        List<Exam> examResponse = examRepository.findAll(size);
+        
 
-
-        return new PagedResponse<>(examResponse, examResponse.size(), "Successfully get data", 200);
+        // Return the filtered exams in a PagedResponse object
+        return new PagedResponse<>(allExams, allExams.size(), "Successfully get data", 200);
     }
 
+   
     public Exam createExam(ExamRequest examRequest) throws IOException {
         Exam exam = new Exam();
 
-        List<Question> questionList = questionRepository.findAllById(examRequest.getQuestions());
+        List<Question> questionList = null;
+        if (examRequest.getQuestions() != null && !examRequest.getQuestions().isEmpty()) {
+            questionList = questionRepository.findAllById(examRequest.getQuestions());
+        }
         RPS rpsResponse = rpsRepository.findById(examRequest.getRps_id());
 
         ZoneId zoneId = ZoneId.of("Asia/Jakarta");
         ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
         Instant instant = zonedDateTime.toInstant();
 
-        if (questionList.size() != 0 && rpsResponse.getName() != null) {
+        if ( rpsResponse.getName() != null) {
 
             exam.setName(examRequest.getName());
             exam.setDescription(examRequest.getDescription());
@@ -56,6 +61,7 @@ public class ExamService {
             exam.setDuration(examRequest.getDuration());
             exam.setDate_start(examRequest.getDate_start());
             exam.setDate_end(examRequest.getDate_end());
+            exam.setType_exercise(examRequest.getType_exercise());
             exam.setQuestions(questionList);
             exam.setRps(rpsResponse);
             exam.setCreated_at(instant);
@@ -86,6 +92,7 @@ public class ExamService {
             exam.setDuration(examRequest.getDuration());
             exam.setDate_start(examRequest.getDate_start());
             exam.setDate_end(examRequest.getDate_end());
+            exam.setType_exercise(examRequest.getType_exercise());
             exam.setQuestions(questionList);
             exam.setRps(rpsResponse);
             return examRepository.update(examId, exam);

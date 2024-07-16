@@ -13,10 +13,12 @@ public class ExerciseRequest {
     private Integer duration;
     private Instant date_start;
     private Instant date_end;
+    private String type_exercise;
+
     public ExerciseRequest() {
     }
 
-    public ExerciseRequest(String name, String description, List<String> questions, String rps_id, Integer min_grade, Integer duration, Instant date_start, Instant date_end) {
+    public ExerciseRequest(String name, String description, List<String> questions, String rps_id, Integer min_grade, Integer duration, Instant date_start, Instant date_end, String type_exercise) {
         this.name = name;
         this.description = description;
         this.questions = questions;
@@ -25,6 +27,7 @@ public class ExerciseRequest {
         this.duration = duration;
         this.date_start = date_start;
         this.date_end = date_end;
+        this.type_exercise = type_exercise;
     }
 
     public String getName() {
@@ -91,6 +94,14 @@ public class ExerciseRequest {
         this.date_end = date_end;
     }
 
+    public String getType_exercise() {
+        return type_exercise;
+    }
+
+    public void setType_exercise(String type_exercise) {
+        this.type_exercise = type_exercise;
+    }
+
     public void set(String fieldName, String value) {
         switch (fieldName) {
             case "name":
@@ -116,6 +127,9 @@ public class ExerciseRequest {
                 break;
             case "date_end":
                 this.date_end = Instant.parse(value);
+                break;
+            case "type_exercise":
+                this.type_exercise = value;
                 break;
             default:
                 throw new IllegalArgumentException("Invalid field name: " + fieldName);

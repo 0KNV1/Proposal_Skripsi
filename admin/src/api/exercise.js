@@ -15,6 +15,13 @@ export function getExercise() {
   });
 }
 
+export function getQuestionsByRPS(rpsID, type_exercise) {
+  return request({
+    url: `/exercise/questions?rpsID=${rpsID}&type_exercise=${type_exercise}`,
+    method: "get",
+  });
+}
+
 export function getExerciseByID(id) {
   return request({
     url: `/exercise/${id}`,

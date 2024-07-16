@@ -16,6 +16,7 @@ import { addCriteriaValue } from "../../api/criteriaValue";
 // import EditRPSForm from "./forms/edit-rps-form";
 // import AddRPSForm from "./forms/add-rps-form";
 const { Column } = Table;
+//selct question by rps
 class CriteriaValue extends Component {
   state = {
     rps: [],
@@ -178,11 +179,6 @@ class CriteriaValue extends Component {
   render() {
     const {
       rps,
-      learningMediaHardwares,
-      learningMediaSoftwares,
-      studyPrograms,
-      subjects,
-      lectures,
     } = this.state;
     const title = (
       <span>

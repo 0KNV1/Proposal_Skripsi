@@ -1,6 +1,7 @@
 package com.doyatama.university.model;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Exam {
@@ -14,21 +15,26 @@ public class Exam {
     private Instant date_start;
     private Instant date_end;
     private Instant created_at;
+    private String type_exercise;
+    private RPSDetail rps_detail;
+
 
     public Exam() {
     }
 
-    public Exam(String id, String name, String description, List<Question> questions, RPS rps, Integer min_grade, Integer duration, Instant date_start, Instant date_end, Instant created_at) {
+    public Exam(String id, String name, String description, RPSDetail rps_detail,List<Question> questions, RPS rps, Integer min_grade, Integer duration, Instant date_start, Instant date_end, Instant created_at, String type_exercise) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.questions = questions;
         this.rps = rps;
+        this.rps_detail = rps_detail;
         this.min_grade = min_grade;
         this.duration = duration;
         this.date_start = date_start;
         this.date_end = date_end;
         this.created_at = created_at;
+        this.type_exercise = type_exercise;
     }
 
     public String getId() {
@@ -55,6 +61,16 @@ public class Exam {
         this.description = description;
     }
 
+
+     public RPSDetail getRps_detail() {
+        return rps_detail;
+    }
+
+    public void setRps_detail(RPSDetail rps_detail) {
+        this.rps_detail = rps_detail;
+    }
+
+
     public List<Question> getQuestions() {
         return questions;
     }
@@ -62,6 +78,7 @@ public class Exam {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
+
 
     public RPS getRps() {
         return rps;
@@ -110,6 +127,13 @@ public class Exam {
     public void setCreated_at(Instant created_at) {
         this.created_at = created_at;
     }
+    public String getType_exercise() {
+        return type_exercise;
+    }
+
+    public void setType_exercise(String type_exercise) {
+        this.type_exercise = type_exercise;
+    }
 
     public boolean isValid() {
         return this.id != null &&
@@ -143,6 +167,9 @@ public class Exam {
                 break;
             case "date_end":
                 this.date_end = Instant.parse(value);
+                break;
+            case "type_exercise":
+                this.type_exercise = value;
                 break;
             default:
                 throw new IllegalArgumentException("Invalid field name: " + fieldName);

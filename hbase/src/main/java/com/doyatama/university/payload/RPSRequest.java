@@ -24,6 +24,7 @@ public class RPSRequest {
     private List<String> teaching_lecturers;
     private List<String> coordinator_lecturers;
     private String ka_study_program;
+    
 
     public RPSRequest(String name, Integer sks, Integer semester, String cpl_prodi, String cpl_mk, List<String> learning_media_softwares, List<String> learning_media_hardwares, List<String> requirement_subjects, String study_program_id, String subject_id, List<String> dev_lecturers, List<String> teaching_lecturers, List<String> coordinator_lecturers, String ka_study_program) {
         this.name = name;

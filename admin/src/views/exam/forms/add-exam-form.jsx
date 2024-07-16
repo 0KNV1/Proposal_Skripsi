@@ -105,7 +105,7 @@ class AddExamForm extends Component {
             )}
           </Form.Item>
           <Form.Item label="Pilih ujian:">
-            {getFieldDecorator("rpsDetail_id", {
+            {getFieldDecorator("type_exercise", {
               rules: [
                 {
                   required: true,
@@ -118,16 +118,16 @@ class AddExamForm extends Component {
                 placeholder="Pilih RPS Detail"
                 onChange={handleGetRPSDetail}
               >
-                <Select.Option value="1-4">
-                  Quiz 1 (Weeks 1-4): {rpsDetail.filter((arr) => arr.week >= 1 && arr.week <= 4).map((arr) => arr.week).join(', ')}
+                <Select.Option value="1-8">
+                  UTS (Weeks 1-8): {rpsDetail.filter((arr) => arr.week >= 1 && arr.week <= 8).map((arr) => arr.week).join(', ')}
                 </Select.Option>
-                <Select.Option value="5-8">
-                  Quiz 2 (Weeks 5-8): {rpsDetail.filter((arr) => arr.week >= 5 && arr.week <= 8).map((arr) => arr.week).join(', ')}
+                <Select.Option value="1-18">
+                  UAS (Weeks 1-16): {rpsDetail.filter((arr) => arr.week >= 1 && arr.week <= 16).map((arr) => arr.week).join(', ')}
                 </Select.Option>
               </Select>
             )}
           </Form.Item>
-          <Form.Item label="Pertanyaan:">
+          {/* <Form.Item label="Pertanyaan:">
             {getFieldDecorator("questions", {
               rules: [
                 {
@@ -150,7 +150,7 @@ class AddExamForm extends Component {
                 })}
               </Select>
             )}
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item label="Tanggal Mulai:">
             {getFieldDecorator("date_start", {
               rules: [{ required: true, message: "Tanggal Mulai wajib diisi" }],

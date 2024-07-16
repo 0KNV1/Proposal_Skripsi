@@ -53,7 +53,7 @@ public class RPSDetailService {
         List<LearningMethod> learningMethodList = learningMethodRepository.findAllById(rpsDetailRequest.getLearning_methods());
         List<AssessmentCriteria> assessmentCriteriaList = assessmentCriteriaRepository.findAllById(rpsDetailRequest.getAssessment_criterias());
         List<AppraisalForm> appraisalFormList = appraisalFormRepository.findAllById(rpsDetailRequest.getAppraisal_forms());
-
+        
         ZoneId zoneId = ZoneId.of("Asia/Jakarta");
         ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
         Instant instant = zonedDateTime.toInstant();

@@ -9,6 +9,10 @@ import com.doyatama.university.payload.ExerciseAttemptRequest;
 import com.doyatama.university.payload.PagedResponse;
 import com.doyatama.university.repository.*;
 import com.doyatama.university.util.AppConstants;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,18 +22,30 @@ import java.text.DecimalFormat;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 @Service
 public class ExerciseAttemptService {
-    private ExerciseAttemptRepository exerciseAttemptRepository = new ExerciseAttemptRepository();
+    private ExerciseAttemptRepository exerciseAttemptRepository;
     private AnswerRepository answerRepository = new AnswerRepository();
     private ExerciseRepository exerciseRepository = new ExerciseRepository();
     private UserRepository userRepository = new UserRepository();
     private StudentRepository studentRepository = new StudentRepository();
 
+    private final QuestionRepository questionRepository;
+
+    @Autowired
+    public ExerciseAttemptService(ExerciseAttemptRepository exerciseAttemptRepository, QuestionRepository questionRepository) {
+        this.exerciseAttemptRepository = exerciseAttemptRepository;
+        this.questionRepository = questionRepository;
+    }
+
+    
 
     private static final Logger logger = LoggerFactory.getLogger(ExerciseAttemptService.class);
 
@@ -42,6 +58,18 @@ public class ExerciseAttemptService {
         if(!userID.equalsIgnoreCase("*") && ExerciseID.equalsIgnoreCase("*")) exerciseAttemptResponse = exerciseAttemptRepository.findByUser(userID, size);
         if(userID.equalsIgnoreCase("*") && !ExerciseID.equalsIgnoreCase("*")) exerciseAttemptResponse = exerciseAttemptRepository.findByExercise(ExerciseID, size);
 
+
+        return new PagedResponse<>(exerciseAttemptResponse, exerciseAttemptResponse.size(), "Successfully get data", 200);
+    }
+
+    public PagedResponse<ExerciseAttempt> getExerciseAttemptById(String exerciseAttemptId,int page, int size)throws IOException  {
+        validatePageNumberAndSize(page, size); // We only need one page since we're retrieving by ID
+
+        List<ExerciseAttempt> exerciseAttemptResponse = new ArrayList<>();
+
+        if(!exerciseAttemptId.equalsIgnoreCase("*")) {
+            exerciseAttemptResponse = exerciseAttemptRepository.findByExerciseAttemptId(exerciseAttemptId, size);
+        }
 
         return new PagedResponse<>(exerciseAttemptResponse, exerciseAttemptResponse.size(), "Successfully get data", 200);
     }
@@ -102,16 +130,40 @@ public class ExerciseAttemptService {
             return null;
         }
     }
-
-    public DefaultResponse<ExerciseAttempt> getExerciseAttemptById(String exerciseAttemptId) throws IOException {
-        // Retrieve ExerciseAttempt
-        ExerciseAttempt exerciseAttemptResponse = exerciseAttemptRepository.findById(exerciseAttemptId);
-        return new DefaultResponse<>(exerciseAttemptResponse.isValid() ? exerciseAttemptResponse : null, exerciseAttemptResponse.isValid() ? 1 : 0, "Successfully get data");
+public List<String> getQuestionExplanations(ExerciseAttempt exerciseAttempt)throws IOException {
+    List<String> explanations = new ArrayList<>();
+    for (StudentAnswer studentAnswer : exerciseAttempt.getStudentAnswers()) {
+        String questionId = studentAnswer.getQuestion().getId();
+        Question question = questionRepository.findById(questionId);
+        if (question != null) {
+            String explanation = question.getExplanation();
+            explanations.add(explanation);
+        }
     }
+    return explanations;
+}
+
+ public PagedResponse<ExerciseAttempt> getExerciseAttemptById(String exerciseAttemptId)throws IOException {
+    // Retrieve ExerciseAttempt
+    ExerciseAttempt exerciseAttemptResponse = exerciseAttemptRepository.findById(exerciseAttemptId);
+
+    // Get explanations
+    List<String> explanations = getQuestionExplanations(exerciseAttemptResponse);
+    exerciseAttemptResponse.setExplanations(explanations);
+
+    List<ExerciseAttempt> exerciseAttempts = Collections.singletonList(exerciseAttemptResponse);
+
+    long totalElements = exerciseAttempts.size();
+    String message = "Successfully get data";
+    long statusCode = exerciseAttemptResponse != null ? 200 : 404;
+
+    return new PagedResponse<>(exerciseAttempts, totalElements, message, statusCode);
+}
 
 
 
-    public ExerciseAttempt updateExerciseAttempt(String exerciseAttemptId, ExerciseAttemptRequest exerciseAttemptRequest) throws IOException {
+
+    public ExerciseAttempt updateExerciseAttempt(String exerciseAttemptId, ExerciseAttemptRequest exerciseAttemptRequest)  {
 //        ExerciseAttempt exerciseAttempt = new ExerciseAttempt();
 //        List<Question> questionList = questionRepository.findAllById(exerciseAttemptRequest.getQuestions());
 //        RPS rpsResponse = rpsRepository.findById(exerciseAttemptRequest.getRps_id());

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button, Table, message, Divider } from "antd";
+import { Card, Button, Table, message, Divider,Checkbox } from "antd";
 import {
   getQuestions,
   deleteQuestion,
@@ -7,6 +7,7 @@ import {
   addQuestion,
   getImage,
 } from "@/api/question";
+
 import TypingCard from "@/components/TypingCard";
 import EditQuestionForm from "./forms/edit-question-form";
 import AddQuestionForm from "./forms/add-question-form";
@@ -30,6 +31,12 @@ class Question extends  React.Component {
       rpsDetailID: "",
       rpsID: "",
       images: {},
+      selectedExamTypes: {
+        EXERCISE: false,
+        QUIZ: false,
+        EXAM: false,
+      },
+      filteredQuestions: [],
     };
   }
   getQuestions = async (rpsDetailID) => {
@@ -97,6 +104,8 @@ class Question extends  React.Component {
     });
   };
 
+  
+
   handleAddQuestionOk = () => {
     const { form } = this.addQuestionFormRef.props;
     form.validateFields((err, values) => {
@@ -105,16 +114,28 @@ class Question extends  React.Component {
       }
       this.setState({ addQuestionModalLoading: true });
       const { file, ...otherValues } = values;
+      
       const formData = new FormData();
       if (file && file.fileList.length > 0) {
         formData.append("file", file.fileList[0].originFileObj);
       }
-      formData.append("rps_detail_id", this.state.rpsDetailID);
+      formData.append("rps_detail_id", this.state.rpsDetailID);     
       formData.append("title", otherValues.title);
-    formData.append("description", otherValues.description);
+      formData.append("description", otherValues.description);
       formData.append("question_type", otherValues.question_type);
       formData.append("answer_type", otherValues.answer_type);
-  
+      formData.append("explanation", otherValues.explanation);
+      if (otherValues.examType) {
+        formData.append("examType", otherValues.examType);
+      }
+      if (otherValues.examType2) {
+        formData.append("examType2", otherValues.examType2);
+      }
+      if (otherValues.examType3) {
+        formData.append("examType3", otherValues.examType3);
+      }
+      
+
       addQuestion(formData)
         .then((response) => {
           form.resetFields();
@@ -130,16 +151,31 @@ class Question extends  React.Component {
         });
     });
   };
-  getImage = async (imageName) => {
-    try {
-      // Dispatch the getImage action...
-      await this.props.getImage(imageName);
-  
-      // The image data is now in the Redux store, so there's no need to update the component's state here
-    } catch (error) {
-      console.error('Failed to load image:', error);
+  handleCheckboxChange = (e) => {
+    const { name, checked } = e.target;
+    this.setState(prevState => ({
+      selectedExamTypes: {
+        ...prevState.selectedExamTypes,
+        [name]: checked,
+      },
+    }), this.filterQuestions);
+  }
+
+  getFilteredData = () => {
+    const { questions, selectedExamTypes } = this.state;
+    
+    // If no checkboxes are selected, return all questions
+    if (!selectedExamTypes.EXERCISE && !selectedExamTypes.QUIZ && !selectedExamTypes.EXAM) {
+      return questions;
     }
-  };
+  
+    // Otherwise, filter the questions based on the selected checkboxes
+    return questions.filter(question =>
+      (selectedExamTypes.EXERCISE && question.examType === 'EXERCISE') ||
+      (selectedExamTypes.QUIZ && question.examType2 === 'QUIZ' && question.examType2 !== 'NOTHING') ||
+      (selectedExamTypes.EXAM && question.examType3 === 'EXAM' && question.examType3 !== 'NOTHING')
+    );
+  }
   componentDidMount() {
     this.setState({
       
@@ -153,40 +189,23 @@ class Question extends  React.Component {
       });
     }
   }
+  handleCheckboxChange = (checkedValues) => {
+    this.setState(prevState => ({
+      selectedExamTypes: {
+        EXERCISE: checkedValues.includes('EXERCISE'),
+        QUIZ: checkedValues.includes('QUIZ'),
+        EXAM: checkedValues.includes('EXAM'),
+      },
+    }), this.filterQuestions);
+  }
 
-  fetchImage = async (imageName) => {
-    if (!imageName) {
-      console.error('Image name is not defined');
-      return;
-    }
   
-    try {
-      const response = await axios.get(`/api/question/image/${imageName}`, {
-        responseType: 'arraybuffer', // This is important for receiving binary data
-      });
-  
-      // Convert the ArrayBuffer to a base64-encoded string
-      const base64 = btoa(
-        new Uint8Array(response.data).reduce(
-          (data, byte) => data + String.fromCharCode(byte),
-          '',
-        ),
-      );
-  
-      // Update the state with the base64-encoded image data
-      this.setState(prevState => ({
-        images: {
-          ...prevState.images,
-          [imageName]: base64,
-        },
-      }));
-    } catch (error) {
-      console.error(`Failed to fetch image ${imageName}:`, error);
-    }
-  };
   render() {
     const { questions, rpsID, rpsDetailID,images } = this.state;
+    const options = ['EXERCISE', 'QUIZ', 'EXAM'];
+
     let imageElements = null;
+    const BASE_URL = 'http://hadoop-primary:9870/';
 
   if (this.props.imageNames) {
     imageElements = this.props.imageNames.map(imageName => {
@@ -199,6 +218,7 @@ class Question extends  React.Component {
     });
   }
 
+    
 
     const title = (
       <span>
@@ -209,16 +229,22 @@ class Question extends  React.Component {
     );
     const cardContent = `Di sini, Anda dapat mengelola pertanyaan di sistem, seperti menambahkan pertanyaan baru, atau mengubah pertanyaan yang sudah ada di sistem.`;
     return (
+      
       <div className="app-container">
         <TypingCard title="Manajemen Pertanyaan" source={cardContent} />
+        <Checkbox.Group
+          options={options}
+          onChange={this.handleCheckboxChange}
+          style={{ display: 'flex', justifyContent: 'flex-start' }}
+        />
         <br />
         <Card title={title}>
-          <Table bordered rowKey="id" dataSource={questions} pagination={false}>
+        <Table bordered rowKey="id" dataSource={this.getFilteredData()} pagination={false}>           
             <Column
-              title="ID Pertanyaan"
-              dataIndex="id"
+              title="ID"
               key="id"
               align="center"
+              render={(value, record, index) => index + 1}
             />
             <Column
               title="Pertanyaan"
@@ -226,6 +252,22 @@ class Question extends  React.Component {
               key="title"
               align="center"
             />
+            {/* <Column
+              title="Pertanyaan"
+              dataIndex="title"
+              key="title"
+              render={(text, record) => {
+                if (record.file_path) {
+                  return (
+                    <>
+                      {text}
+                      <img src={`${BASE_URL}${record.file_path}`} alt={text} style={{width: '200px', height: '200px', marginLeft: '10px'}}/>                    </>
+                  );
+                } else {
+                  return text;
+                }
+              }}
+            /> */}
             <Column
               title="Deskripsi Pertanyaan"
               dataIndex="description"
@@ -239,18 +281,7 @@ class Question extends  React.Component {
               key="answerType"
               align="center"
             />
-            {/* <Column
-            title="Image"
-            dataIndex="imageName"
-            key="image"
-            align="center"
-            render={(imageName) => {
-              const base64Image = this.state.images[imageName];
-              if (base64Image) {
-                return <img src={`data:image/png;base64,${base64Image}`} alt={imageName} />;
-              };
-            }}
-            /> */}
+            
             <Column
               title="Tipe Soal"
               dataIndex="questionType"
@@ -268,7 +299,7 @@ class Question extends  React.Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="edit soal"
                     onClick={this.handleEditQuestion.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -285,7 +316,7 @@ class Question extends  React.Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="Hapus soal"
                     onClick={this.handleDeleteQuestion.bind(null, row)}
                   />
                 </span>
@@ -316,10 +347,5 @@ class Question extends  React.Component {
 }
 
 
-// Map the 'images' state from the Redux store to the component's props
-const mapStateToProps = state => ({
-  images: state.images
-});
 
-// Connect the component to the Redux store and bind the getImage action to the component's props
-export default withRouter(connect(mapStateToProps, { getImage })(Question));
+export default withRouter(Question);

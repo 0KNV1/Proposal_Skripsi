@@ -15,7 +15,7 @@ class EditRPSForm extends Component {
     const { getFieldDecorator } = form;
     const { getFieldValue } = this.props.form;
     const currentSubjectId = getFieldValue('subject_id');
-    const { id, name, sks,semester,cpl_prodi,cpl_mk,learningMediaSoftwares,learningMediaHardwares, subjects,lectures, } = currentRowData;
+    const { id, name, sks,semester,cpl_prodi,cpl_mk,learningMediaSoftwares,learningMediaHardwares, subjects,lectures,studyPrograms,   } = currentRowData;
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -82,45 +82,81 @@ class EditRPSForm extends Component {
               initialValue: cpl_mk,
             })(<Input placeholder="CPL Mata Kuliah" />)}
           </Form.Item>
-          <Form.Item label="Software Media Pembelajaran:">
-            {getFieldDecorator("learning_media_softwares", {
-              rules: [{ required: true, message: "Silahkan pilih Software Media Pembelajaran" }],
-              initialValue: learningMediaSoftwares,
+          <Form.Item label="Learning Media Softwares">
+            {getFieldDecorator('learningMediaSoftwares', {
+              initialValue: currentRowData.learning_media_softwares ? currentRowData.learning_media_softwares.map(software => software.id) : [],
+              rules: [{ required: true, message: 'Learning Media Softwares is required' }],
             })(
               <Select
                 mode="multiple"
                 style={{ width: 300 }}
-                placeholder="Pilih Software Media Pembelajaran"
+                placeholder="Select Learning Media Softwares"
               >
-                {learningMediaSoftwares && learningMediaSoftwares.map((arr, key) => {
-                return (
-                  <Select.Option
-                    value={arr.id}
-                    key={"learning-media-software-" + key}
-                  >
-                    {arr.name}
-                  </Select.Option>
-                );
-              })}
+                {learningMediaSoftwares ? learningMediaSoftwares.map((software, key) => {
+                  return (
+                    <Select.Option value={software.id} key={"software-" + key}>
+                      {software.name}
+                    </Select.Option>
+                  );
+                }) : null}
               </Select>
             )}
+            
           </Form.Item>
           <Form.Item label="Hardware Media Pembelajaran:">
-            {getFieldDecorator("learning_media_hardwares", {
-              rules: [{ required: true, message: "Silahkan pilih Hardware Media Pembelajaran" }],
-              initialValue: learningMediaHardwares,
+            {getFieldDecorator('learningMediaHardwares', {
+              initialValue: currentRowData.learning_media_hardwares ? currentRowData.learning_media_hardwares.map(hardware => hardware.id) : [],
+              rules: [{ required: true, message: 'Silahkan pilih Hardware Media Pembelajaran' }],
             })(
               <Select
                 mode="multiple"
                 style={{ width: 300 }}
                 placeholder="Pilih Hardware Media Pembelajaran"
               >
-                {learningMediaHardwares && learningMediaHardwares.map((arr, key) => {
+                {learningMediaHardwares ? learningMediaHardwares.map((hardware, key) => {
                   return (
-                    <Select.Option
-                      value={arr.id}
-                      key={"learning-media-software-" + key}
-                    >
+                    <Select.Option value={hardware.id} key={"hardware-" + key}>
+                      {hardware.name}
+                    </Select.Option>
+                  );
+                }) : null}
+              </Select>
+            )}
+          </Form.Item>
+          
+          <Form.Item label="Subject ID">
+            {getFieldDecorator('subjects', {
+              initialValue: currentRowData.subject ? currentRowData.subject.id : undefined,
+              rules: [{ required: true, message: 'Subject ID is required' }],
+            })(
+              <Select
+                style={{ width: 300 }}
+                placeholder="Subject ID"
+              >
+                {subjects ? subjects.map((subject, key) => {
+                  return (
+                    <Select.Option value={subject.id} key={"subject-" + key}>
+                      {subject.name}
+                    </Select.Option>
+                  );
+                }) : null}
+              </Select>
+            )}
+          </Form.Item>
+          
+          <Form.Item label="Dosen Pengembang:">
+            {getFieldDecorator('dev_lecturers', {
+              initialValue: currentRowData && currentRowData.dev_lecturers ? currentRowData.dev_lecturers.map(lecturer => lecturer.name) : [],
+              rules: [{ required: true, message: 'Silahkan pilih dosen pengembang' }],
+            })(
+              <Select
+                mode="multiple"
+                style={{ width: 300 }}
+                placeholder="Pilih Dosen Pengembang"
+              >
+                {lectures && lectures.map((arr, key) => {
+                  return (
+                    <Select.Option value={arr.id} key={"dev-lecture-" + key}>
                       {arr.name}
                     </Select.Option>
                   );
@@ -128,11 +164,21 @@ class EditRPSForm extends Component {
               </Select>
             )}
           </Form.Item>
-          <Form.Item label="Subject ID">
-            {getFieldDecorator('subject_id', {
-              initialValue: currentRowData.subject_id,
-              rules: [{ required: true, message: 'Subject ID is required' }],
-            })(<Input placeholder="Subject ID" />)}
+          <Form.Item label="Program Study (Prodi):">
+            {getFieldDecorator('study_program_id', {
+              initialValue: currentRowData && currentRowData.study_program_id ? currentRowData.study_program_id : undefined,
+              rules: [{ required: true, message: 'Silahkan pilih prodi' }],
+            })(
+              <Select style={{ width: 300 }} placeholder="Pilih Prodi">
+                {studyPrograms && studyPrograms.map((arr, key) => {
+                  return (
+                    <Select.Option value={arr.id} key={"study-program-" + key}>
+                      {arr.name}
+                    </Select.Option>
+                  );
+                })}
+              </Select>
+            )}
           </Form.Item>
           </Form>
       </Modal>

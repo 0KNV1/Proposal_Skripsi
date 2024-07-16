@@ -69,11 +69,11 @@ service.interceptors.response.use(
     const { status } = error.response;
     if (status === 403) {
       Modal.confirm({
-        title: "确定登出?",
+        title: "Oke untuk logout?",
         content:
-          "由于长时间未Operasi，您已被登出，可以取消继续留在该页面，或者重新登录",
-        okText: "重新登录",
-        cancelText: "取消",
+          "Anda telah logout karena sudah lama tidak mengoperasikannya. Anda dapat membatalkan dan tetap berada di halaman ini, atau login kembali.",
+        okText: "mendaftar ulang",
+        cancelText: "Membatalkan",
         onOk() {
           let token = store.getState().user.token;
           store.dispatch(logout(token));

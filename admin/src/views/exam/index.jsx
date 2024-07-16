@@ -66,8 +66,10 @@ class Exam extends Component {
     const { content, statusCode } = result.data;
 
     if (statusCode === 200) {
+      const filteredQuestions = content.filter(question => question.examType3 === 'EXAM');
       this.setState({
-        questions: content,
+        
+        questions: filteredQuestions,
       });
     }
   };
@@ -196,11 +198,20 @@ class Exam extends Component {
               align="center"
             />
             <Column
-              title="Pilihan ujian"
-              dataIndex="rpsDetail.week"
-              key="rpsDetail.week"
-              align="center"
-            />
+            title="Pilihan ujian"
+            dataIndex="type_exercise"
+            key="type_exercise"
+            align="center"
+            render={(text) => {
+              if (text === "1-8") {
+                return "UTS";
+              } else if (text === "1-18") {
+                return "UAS";
+              } else {
+                return text;
+              }
+            }}
+          />
             <Column
               title="Tanggal Mulai"
               dataIndex="date_start"

@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import { Form, Input, Modal, Select, Upload, Icon } from "antd";
+import { Form, Input, Modal, Select, Upload, Icon, Checkbox } from "antd";
 const { TextArea } = Input;
+
+
 class AddQuestionForm extends Component {
   state = {
     fileList: [],
+    selectedExamTypes: [],
   };
 
   handleBeforeUpload = (file) => {
@@ -27,6 +30,11 @@ class AddQuestionForm extends Component {
         sm: { span: 16 },
       },
     };
+    const examTypes = [
+      { value: "EXERCISE", label: "Exercise" },
+      { value: "QUIZ", label: "Quiz" },
+      { value: "EXAM", label: "Exam" },
+    ];
     return (
       <Modal
         title="Tambah Pertanyaan"
@@ -52,7 +60,19 @@ class AddQuestionForm extends Component {
                   message: "Silahkan isikan deskripsi pertanyaan",
                 },
               ],
+              initialValue: "Default value in this form",
             })(<TextArea rows={4} placeholder="Deskripsi pertanyaan" />)}
+          </Form.Item>
+          <Form.Item label="Penjelasan:">
+            {getFieldDecorator("explanation", {
+              rules: [
+                {
+                  required: true,
+                  message: "Silahkan isikan deskripsi penjelasan",
+                },
+              ],
+              initialValue: "Default value in this form",
+            })(<TextArea rows={4} placeholder="Deskripsi penjelasan" />)}
           </Form.Item>
           <Form.Item label="Tipe Pertanyaan:">
             {getFieldDecorator("question_type", {
@@ -62,6 +82,8 @@ class AddQuestionForm extends Component {
                   message: "Silahkan pilih tipe pertanyaan",
                 },
               ],
+              initialValue: "NORMAL", // Set the default value
+
             })(
               <Select
                 style={{ width: 300 }}
@@ -82,6 +104,8 @@ class AddQuestionForm extends Component {
                   message: "Silahkan pilih tipe jawaban",
                 },
               ],
+              initialValue: "MULTIPLE_CHOICE", // Set the default value
+
             })(
               <Select style={{ width: 300 }} placeholder="Pilih tipe jawaban">
                 <Select.Option value={"MULTIPLE_CHOICE"}>
@@ -109,6 +133,35 @@ class AddQuestionForm extends Component {
                 </Upload.Dragger>
               )}
             </Form.Item>
+            <Form.Item label="untuk latihan soal:">
+            {getFieldDecorator("examType", {
+              initialValue: [],
+            })(
+              <Checkbox.Group>
+                <Checkbox value="EXERCISE">Exercise</Checkbox>
+              </Checkbox.Group>
+            )}
+          </Form.Item>
+
+          <Form.Item label="untuk quiz 1 atau quiz 2:">
+            {getFieldDecorator("examType2", {
+              initialValue: [],
+            })(
+              <Checkbox.Group>
+                <Checkbox value="QUIZ">Quiz</Checkbox>
+              </Checkbox.Group>
+            )}
+          </Form.Item>
+
+          <Form.Item label="untuk UTS atau UAS:">
+            {getFieldDecorator("examType3", {
+              initialValue: [],
+            })(
+              <Checkbox.Group>
+                <Checkbox value="EXAM">Exam</Checkbox>
+              </Checkbox.Group>
+            )}
+          </Form.Item>
         </Form>
       </Modal>
     );

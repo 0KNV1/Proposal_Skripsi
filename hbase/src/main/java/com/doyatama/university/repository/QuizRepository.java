@@ -14,10 +14,14 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class QuizRepository {
     Configuration conf = HBaseConfiguration.create();
     String tableName = "quizzes";
+    private String lastSavedRowKey;
+
 
     public List<Quiz> findAll(int size) throws IOException {
         HBaseCustomClient client = new HBaseCustomClient(conf);
@@ -36,22 +40,32 @@ public class QuizRepository {
         columnMapping.put("date_start", "date_start");
         columnMapping.put("date_end", "date_end");
         columnMapping.put("created_at", "created_at");
+        columnMapping.put("message","message");
+        columnMapping.put("type_quiz","type_quiz");
+        columnMapping.put("devLecturerIds", "devLecturerIds");
         return client.showListTable(tableUsers.toString(), columnMapping, Quiz.class, size);
     }
 
+
     public Quiz save(Quiz quiz) throws IOException {
         HBaseCustomClient client = new HBaseCustomClient(conf);
-
-        String rowKey = UUID.randomUUID().toString();
-
+        lastSavedRowKey = UUID.randomUUID().toString();
         TableName tableQuiz = TableName.valueOf(tableName);
-        client.insertRecord(tableQuiz, rowKey, "main", "id", rowKey);
-        client.insertRecord(tableQuiz, rowKey, "main", "name", quiz.getName());
-        client.insertRecord(tableQuiz, rowKey, "main", "description", quiz.getDescription().toString());
-        client.insertRecord(tableQuiz, rowKey, "main", "min_grade", quiz.getMin_grade().toString());
-        client.insertRecord(tableQuiz, rowKey, "main", "duration", quiz.getDuration().toString());
-        client.insertRecord(tableQuiz, rowKey, "main", "date_start", quiz.getDate_start().toString());
-        client.insertRecord(tableQuiz, rowKey, "main", "date_end", quiz.getDate_end().toString());
+
+        saveCommonAttributes(quiz, client, lastSavedRowKey, tableQuiz);
+
+        return quiz;
+    }
+
+    public String getLastSavedRowKey() {
+        return lastSavedRowKey;
+    }
+
+     public Quiz saveWithQuestions(Quiz quiz, String rowKey) throws IOException {
+        HBaseCustomClient client = new HBaseCustomClient(conf);
+        TableName tableQuiz = TableName.valueOf(tableName);
+
+        saveCommonAttributes(quiz, client, rowKey, tableQuiz);
 
         // questions
         for (int i = 0; i < quiz.getQuestions().size(); i++) {
@@ -59,9 +73,23 @@ public class QuizRepository {
             client.insertRecord(tableQuiz, rowKey, "questions", "q_" + i, new Gson().toJson(question));
         }
 
+        return quiz;
+    }
+
+
+    private void saveCommonAttributes(Quiz quiz, HBaseCustomClient client, String rowKey, TableName tableQuiz) throws IOException {
+        client.insertRecord(tableQuiz, rowKey, "main", "id", rowKey);
+        client.insertRecord(tableQuiz, rowKey, "main", "name", quiz.getName());
+        client.insertRecord(tableQuiz, rowKey, "main", "description", quiz.getDescription().toString());
+        client.insertRecord(tableQuiz, rowKey, "main", "min_grade", quiz.getMin_grade().toString());
+        client.insertRecord(tableQuiz, rowKey, "main", "duration", quiz.getDuration().toString());
+        client.insertRecord(tableQuiz, rowKey, "main", "date_start", quiz.getDate_start().toString());
+        client.insertRecord(tableQuiz, rowKey, "main", "date_end", quiz.getDate_end().toString());
+//        client.insertRecord(tableQuiz, rowKey, "main", "devLecturerIds", quiz.getRps().getDev_lecturers().toString());
+        client.insertRecord(tableQuiz, rowKey, "main", "message", quiz.getMessage().toString());
         client.insertRecord(tableQuiz, rowKey, "rps", "id", quiz.getRps().getId());
         client.insertRecord(tableQuiz, rowKey, "rps", "name", quiz.getRps().getName());
-
+        client.insertRecord(tableQuiz, rowKey, "main", "type_quiz", quiz.getType_quiz());
         // Get time now
         ZoneId zoneId = ZoneId.of("Asia/Jakarta");
         ZonedDateTime zonedDateTime = ZonedDateTime.now(zoneId);
@@ -69,8 +97,9 @@ public class QuizRepository {
 
         client.insertRecord(tableQuiz, rowKey, "detail", "created_by", "Doyatama");
         client.insertRecord(tableQuiz, rowKey, "detail", "created_at", instant.toString());
-        return quiz;
     }
+
+    
 
     public Quiz findById(String quizId) throws IOException {
         HBaseCustomClient client = new HBaseCustomClient(conf);

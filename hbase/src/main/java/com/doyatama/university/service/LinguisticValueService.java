@@ -8,10 +8,12 @@ import com.doyatama.university.payload.LinguisticValueRequest;
 import com.doyatama.university.payload.PagedResponse;
 import com.doyatama.university.repository.LinguisticValueRepository;
 import com.doyatama.university.util.AppConstants;
+import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,19 +33,23 @@ public class LinguisticValueService {
         return new PagedResponse<>(linguisticValueResponse, linguisticValueResponse.size(), "Successfully get data", 200);
     }
 
-public LinguisticValue createLinguisticValue(LinguisticValueRequest linguisticValueRequest) throws IOException {
-    // Create a new LinguisticValue object using the existing constructor
-    LinguisticValue linguisticValue = new LinguisticValue(
-        linguisticValueRequest.getName(),
-        linguisticValueRequest.getValue1(),
-        linguisticValueRequest.getValue2(),
-        linguisticValueRequest.getValue3(),
-        linguisticValueRequest.getValue4()
-    );
+public LinguisticValue createLinguisticValue(LinguisticValueRequest linguisticValueRequest, String savePath) throws IOException {
+    LinguisticValue linguisticValue = new LinguisticValue();
+    
+    
+    // Check if the name in the request is not null
 
-    return linguisticValueRepository.save(linguisticValue);
+        linguisticValue.setName(linguisticValueRequest.getName());
+        linguisticValue.setValue1(linguisticValueRequest.getValue1());
+        linguisticValue.setValue2(linguisticValueRequest.getValue2());
+        linguisticValue.setValue3(linguisticValueRequest.getValue3());
+        linguisticValue.setValue4(linguisticValueRequest.getValue4());
+        linguisticValue.setFile_path(savePath.isEmpty() ? null : savePath);
+
+
+        return linguisticValueRepository.save(linguisticValue);
+    
 }
-
     public DefaultResponse<LinguisticValue> getLinguisticValueById(String linguisticValueId) throws IOException {
         // Retrieve LinguisticValue
         LinguisticValue linguisticValueResponse = linguisticValueRepository.findById(linguisticValueId);
@@ -67,13 +73,11 @@ public LinguisticValue createLinguisticValue(LinguisticValueRequest linguisticVa
 
     public void deleteLinguisticValueById(String linguisticValueId) throws IOException {
         LinguisticValue linguisticValueResponse = linguisticValueRepository.findById(linguisticValueId);
-        if(linguisticValueResponse.isValid()){
-            linguisticValueRepository.deleteById(linguisticValueId);
-        }else{
+        if(linguisticValueResponse == null){
             throw new ResourceNotFoundException("LinguisticValue", "id", linguisticValueId);
         }
+        linguisticValueRepository.deleteById(linguisticValueId);
     }
-
     private void validatePageNumberAndSize(int page, int size) {
         if(page < 0) {
             throw new BadRequestException("Page number cannot be less than zero.");

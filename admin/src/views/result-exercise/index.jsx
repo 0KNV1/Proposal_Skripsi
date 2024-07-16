@@ -191,14 +191,14 @@ class ResultExercise extends Component {
         </Collapse>
         <br />
         <Card title={title}>
-          <Table
-            bordered
-            rowKey={(record) => record.id}
-            dataSource={exercise}
-            pagination={false}
-            rowSelection={rowSelection}
-            loading={this.state.downloadLoading}
-          >
+            <Table
+              bordered
+              rowKey={(record) => record.id}
+              dataSource={exercise.filter(record => record.student_answers !== null)}
+              pagination={false}
+              rowSelection={rowSelection}
+              loading={this.state.downloadLoading}
+            >
             <Column
               title="Nama Siswa"
               dataIndex="student.name"

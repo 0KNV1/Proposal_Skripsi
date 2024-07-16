@@ -1,7 +1,9 @@
 package com.doyatama.university.model;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import com.doyatama.university.model.Lecture;
 
 public class RPS {
     private String id;
@@ -20,6 +22,8 @@ public class RPS {
     private List<Lecture> coordinator_lecturers;
     private Lecture ka_study_program;
     private Instant created_at;
+    private List<RPSDetail> rpsDetails; // Add this line
+
 
     public RPS() {
     }
@@ -171,6 +175,16 @@ public class RPS {
         this.created_at = created_at;
     }
 
+     // Add getter and setter for rpsDetails
+    public List<RPSDetail> getRpsDetails() {
+        return rpsDetails;
+    }
+
+    public void setRpsDetails(List<RPSDetail> rpsDetails) {
+        this.rpsDetails = rpsDetails;
+    }
+
+    
     public boolean isValid() {
         return this.id != null &&
                 this.name != null &&

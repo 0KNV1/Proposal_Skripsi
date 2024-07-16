@@ -39,6 +39,8 @@ class AddAnswerForm extends Component {
                   message: "Silahkan isikan deskripsi pertanyaan",
                 },
               ],
+              initialValue: "This is the default value", // Set the default value
+
             })(<TextArea rows={4} placeholder="Deskripsi pertanyaan" />)}
           </Form.Item>
           <Form.Item label="Jawaban Benar / Salah">
@@ -66,6 +68,8 @@ class AddAnswerForm extends Component {
                   message: "Silahkan pilih tipe pertanyaan",
                 },
               ],
+              initialValue: "NORMAL", // Set the default value
+
             })(
               <Select
                 style={{ width: 300 }}

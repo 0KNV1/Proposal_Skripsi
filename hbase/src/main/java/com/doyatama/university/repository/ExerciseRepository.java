@@ -14,6 +14,8 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class ExerciseRepository {
     Configuration conf = HBaseConfiguration.create();
@@ -36,8 +38,11 @@ public class ExerciseRepository {
         columnMapping.put("date_start", "date_start");
         columnMapping.put("date_end", "date_end");
         columnMapping.put("created_at", "created_at");
+        columnMapping.put("type_exercise", "type_exercise");
         return client.showListTable(tableUsers.toString(), columnMapping, Exercise.class, size);
     }
+
+    
 
     public Exercise save(Exercise exercise) throws IOException {
         HBaseCustomClient client = new HBaseCustomClient(conf);
@@ -52,11 +57,14 @@ public class ExerciseRepository {
         client.insertRecord(tableExercise, rowKey, "main", "duration", exercise.getDuration().toString());
         client.insertRecord(tableExercise, rowKey, "main", "date_start", exercise.getDate_start().toString());
         client.insertRecord(tableExercise, rowKey, "main", "date_end", exercise.getDate_end().toString());
-
-        // questions
-        for (int i = 0; i < exercise.getQuestions().size(); i++) {
-            Question question = exercise.getQuestions().get(i);
-            client.insertRecord(tableExercise, rowKey, "questions", "q_" + i, new Gson().toJson(question));
+        client.insertRecord(tableExercise, rowKey, "main", "type_exercise", exercise.getType_exercise());
+        if (exercise.getQuestions() != null) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            for (int i = 0; i < exercise.getQuestions().size(); i++) {
+                Question question = exercise.getQuestions().get(i);
+                String questionJson = objectMapper.writeValueAsString(question);
+                client.insertRecord(tableExercise, rowKey, "questions", "q_" + i, questionJson);
+            }
         }
 
         client.insertRecord(tableExercise, rowKey, "rps", "id", exercise.getRps().getId());
@@ -89,8 +97,11 @@ public class ExerciseRepository {
         columnMapping.put("date_start", "date_start");
         columnMapping.put("date_end", "date_end");
         columnMapping.put("created_at", "created_at");
+        columnMapping.put("type_exercise", "type_exercise");
+        
         return client.showDataTable(tableUsers.toString(), columnMapping, exerciseId, Exercise.class);
     }
+
 
     public Exercise findAnswer(String exerciseId) throws IOException {
         HBaseCustomClient client = new HBaseCustomClient(conf);
@@ -109,6 +120,7 @@ public class ExerciseRepository {
         columnMapping.put("date_start", "date_start");
         columnMapping.put("date_end", "date_end");
         columnMapping.put("created_at", "created_at");
+        columnMapping.put("type_exercise", "type_exercise");
         return client.showDataTable(tableUsers.toString(), columnMapping, exerciseId, Exercise.class);
     }
 
@@ -122,11 +134,19 @@ public class ExerciseRepository {
         client.insertRecord(tableExercise, exerciseId, "main", "duration", exercise.getDuration().toString());
         client.insertRecord(tableExercise, exerciseId, "main", "date_start", exercise.getDate_start().toString());
         client.insertRecord(tableExercise, exerciseId, "main", "date_end", exercise.getDate_end().toString());
-
+        client.insertRecord(tableExercise, exerciseId, "main", "type_exercise", exercise.getType_exercise());
         // questions
-        for (int i = 0; i < exercise.getQuestions().size(); i++) {
-            Question question = exercise.getQuestions().get(i);
-            client.insertRecord(tableExercise, exerciseId, "questions", "q_" + i, new Gson().toJson(question));
+        if (exercise.getQuestions() != null) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            for (int i = 0; i < exercise.getQuestions().size(); i++) {
+                Question question = exercise.getQuestions().get(i);
+                try {
+                    String questionJson = objectMapper.writeValueAsString(question);
+                    client.insertRecord(tableExercise, exerciseId, "questions", "q_" + i, questionJson);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         client.insertRecord(tableExercise, exerciseId, "rps", "id", exercise.getRps().getId());

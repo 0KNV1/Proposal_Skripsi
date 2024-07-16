@@ -21,11 +21,13 @@ import java.net.URI;
 @RequestMapping("/api/exam")
 public class ExamController {
     private ExamService examService = new ExamService();
+    ExamRequest examRequest = new ExamRequest();
+
 
     @GetMapping
     public PagedResponse<Exam> getExams(@RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
                                       @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) throws IOException {
-        return examService.getAllExam(page, size);
+        return examService.getAllExam(page, size,examRequest);
     }
 
     @PostMapping

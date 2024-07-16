@@ -8,6 +8,13 @@ export function addAttemptExercise(data) {
   });
 }
 
+export function getExerciseAttemptById(id) {
+  return request({
+    url: `/exercise-attempt/${id}`,
+    method: "get",
+  });
+}
+
 export function getAttemptExerciseByUserID(id) {
   return request({
     url: `/exercise-attempt?userID=${id}`,
@@ -21,3 +28,19 @@ export function getAttemptExerciseByExerciseID(id) {
     method: "get",
   });
 }
+
+export function getQuestionsFromStudentAnswers(exerciseAttemptId) {
+  return request({
+    url: `exercise-attempt/questions-from-exercise-attempt/${exerciseAttemptId}`,
+    method: "get",
+  });
+}
+
+// export function getExerciseAttemptById(id) {
+//   return request({
+//     url: `exercise-attempt/exercise-attempt-id?exerciseAttemptId=${id}`,
+//     method: "get",
+//   });
+// }
+
+

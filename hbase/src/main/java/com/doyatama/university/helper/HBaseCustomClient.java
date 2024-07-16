@@ -5,6 +5,7 @@ import com.doyatama.university.model.Question;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
@@ -181,7 +182,6 @@ public class HBaseCustomClient {
                             if (familyObject instanceof List) {
                                 Object currentObject = familyObject;
                                 ObjectMapper mapper = new ObjectMapper();
-
                                 JsonNode jsonNode = null;
                                 try {
                                     jsonNode = mapper.readTree((String) value);
@@ -278,7 +278,6 @@ public class HBaseCustomClient {
                     if (familyObject instanceof List) {
                         Object currentObject = familyObject;
                         ObjectMapper mapper = new ObjectMapper();
-
                         JsonNode jsonNode = null;
                         try {
                             jsonNode = mapper.readTree((String) value);
@@ -395,7 +394,7 @@ public class HBaseCustomClient {
             Table table = connection.getTable(TableName.valueOf(tableName));
 
             Scan s = new Scan();
-            s.setCaching(100);
+            s.setCaching(200);
             s.setLimit(sizeLimit);
             TableDescriptor tableDescriptor = connection.getAdmin().getDescriptor(TableName.valueOf(tableName));
             ColumnFamilyDescriptor[] columnFamilies = tableDescriptor.getColumnFamilies();
@@ -544,6 +543,15 @@ public class HBaseCustomClient {
         }else if (fieldType == Answer.AnswerType.class) {
             Answer.AnswerType instantValue = Answer.AnswerType.valueOf(value);
             field.set(object, instantValue);
+        } else if (fieldType == Question.ExamType.class) {
+            Question.ExamType examTypeValue = Question.ExamType.valueOf(value);
+            field.set(object, examTypeValue);
+        } else if (fieldType == Question.ExamType2.class) {
+            Question.ExamType2 examType2Value = Question.ExamType2.valueOf(value);
+            field.set(object, examType2Value);
+        } else if (fieldType == Question.ExamType3.class) {
+            Question.ExamType3 examType3Value = Question.ExamType3.valueOf(value);
+            field.set(object, examType3Value);
         } else {
             // Tipe data yang tidak dikenal, lewati saja
             System.out.println("Tipe data " + fieldType + " tidak dikenali.");

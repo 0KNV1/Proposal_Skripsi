@@ -1,7 +1,8 @@
 import request from "@/utils/request";
+import requestForm from "@/utils/requestForm";
 
 export function addLinguisticValue(data) {
-    return request({
+    return requestForm({
         url: "/linguistic-value",
         method: "post",
         data,

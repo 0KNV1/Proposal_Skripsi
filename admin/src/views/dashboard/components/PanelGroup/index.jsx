@@ -1,66 +1,82 @@
-import React from "react";
 import { Row, Col, Icon } from "antd";
 import CountUp from "react-countup";
 import "./index.less";
+import { getQuiz as fetchQuiz } from "@/api/quiz";
+import React, { useState, useEffect } from 'react';
+import { getRPS } from "@/api/rps";
+import {reqUserInfo} from "@/api/user";
 
-const chartList = [
-  {
-    type: "Pertanyaan",
-    icon: "user",
-    num: 102400,
-    color: "#40c9c6",
-  },
-  {
-    type: "Messages",
-    icon: "message",
-    num: 81212,
-    color: "#36a3f7",
-  },
-  {
-    type: "Purchases",
-    icon: "pay-circle",
-    num: 9280,
-    color: "#f4516c",
-  },
-  {
-    type: "Shoppings",
-    icon: "shopping-cart",
-    num: 13600,
-    color: "#f6ab40",
-  },
-];
 
 const PanelGroup = (props) => {
   const { handleSetLineChartData } = props;
+  const [chartList, setChartList] = useState([]);
+  const [quizMessages, setQuizMessages] = useState([]);
+
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const quizResponse = await fetchQuiz();
+        const { content: quizContent, statusCode: quizStatusCode } = quizResponse.data;
+  
+        const userInfoResponse = await reqUserInfo();
+        const { content: userInfoContent, statusCode: userInfoStatusCode } = userInfoResponse.data;
+  
+        const rpsResponse = await getRPS();
+        const { content: rpsContent, statusCode: rpsStatusCode } = rpsResponse.data;
+  
+        // Extract the list of devLecturerIds from the rpsResponse
+        const devLecturerIds = rpsContent[0].dev_lecturers.map(lecturer => lecturer.id);
+  
+        if (quizStatusCode === 200 && devLecturerIds.includes(userInfoResponse.data.id)) {
+          setQuizMessages(quizContent.map(item => item.message));
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+
   return (
     <div className="panel-group-container">
-      <Row gutter={40} className="panel-group">
-        {chartList.map((chart, i) => (
-          <Col
-            key={i}
-            lg={6}
-            sm={12}
-            xs={12}
-            onClick={handleSetLineChartData.bind(this, chart.type)}
-            className="card-panel-col"
-          >
-            <div className="card-panel">
-              <div className="card-panel-icon-wrapper">
+    {quizMessages.map((message, index) => (
+      <div key={index} style={{ textAlign: 'center', fontSize: '20px', marginBottom: '20px' }}>
+        {message}
+      </div>
+    ))}
+    <Row gutter={40} className="panel-group">
+      {chartList.map((chart, i) => (
+        <Col
+          key={i}
+          lg={6}
+          sm={12}
+          xs={12}
+          onClick={handleSetLineChartData.bind(this, chart.type)}
+          className="card-panel-col"
+        >
+          <div className="card-panel">
+            <div className="card-panel-icon-wrapper">
+              {chart.icon && (
                 <Icon
                   className={chart.type}
-                  style={{ fontSize: 55, color: chart.color }}
+                  style={{ fontSize: chart.type === quizMessages ? '1px' : '1px', color: chart.color }}
                   type={chart.icon}
                 />
-              </div>
-              <div className="card-panel-description">
-                <p className="card-panel-text">{chart.type}</p>
-                <CountUp end={chart.num} start={0} className="card-panel-num" />
-              </div>
+              )}
+              <h2>{chart.type}</h2>
+              {chart.type === 'Quiz Message' ? (
+                <div>{chart.message}</div>
+              ) : (
+                <CountUp start={0} end={chart.num} duration={2.75} />
+              )}
             </div>
-          </Col>
-        ))}
-      </Row>
-    </div>
+          </div>
+        </Col>
+      ))}
+    </Row>
+  </div>
   );
 };
 

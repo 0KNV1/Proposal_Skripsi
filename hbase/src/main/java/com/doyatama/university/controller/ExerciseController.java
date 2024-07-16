@@ -1,5 +1,6 @@
 package com.doyatama.university.controller;
 
+import com.doyatama.university.model.Question;
 import com.doyatama.university.model.StudyProgram;
 import com.doyatama.university.model.Exercise;
 import com.doyatama.university.payload.ApiResponse;
@@ -28,6 +29,14 @@ public class ExerciseController {
         return exerciseService.getAllExercise(page, size);
     }
 
+    @GetMapping("/questions")
+    public PagedResponse<Question> getAllQuestionsByRPS(
+            @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
+            @RequestParam(value = "rpsID", required = false) String rpsID,
+            @RequestParam(value = "type_exercise", required = false) String type_exercise) throws IOException {
+        return exerciseService.getAllQuestionsByRPS(page, size, rpsID, type_exercise);
+    }
     @PostMapping
     public ResponseEntity<?> createExercise(@Valid @RequestBody ExerciseRequest exerciseRequest) throws IOException {
         Exercise exercise = exerciseService.createExercise(exerciseRequest);

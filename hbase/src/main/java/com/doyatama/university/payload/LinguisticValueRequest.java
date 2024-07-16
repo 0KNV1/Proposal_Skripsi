@@ -1,6 +1,14 @@
 package com.doyatama.university.payload;
 
 
+import com.doyatama.university.model.*;
+
+import java.time.Instant;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * @author alfa
  */
@@ -13,6 +21,7 @@ public class LinguisticValueRequest {
     private float avg;
     private String average;
 
+
     public LinguisticValueRequest() {
     }
     public LinguisticValueRequest(String name, float value1, float value2, float value3, float value4) {
@@ -22,6 +31,7 @@ public class LinguisticValueRequest {
         this.value3 = value3;
         this.value4 = value4;
         this.avg = (value1 + value2 + value3 + value4) / 4;
+    
     }
     public String getName() {
         return name;
@@ -67,6 +77,10 @@ public class LinguisticValueRequest {
         float average = (this.value1 + this.value2 + this.value3 + this.value4) / 4.0f;
         return Float.toString(average);
     }
+    // public void setAvarage(String average) {
+    //     this.average = average;
+    // }
+   
     public void set(String fieldName, String value) {
         switch (fieldName) {
             case "name":
@@ -84,6 +98,7 @@ public class LinguisticValueRequest {
             case "value4":
                 this.value4 = Float.parseFloat(value);
                 break;
+           
             default:
                 throw new IllegalArgumentException("Invalid field name: " + fieldName);
         }

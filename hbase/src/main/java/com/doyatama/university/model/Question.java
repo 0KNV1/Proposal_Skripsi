@@ -1,6 +1,15 @@
 package com.doyatama.university.model;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+import java.util.ArrayList;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Question {
     private String id;
     private String title;
@@ -9,6 +18,12 @@ public class Question {
     private AnswerType answer_type;
     private String file_path;
     private RPSDetail rps_detail;
+    private ExamType examType;
+    private ExamType2 examType2;
+    private ExamType3 examType3;
+    private String explanation;
+    private ExerciseAttempt exerciseAttempt;
+
 
     public enum QuestionType {
         IMAGE,
@@ -21,22 +36,41 @@ public class Question {
         MULTIPLE_CHOICE,
         BOOLEAN,
         COMPLETION,
-
         ESSAY,
         MATCHING,
+    }
+
+
+    public enum ExamType{
+        EXERCISE,
+        NOTHING,
+    }
+
+    public enum ExamType2{
+        QUIZ,
+        NOTHING,
+    }
+    
+    public enum ExamType3{
+        EXAM,
+        NOTHING,
     }
 
     public Question() {
     }
 
-    public Question(String id, String title, String description, QuestionType questionType, AnswerType answerType, String file_path, RPSDetail rps_detail) {
+    public Question(String id, String title, String description, QuestionType questionType, AnswerType answerType, String file_path, RPSDetail rps_detail, ExamType examType, ExamType2 examType2, ExamType3 examType3, String explanation) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.question_type = questionType;
         this.answer_type = answerType;
-        this.file_path = (file_path != null && !file_path.isEmpty()) ? file_path : null;
+        this.file_path = file_path;
         this.rps_detail = rps_detail;
+        this.examType = examType;
+        this.examType2 = examType2;
+        this.examType3 = examType3;
+        this.explanation = explanation;
     }
 
     public String getId() {
@@ -79,6 +113,32 @@ public class Question {
         this.answer_type = answerType;
     }
 
+
+    public ExamType getExamType() {
+        return this.examType != null ? this.examType : ExamType.NOTHING;
+    }
+
+    public void setExamType(ExamType examType) {
+        this.examType = examType;
+    }
+
+    public ExamType2 getExamType2() {
+        return this.examType2 != null ? this.examType2 : ExamType2.NOTHING;
+    }
+
+    public void setExamType2(ExamType2 examType2) {
+        this.examType2 = examType2;
+    }
+
+    
+    public ExamType3 getExamType3() {
+        return this.examType3 != null ? this.examType3 : ExamType3.NOTHING;
+    }
+
+    public void setExamType3(ExamType3 examType3) {
+        this.examType3 = examType3;
+    }
+
     public String getFile_path() {
         return file_path;
     }
@@ -95,9 +155,18 @@ public class Question {
         this.rps_detail = rps_detail;
     }
 
+    public String getExplanation() {
+        return explanation;
+    }
+
+    public void setExplanation(String explanation) {
+        this.explanation = explanation;
+    }
+
     public boolean isValid() {
         return this.id != null && this.title != null && this.description != null && this.question_type != null && this.answer_type != null ;
     }
+
 
     public void set(String fieldName, String value) {
         switch (fieldName) {
@@ -119,6 +188,7 @@ public class Question {
             case "file_path":
                 this.file_path = value;
                 break;
+
             default:
                 throw new IllegalArgumentException("Invalid field name: " + fieldName);
         }

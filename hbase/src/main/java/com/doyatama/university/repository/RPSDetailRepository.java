@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RPSDetailRepository {
     Configuration conf = HBaseConfiguration.create();
@@ -74,8 +75,9 @@ public class RPSDetailRepository {
 
     public RPSDetail save(RPSDetail rpsDetail) throws IOException {
         HBaseCustomClient client = new HBaseCustomClient(conf);
-
-        String rowKey = UUID.randomUUID().toString();
+        ObjectMapper mapper = new ObjectMapper(); // Define ObjectMapper instance here
+        String week = rpsDetail.getWeek().toString();
+        String rowKey = UUID.randomUUID().toString().substring(0, 20 - week.length()) + "-" + week;
 
         TableName tableRPSDetail = TableName.valueOf(tableName);
         client.insertRecord(tableRPSDetail, rowKey, "main", "id", rowKey);
@@ -95,12 +97,13 @@ public class RPSDetailRepository {
         client.insertRecord(tableRPSDetail, rowKey, "form_learning", "id", rpsDetail.getForm_learning().getId());
         client.insertRecord(tableRPSDetail, rowKey, "form_learning", "name", rpsDetail.getForm_learning().getName());
 
+
         // learning_method
         for (int i = 0; i < rpsDetail.getLearning_methods().size(); i++) {
             LearningMethod learningMethod = rpsDetail.getLearning_methods().get(i);
-            client.insertRecord(tableRPSDetail, rowKey, "learning_methods", "lm_" + i,  new Gson().toJson(learningMethod));
+            String learningMethodJson = mapper.writeValueAsString(learningMethod);
+            client.insertRecord(tableRPSDetail, rowKey, "learning_methods", "lm_" + i, learningMethodJson);
         }
-
         // assignment
         for (int i = 0; i < rpsDetail.getAssignments().size(); i++) {
             String assignment = rpsDetail.getAssignments().get(i);
@@ -119,16 +122,19 @@ public class RPSDetailRepository {
             client.insertRecord(tableRPSDetail, rowKey, "student_learning_experiences", "sle_" + i, studentLearningExperience);
         }
 
+        
         // assessment_criteria
         for (int i = 0; i < rpsDetail.getAssessment_criterias().size(); i++) {
             AssessmentCriteria assessmentCriteria = rpsDetail.getAssessment_criterias().get(i);
-            client.insertRecord(tableRPSDetail, rowKey, "assessment_criterias", "ac_" + i,  new Gson().toJson(assessmentCriteria));
+            String assessmentCriteriaJson = mapper.writeValueAsString(assessmentCriteria);
+            client.insertRecord(tableRPSDetail, rowKey, "assessment_criterias", "ac_" + i, assessmentCriteriaJson);
         }
 
         // appraisal_form
         for (int i = 0; i < rpsDetail.getAppraisal_forms().size(); i++) {
             AppraisalForm appraisalForm = rpsDetail.getAppraisal_forms().get(i);
-            client.insertRecord(tableRPSDetail, rowKey, "appraisal_forms", "af_" + i,  new Gson().toJson(appraisalForm));
+            String appraisalFormJson = mapper.writeValueAsString(appraisalForm);
+            client.insertRecord(tableRPSDetail, rowKey, "appraisal_forms", "af_" + i, appraisalFormJson);
         }
 
         // assessment_indicator

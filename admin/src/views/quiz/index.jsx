@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Card, Button, Table, message, Divider } from "antd";
 import { getQuiz, deleteQuiz, editQuiz, addQuiz } from "@/api/quiz";
+import { getQuizAnnouncements ,addQuizAnnouncement,deleteQuizAnnouncement} from "@/api/quizAnnouncement";
 import { getQuestions } from "@/api/question";
 import { getRPS } from "@/api/rps";
+import {getQuestionsWithCriteriaValuesFromQuizAnnouncement} from "@/api/criteriaValue";
 
 import { Link } from "react-router-dom";
 import TypingCard from "@/components/TypingCard";
@@ -16,6 +18,7 @@ class Quiz extends Component {
     quiz: [],
     questions: [],
     rps: [],
+    criteravaluetest: [],
     editQuizModalVisible: false,
     editQuizModalLoading: false,
     currentRowData: {},
@@ -28,8 +31,17 @@ class Quiz extends Component {
     console.log(result.data);
     if (statusCode === 200) {
       this.setState({
-
         quiz: content,
+      });
+    }
+  };
+  getQuestionsWithCriteriaValuesFromQuizAnnouncement = async (id) => {
+    const result = await getQuestionsWithCriteriaValuesFromQuizAnnouncement(id);
+    const { content, statusCode } = result.data;
+    console.log(result.data);
+    if (statusCode === 200) {
+      this.setState({
+        criteravaluetest: content,
       });
     }
   };
@@ -143,6 +155,7 @@ class Quiz extends Component {
     });
   };
   componentDidMount() {
+    
     this.getQuiz();
     this.getQuestions();
     this.getRps();
@@ -223,6 +236,15 @@ class Quiz extends Component {
                       shape="circle"
                       icon="diff"
                       title="Detail Hasil"
+                    />
+                  </Link>
+                  <Divider type="vertical" />
+                  <Link to={`/setting-quiz/generate-quiz/${row.id}`}>
+                    <Button
+                      type="primary"
+                      shape="circle"
+                      icon="diff"
+                      title="Detail Generate Quiz"
                     />
                   </Link>
                   <Divider type="vertical" />

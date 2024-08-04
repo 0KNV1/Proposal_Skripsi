@@ -40,7 +40,7 @@ class Answer extends Component {
   handleDeleteAnswer = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("error");
       return;
     }
     deleteAnswer({ id }).then((res) => {
@@ -148,6 +148,8 @@ class Answer extends Component {
   }
   render() {
     const { answers } = this.state;
+    const questionTitle = answers.length > 0 ? answers[0].question.title : 'No question available';
+
     const title = (
       <span>
         <Button type="primary" onClick={this.handleAddAnswer}>
@@ -161,6 +163,8 @@ class Answer extends Component {
         <TypingCard title="Manajemen Jawaban" source={cardContent} />
         <br />
         <Card title={title}>
+        <h3>{questionTitle}</h3>
+
           <Table bordered rowKey="id" dataSource={answers} pagination={false}>
             <Column title="ID Jawaban" dataIndex="id" key="id" align="center" />
             <Column

@@ -79,9 +79,20 @@ class ListTodoAdmin extends Component {
                 const rpsResponse = await getRPS();
                 const { content: rpsContent, statusCode: rpsStatusCode } = rpsResponse.data;
         
-                // Extract the list of devLecturerIds from the rpsResponse
-                const devLecturerIds = rpsContent[0].dev_lecturers.map(lecturer => lecturer.id);
-                
+                let devLecturerIds = [];
+
+                if (quizStatusCode === 200 && rpsStatusCode === 200) {
+                  quizContent.forEach(quiz => {
+                    const matchingRPS = rpsContent.find(rps => rps.id === quiz.rps.id);
+                    if (matchingRPS) {
+                      devLecturerIds = matchingRPS.dev_lecturers.map(lecturer => lecturer.id);
+                      console.log(`Dev Lecturer IDs for quiz ${quiz.id}:`, devLecturerIds);
+                    } else {
+                      console.log(`No matching RPS found for quiz ${quiz.id}`);
+                    }
+                  });
+                } 
+            
                 // Get the user's role and id from the userInfoResponse
                 const { id: userId, roles: userRole } = userInfoResponse.data;
                     

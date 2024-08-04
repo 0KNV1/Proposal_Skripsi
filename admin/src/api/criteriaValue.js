@@ -15,6 +15,13 @@ export function getAllQuestionsByRPS(rpsID) {
   });
 }
 
+export function getQuestionsWithCriteriaValuesFromQuizAnnouncement(quizAnnouncementId) {
+  return request({
+    url: `/criteria-value/quizAnnouncement/${quizAnnouncementId}`,
+    method: "get",
+  });
+}
+
 export function getAllCriteriaValueByQuestion(questionID) {
     return request({
       url: `/criteria-value/question/${questionID}`,
@@ -37,6 +44,7 @@ export function getCriteriaValueById(criteriaValueId) {
       method: "get",
     });
   }
+
   
 export function editCriteriaValue(criteriaValueId, criteriaValueRequest) {
     return request({
@@ -46,9 +54,10 @@ export function editCriteriaValue(criteriaValueId, criteriaValueRequest) {
     });
   }
   
-export function deleteCriteriavalue(criteriaValueId) {
+export function deleteCriteriavalue(data) {
     return request({
-        url: `/api/criteria-value/${criteriaValueId}`,
+        url: `/criteria-value/${data.id}`,
         method: "delete",
+        data
     });
 }

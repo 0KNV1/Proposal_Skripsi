@@ -42,7 +42,7 @@ class LinguisticValue extends Component {
     handleDeleteLinguisticValue = (row) => {
         const { id } = row;
         if (id === "admin") {
-        message.error("不能删除管理员用户！");
+        message.error("hapus eror");
         return;
         }
         deleteLinguisticValue({ id }).then((res) => {
@@ -135,7 +135,7 @@ class LinguisticValue extends Component {
         );
         return (
         <div className="app-container">
-            <TypingCard source="模糊集合语言值管理" />
+            <TypingCard source="Disini anda dapat menambahkan linguistic value beserta gambar yang anda iginkan" />
             <Card title = {title} >
             <Table dataSource={sortedLinguisticValues}  rowKey="id">
                 <Column

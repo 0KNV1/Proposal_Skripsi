@@ -53,3 +53,10 @@ export function addUser(data) {
     data,
   });
 }
+
+export function getUserById(userId) {
+  return request({
+    url: `/users/${userId}`,
+    method: "get",
+  });
+}

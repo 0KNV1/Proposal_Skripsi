@@ -190,10 +190,10 @@ const ListTodoAdmin = Loadable({
 });
 
 //questionIndex
-const QuestionIndex = Loadable({
-  loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/question-index"),
-  loading: Loading,
-});
+// const QuestionIndex = Loadable({
+//   loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/question-index"),
+//   loading: Loading,
+// });
 const QuestionIndexQuiz1 = Loadable({
   loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/question-index-quiz1"),
   loading: Loading,
@@ -202,6 +202,26 @@ const QuestionIndexQuiz2 = Loadable({
   loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/question-index-quiz2"),
   loading: Loading,
 });
+const QuizGenerateQuiz1 = Loadable({
+  loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/quiz-generate-quiz1"),
+  loading: Loading,
+})
+const QuizGenerateQuizStep2 = Loadable({
+  loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/quiz-generate-step2"),
+  loading: Loading,
+})
+const QuizGenerateQuizStep3 = Loadable({
+  loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/quiz-generate-step3"),
+  loading: Loading,
+})
+const QuizGenerateQuizStep4 = Loadable({
+  loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/quiz-generate-step4"),
+  loading: Loading,
+})
+const QuizGenerateQuizStep5 = Loadable({
+  loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/quiz-generate-step5"),
+  loading: Loading,
+})
 const CriteriaIndex = Loadable({
   loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/criteria-index"),
   loading: Loading,
@@ -431,25 +451,25 @@ export default [
     component : ListTodoAdmin,
     roles: ["ROLE_ADMINISTRATOR"]
   },
-  {
-    path: "/index/question/:rpsID",
-    component : QuestionIndex,
-    roles: ["ROLE_ADMINISTRATOR"]
-  },
+  // {
+  //   path: "/index/question/:rpsID",
+  //   component : QuestionIndex,
+  //   roles: ["ROLE_ADMINISTRATOR"]
+  // },
   {
     path: "/index/question/quiz1/:rpsID",
     component : QuestionIndexQuiz1,
-    roles: ["ROLE_ADMINISTRATOR"]
+    roles: ["ROLE_ADMINISTRATOR","ROLE_LECTURE"]
   },
   {
     path: "/index/question/quiz2/:rpsID",
     component : QuestionIndexQuiz2,
-    roles: ["ROLE_ADMINISTRATOR"]
+    roles: ["ROLE_ADMINISTRATOR","ROLE_LECTURE"]
   },
   {
     path: "/index/criteria/:questionID",
     component : CriteriaIndex,
-    roles: ["ROLE_ADMINISTRATOR"]
+    roles: ["ROLE_ADMINISTRATOR","ROLE_LECTURE"]
   },
   {
     path: "/index/exercise/:exerciseID",
@@ -569,6 +589,31 @@ export default [
   {
     path: "/setting-quiz/result/:id",
     component: ResultQuiz,
+    roles: ["ROLE_ADMINISTRATOR", "ROLE_LECTURE"],
+  },
+  {
+    path: "/setting-quiz/generate-quiz/:id",
+    component: QuizGenerateQuiz1,
+    roles: ["ROLE_ADMINISTRATOR", "ROLE_LECTURE"],
+  },
+  {
+    path: "/setting-quiz/generate-quiz-step2/:id",
+    component: QuizGenerateQuizStep2,
+    roles: ["ROLE_ADMINISTRATOR", "ROLE_LECTURE"],
+  },
+  {
+    path: "/setting-quiz/generate-quiz-step3/:id",
+    component: QuizGenerateQuizStep3,
+    roles: ["ROLE_ADMINISTRATOR", "ROLE_LECTURE"],
+  },
+  {
+    path: "/setting-quiz/generate-quiz-step4/:id",
+    component: QuizGenerateQuizStep4,
+    roles: ["ROLE_ADMINISTRATOR", "ROLE_LECTURE"],
+  },
+  {
+    path: "/setting-quiz/generate-quiz-step5/:id",
+    component: QuizGenerateQuizStep5,
     roles: ["ROLE_ADMINISTRATOR", "ROLE_LECTURE"],
   },
   {

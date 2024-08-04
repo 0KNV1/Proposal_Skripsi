@@ -70,12 +70,23 @@ class ListTodo extends Component {
               const rpsResponse = await getRPS();
               const { content: rpsContent, statusCode: rpsStatusCode } = rpsResponse.data;
         
-              // Extract the list of devLecturerIds from the rpsResponse
-              const devLecturerIds = rpsContent[0].dev_lecturers.map(lecturer => lecturer.id);
-            
+              let devLecturerIds = [];
+
+              if (quizStatusCode === 200 && rpsStatusCode === 200) {
+                quizContent.forEach(quiz => {
+                  const matchingRPS = rpsContent.find(rps => rps.id === quiz.rps.id);
+                  if (matchingRPS) {
+                    devLecturerIds = matchingRPS.dev_lecturers.map(lecturer => lecturer.id);
+                    console.log(`Dev Lecturer IDs for quiz ${quiz.id}:`, devLecturerIds);
+                  } else {
+                    console.log(`No matching RPS found for quiz ${quiz.id}`);
+                  }
+                });
+              } 
+          
               // Get the user's role and id from the userInfoResponse
               const { id: userId, roles: userRole } = userInfoResponse.data;
-                
+                    
               if (quizStatusCode === 200 && devLecturerIds.includes(userId)) {
                 this.setState({
                   quizMessages: quizContent
@@ -84,6 +95,8 @@ class ListTodo extends Component {
                       message: item.message,
                       quiz: item.name,
                       rpsName: item.rps.name,
+                      rpsId: item.rps.id,
+                      type_quiz : item.type_quiz,
                       devLecturer: rpsContent.find(rps => rps.id === item.rps.id).dev_lecturers
                     })),
                 });
@@ -111,21 +124,29 @@ class ListTodo extends Component {
                 <TypingCard title="Manajemen Kuis" source={cardContent} />
                 <br />
                 <Card title={title}>
-                <Table bordered rowKey={(record, index) => index} dataSource={quizMessages} pagination={false}>
-                    <Column title="Quiz Messages" dataIndex="message" key="message" align="center" />
-                    <Column title="Quiz Name" dataIndex="quiz" key="rpsName" align="center" />
-                    <Column
-                    title="status"
-                    dataIndex=""
-                    key=""
-                    align="center"
-                    render={(text, record) => (
-                        <div style={{ color: 'red' }}>
-                        Not Completed
-                        </div>
-                    )}
-                    />               
-                     </Table>
+                  <Table bordered rowKey={(record, index) => index} dataSource={quizMessages} pagination={false}>
+                      <Column title="Quiz Messages" dataIndex="message" key="message" align="center" />
+                      <Column title="Quiz Name" dataIndex="quiz" key="rpsName" align="center" />
+                      <Column
+                      title="status"
+                      dataIndex=""
+                      key=""
+                      align="center"
+                      render={(text, record) => (
+                          <div style={{ color: 'red' }}>
+                          Not Completed
+                          </div>
+                      )}
+                      />
+                      <Column
+                        title="Link Penilaian"
+                        key="action"
+                        align="center"
+                        render={(text, record) => (
+                            <a href={`http://localhost:3000/#/index/question/${record.type_quiz}/${record.rpsId}`}>Link Penilaian</a>
+                        )}
+                      />               
+                   </Table>
                 </Card>
             </div>
             );

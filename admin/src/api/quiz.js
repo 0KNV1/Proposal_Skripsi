@@ -15,6 +15,19 @@ export function getQuiz() {
   });
 }
 
+export function getQuestionsByRPSQuiz1(rpsID) {
+  return request({
+    url: `/quiz/questionsByRPSQuiz1?rpsID=${rpsID}`,
+    method: "get",
+  });
+}
+export function getQuestionsByRPSQuiz2(rpsID) {
+  return request({
+    url: `/quiz/questionsByRPSQuiz2?rpsID=${rpsID}`,
+    method: "get",
+  });
+}
+
 export function getQuizByID(id) {
   return request({
     url: `/quiz/${id}`,

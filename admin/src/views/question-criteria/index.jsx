@@ -100,6 +100,7 @@ class QuestionCriteria extends Component {
     }
     render() {
         const { questionCriterias, } = this.state;
+
         const title = (
             <span>
                 <Button type="primary" onClick={this.handleAddQuestionCriteria}>

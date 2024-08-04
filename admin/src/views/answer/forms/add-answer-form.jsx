@@ -51,7 +51,7 @@ class AddAnswerForm extends Component {
                   message: "Silahkan isikan benar / salah",
                 },
               ],
-              initialValue: true,
+              initialValue: false, // Set the default value
             })(
               <Switch
                 checkedChildren="Benar"

@@ -24,7 +24,7 @@ class AddUserForm extends Component {
         confirmLoading={confirmLoading}
       >
         <Form {...formItemLayout}>
-          <Form.Item label="Nama:">
+          <Form.Item label="Na  ma:">
             {getFieldDecorator("name", {
               rules: [
                 { required: true, message: "Silahkan isi nama pengguna!" },

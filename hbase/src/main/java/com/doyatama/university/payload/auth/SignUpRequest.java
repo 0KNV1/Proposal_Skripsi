@@ -22,7 +22,13 @@ public class SignUpRequest {
 
     @NotBlank
     private String roles;
-
+    public SignUpRequest() {
+        this.name = "";
+        this.username = "";
+        this.email = "";
+        this.password = "";
+        this.roles = "";
+    }
     public SignUpRequest(String name, String username, String email, String password, String roles) {
         this.name = name;
         this.username = username;

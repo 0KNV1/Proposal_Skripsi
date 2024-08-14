@@ -20,6 +20,7 @@ class QuizGenerate extends Component {
           rps: [],
           quiz: [],
           userInfo: [],
+          quizId:'',
           questionsWithCriteria: [], // Ensure this is initialized
           selectedLecturer: '',
           devLecturerIds: [],
@@ -29,6 +30,18 @@ class QuizGenerate extends Component {
       };
   }
     
+  handleNextPage = ( quizId) => {
+  
+    const { history } = this.props;
+  
+    history.push(`/setting-quiz/generate-quiz-step5/${quizId}`);
+  };
+
+  handlePreviousPage = ( quizId) => {
+    const { history } = this.props;
+  
+    history.push(`/setting-quiz/generate-quiz-step3/${quizId}`);
+  };
 
     
   async componentDidMount() {
@@ -62,6 +75,10 @@ class QuizGenerate extends Component {
           } else {
             console.log(`No matching RPS found for quiz ${quiz.id}`);
           }
+          this.setState({
+            quizId: quiz.id,
+            // other state properties if any
+          });
         });
       }
 
@@ -69,8 +86,11 @@ class QuizGenerate extends Component {
         this.setState({ devLecturers });
       }
 
-      if (quizStatusCode === 200) {
-        const rpsID = rpsContent[0].id;
+      if (quizStatusCode === 200 && rpsStatusCode === 200) {
+        quizContent.forEach(async (quiz) => {
+        const matchingRPS = rpsContent.find(rps => rps.id === quiz.rps.id);
+        const rpsID = matchingRPS.id;
+
         const result = await getQuestionsByRPSQuiz1(rpsID);
         const { content, statusCode } = result.data;
 
@@ -134,6 +154,7 @@ class QuizGenerate extends Component {
             });
           }
         }
+      });
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -192,7 +213,7 @@ class QuizGenerate extends Component {
     
   
 render() {
-  const { questionsWithCriteria, devLecturers, devLecturerIds, matchingRPS } = this.state;
+  const { questionsWithCriteria, quizId, devLecturerIds, matchingRPS } = this.state;
 
 
 const columns2 = [
@@ -517,9 +538,23 @@ const columns2 = [
     <div>
             
 
-      <TypingCard source="Daftar Nilai Quiz Berdasarkan Dosen Yang Menilai" />
+      <TypingCard source="Tahap 4 Menormalisasikan matrix fuzzy yang di dapat" />
      
-      
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
+          <div>
+            <Button type="primary" onClick={() => this.handlePreviousPage(quizId)}>
+              Tahap 3
+            </Button>
+          </div>
+          <div>
+            <Button type="primary" onClick={() => this.handleNextPage(quizId)}>
+                Tahap 5
+            </Button>
+          </div>
+      </div>
+
+      <br />
+      <br />
       <Table dataSource={questionsWithCriteria}  columns={columns2}  pagination={false} rowKey="id"></Table>
         
     </div>

@@ -85,7 +85,7 @@ class QuestionIndexQuiz2 extends Component {
                                 type="primary"
                                 shape="circle"
                                 icon="diff"
-                                title="删除"
+                                title="menghapus"
                             />
                             </Link>
                             <Divider type="vertical" />

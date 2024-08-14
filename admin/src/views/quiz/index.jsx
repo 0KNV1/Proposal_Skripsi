@@ -4,7 +4,6 @@ import { getQuiz, deleteQuiz, editQuiz, addQuiz } from "@/api/quiz";
 import { getQuizAnnouncements ,addQuizAnnouncement,deleteQuizAnnouncement} from "@/api/quizAnnouncement";
 import { getQuestions } from "@/api/question";
 import { getRPS } from "@/api/rps";
-import {getQuestionsWithCriteriaValuesFromQuizAnnouncement} from "@/api/criteriaValue";
 
 import { Link } from "react-router-dom";
 import TypingCard from "@/components/TypingCard";
@@ -35,16 +34,7 @@ class Quiz extends Component {
       });
     }
   };
-  getQuestionsWithCriteriaValuesFromQuizAnnouncement = async (id) => {
-    const result = await getQuestionsWithCriteriaValuesFromQuizAnnouncement(id);
-    const { content, statusCode } = result.data;
-    console.log(result.data);
-    if (statusCode === 200) {
-      this.setState({
-        criteravaluetest: content,
-      });
-    }
-  };
+ 
   getQuestions = async () => {
     const result = await getQuestions();
     const { content, statusCode } = result.data;
@@ -87,7 +77,7 @@ class Quiz extends Component {
   handleDeleteQuiz = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     deleteQuiz({ id }).then((res) => {
@@ -110,11 +100,11 @@ class Quiz extends Component {
             editQuizModalVisible: false,
             editQuizModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getQuiz();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -146,11 +136,11 @@ class Quiz extends Component {
             addQuizModalVisible: false,
             addQuizModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getQuiz();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };

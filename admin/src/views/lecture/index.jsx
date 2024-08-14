@@ -79,7 +79,7 @@ class Lecture extends Component {
   handleDeleteLecture = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     deleteLecture({ id }).then((res) => {
@@ -103,12 +103,12 @@ class Lecture extends Component {
             editLectureModalVisible: false,
             editLectureModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getLectures();
           this.getUsers();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -140,14 +140,14 @@ class Lecture extends Component {
                     addLectureModalVisible: false,
                     addLectureModalLoading: false,
                 });
-                message.success("添加成功!");
+                message.success("Berhasil!");
                 this.getLectures();
                 this.getUsers();
             })
             .catch((e) => {
                 console.error(e.response.data); // Log the error message from the server
                 this.setState({ addLectureModalLoading: false });
-                message.error("添加失败,请重试!");
+                message.error("Gagal menambahkan, coba lagi!");
             });
     });
 };
@@ -209,7 +209,7 @@ class Lecture extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditLecture.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -217,7 +217,7 @@ class Lecture extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteLecture.bind(null, row)}
                   />
                 </span>

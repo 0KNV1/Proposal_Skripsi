@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Row, Col, Icon } from "antd";
 import TypingCard from "@/components/TypingCard";
-import { Card,  Table,Select } from "antd";
+import { Button,  Table,Select } from "antd";
 import{
     getQuestionsByRPSQuiz1,
   } from "@/api/quiz";
@@ -20,6 +20,7 @@ class QuizGenerate extends Component {
           rps: [],
           quiz: [],
           userInfo: [],
+          quizId:'',
           questionsWithCriteria: [], // Ensure this is initialized
           selectedLecturer: '',
           devLecturerIds: [],
@@ -29,6 +30,19 @@ class QuizGenerate extends Component {
       };
   }
     
+  handleNextPage = ( quizId) => {
+  
+    const { history } = this.props;
+  
+    history.push(`/setting-quiz/generate-quiz-step4/${quizId}`);
+  };
+
+  handlePreviousPage = ( quizId) => {
+    const { history } = this.props;
+  
+    history.push(`/setting-quiz/generate-quiz-step2/${quizId}`);
+  };
+
 
     
   async componentDidMount() {
@@ -62,6 +76,10 @@ class QuizGenerate extends Component {
           } else {
             console.log(`No matching RPS found for quiz ${quiz.id}`);
           }
+          this.setState({
+            quizId: quiz.id,
+            // other state properties if any
+          });
         });
       }
 
@@ -69,31 +87,37 @@ class QuizGenerate extends Component {
         this.setState({ devLecturers });
       }
 
-      if (quizStatusCode === 200) {
-        const rpsID = rpsContent[0].id;
-        const result = await getQuestionsByRPSQuiz1(rpsID);
-        const { content, statusCode } = result.data;
-
-        if (statusCode === 200) {
-          const quizQuestions = content.filter(question => question.examType2 === 'QUIZ');
-
-          const questionsWithCriteria = await Promise.all(quizQuestions.map(async (question) => {
-            const criteriaResult = await getAllCriteriaValueByQuestion(question.id);
-            if (criteriaResult.data.statusCode === 200 ) {
-              question.criteriaValues = criteriaResult.data.content;
-            } else {
-              question.criteriaValues = [];
+      if (quizStatusCode === 200 && rpsStatusCode === 200) {
+        quizContent.forEach(async (quiz) => {
+          const matchingRPS = rpsContent.find(rps => rps.id === quiz.rps.id);
+          if (matchingRPS) {
+            const rpsID = matchingRPS.id;
+            
+            const result = await getQuestionsByRPSQuiz1(rpsID);
+            const { content, statusCode } = result.data;
+      
+            if (statusCode === 200) {
+              const quizQuestions = content.filter(question => question.examType2 === 'QUIZ');
+      
+              const questionsWithCriteria = await Promise.all(quizQuestions.map(async (question) => {
+                const criteriaResult = await getAllCriteriaValueByQuestion(question.id);
+                if (criteriaResult.data.statusCode === 200 ) {
+                  question.criteriaValues = criteriaResult.data.content;
+                } else {
+                  question.criteriaValues = [];
+                }
+                return question;
+              }));
+      
+              if (this.state.isMounted) {
+                this.setState({
+                  rpsContent: rpsContent,
+                  questionsWithCriteria: questionsWithCriteria,
+                });
+              }
             }
-            return question;
-          }));
-
-          if (this.state.isMounted) {
-            this.setState({
-              rpsContent: rpsContent,
-              questionsWithCriteria: questionsWithCriteria,
-            });
           }
-        }
+        });
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -118,7 +142,7 @@ class QuizGenerate extends Component {
   }
 
 render() {
-  const { questionsWithCriteria, selectedLecturer, devLecturers, devLecturerIds, matchingRPS } = this.state;
+  const { questionsWithCriteria, quizId, devLecturers, devLecturerIds, matchingRPS } = this.state;
 
   // Filter the questionsWithCriteria array based on selectedLecturer and user
   const filteredData = questionsWithCriteria
@@ -191,15 +215,21 @@ const columns = [
     {/* <h4>{selectedLecturer}</h4> */}
     
 
-      <TypingCard source="Daftar Nilai Quiz Berdasarkan Dosen Yang Menilai" />
-      {/* <Select onChange={this.selectLecture} style={{ width: 200, marginBottom: 20 }}>
-        {devLecturers.map((lecturer, index) => (
-          <Select.Option key={index} value={lecturer.id}>
-            {lecturer.name}
-          </Select.Option>
-        ))}
-      </Select> */}
-      
+      <TypingCard source="Tahap 3 yaitu mengubah numerik menjadi matrix fuzzy" />
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
+        <div>
+          <Button type="primary" onClick={() => this.handlePreviousPage(quizId)}>
+            Tahap 2
+          </Button>
+        </div>
+        <div>
+        <Button type="primary" onClick={() => this.handleNextPage(quizId)}>
+          Tahap 4
+        </Button>
+        </div>
+      </div>
+    <br />
+    <br />
       <Table dataSource={questionsWithCriteria}  columns={columns}  pagination={false} rowKey="id"></Table>
 
       

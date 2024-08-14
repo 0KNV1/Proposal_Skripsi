@@ -124,7 +124,7 @@ class Exercise extends Component {
   handleDeleteExercise = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     deleteExercise({ id }).then((res) => {
@@ -147,11 +147,11 @@ class Exercise extends Component {
             editExerciseModalVisible: false,
             editExerciseModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getExercise();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -183,11 +183,11 @@ class Exercise extends Component {
             addExerciseModalVisible: false,
             addExerciseModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getExercise();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };

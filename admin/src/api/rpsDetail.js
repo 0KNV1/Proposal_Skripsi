@@ -7,6 +7,20 @@ export function addRPSDetail(data) {
     data,
   });
 }
+export function importRPSDetail(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return request({
+    url: "/rps-detail/import",
+    method: "post",
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+}
+
 
 export function getRPSDetailByWeekLabel(weekLabel) {
   return request({

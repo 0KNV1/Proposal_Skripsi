@@ -3,6 +3,7 @@ package com.doyatama.university.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.doyatama.university.model.User;
 
 /**
  * @author alfa
@@ -26,13 +27,15 @@ public class CriteriaValue {
     private TeamTeaching team_teaching;
     private LinguisticValue linguistic_value;
     private Lecture lecture;
+    private String user_id;
+
    
     private String avgOfAvgValue9;
 
     public CriteriaValue() {
     }
 
-    public CriteriaValue(String id, LinguisticValue value1, LinguisticValue value2, LinguisticValue value3, LinguisticValue value4, LinguisticValue value5, LinguisticValue value6, LinguisticValue value7, LinguisticValue value8, LinguisticValue value9, Question question,TeamTeaching team_teaching,LinguisticValue linguisticValue, Lecture lecture) {
+    public CriteriaValue(String id, LinguisticValue value1, LinguisticValue value2, LinguisticValue value3, LinguisticValue value4, LinguisticValue value5, LinguisticValue value6, LinguisticValue value7, LinguisticValue value8, LinguisticValue value9, Question question,TeamTeaching team_teaching,LinguisticValue linguisticValue, Lecture lecture, String user_id) {
         this.id = id;
         this.value1 = value1;
         this.value2 = value2;
@@ -46,7 +49,7 @@ public class CriteriaValue {
         this.question = question;
         this.team_teaching = team_teaching;
         this.linguistic_value = linguistic_value;
-
+        this.user_id = user_id;
         this.lecture = lecture;
 
     }
@@ -58,7 +61,6 @@ public class CriteriaValue {
     public void setId(String id){
         this.id = id;
     }
-
 
     
     public LinguisticValue getValue1() {
@@ -148,13 +150,14 @@ public class CriteriaValue {
     }
 
 
-    public Question getQuestion(){
+   public Question getQuestion() {
         return question;
     }
 
-    public void setQuestion(Question question){
+    public void setQuestion(Question question) {
         this.question = question;
     }
+
 
     public TeamTeaching getTeamTeaching(){
         return team_teaching;
@@ -180,20 +183,15 @@ public class CriteriaValue {
     public void setLecture(Lecture lecture) {
         this.lecture = lecture;
     }
-    
 
-    //  public float getAverageByName(String name) {
-    //     // Assuming you have a list of LinguisticValue objects
-    //     for (LinguisticValue linguisticValue : this.linguisticValues) {
-    //         if (linguisticValue.getName().equals(name)) {
-    //             float sum = linguisticValue.getValue1() + linguisticValue.getValue2() + linguisticValue.getValue3() + linguisticValue.getValue4();
-    //             float avg = sum / 4;
-    //             return avg;
-    //         }
-    //     }
+    public String getUser() {
+        return user_id;
+    }
 
-    //     return -1;  // or throw an exception
-    // }
+    public void setUser(String user_id) {
+        this.user_id = user_id;
+    }
+
 
     public boolean isValid(){
         return this.id != null  && this.value1 != null && this.value2 != null && this.value3 != null && this.value4 != null && this.value5 != null && this.value6 != null && this.value7 != null && this.value8 != null && this.value9 != null;

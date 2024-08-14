@@ -52,6 +52,15 @@ public class CriteriaValueController {
                                                                     @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) throws IOException {
         return criteriaValueService.getAllCriteriaValueByQuestion(questionId, page, size);
     }
+    
+    
+    @GetMapping("/quizAnnouncement/{quizAnnouncementId}")
+    public PagedResponse<CriteriaValue> getQuestionsWithCriteriaValuesFromQuizAnnouncement(
+            @PathVariable String quizAnnouncementId,
+            @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size) throws IOException {
+        return criteriaValueService.getQuestionsWithCriteriaValuesFromQuizAnnouncement(quizAnnouncementId, page, size);
+    }
 
 
     @PostMapping("/{questionId}")

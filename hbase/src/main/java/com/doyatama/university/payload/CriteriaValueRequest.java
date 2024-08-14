@@ -25,13 +25,15 @@ public class CriteriaValueRequest {
     private String question_id;
     private String team_teaching_id;
     private String linguistic_value_id;
+    private String user_id;
+
     private String lecture;
 
 
     public CriteriaValueRequest() {
     }
 
-    public CriteriaValueRequest(String id,String value1, String value2, String value3, String value4, String value5, String value6, String value7, String value8, String value9,String avgOfAvgValue9, String question_id, String team_teaching_id, String linguistic_value_id) {
+    public CriteriaValueRequest(String id,String value1, String value2, String value3, String value4, String value5, String value6, String value7, String value8, String value9,String avgOfAvgValue9, String question_id, String team_teaching_id, String linguistic_value_id,String user_id) {
         this.id = id;
         this.value1 = value1;
         this.value2 = value2;
@@ -46,6 +48,8 @@ public class CriteriaValueRequest {
         this.question_id = question_id;
         this.team_teaching_id = team_teaching_id;
         this.linguistic_value_id = linguistic_value_id;
+        this.user_id = user_id;
+
     }
 
     public String getId(){
@@ -159,6 +163,13 @@ public class CriteriaValueRequest {
         this.lecture = lecture;
     }
 
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
 
     public void set(String fieldName, String value) {
         switch (fieldName) {
@@ -196,6 +207,9 @@ public class CriteriaValueRequest {
                 break;
             case "avgOfAvgValue9":
                 this.avgOfAvgValue9 = value;
+                break;
+            case "user_id":
+                this.user_id = value;
                 break;
             default:
                 throw new IllegalArgumentException("Invalid field name: " + fieldName);

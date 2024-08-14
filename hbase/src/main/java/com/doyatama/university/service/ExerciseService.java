@@ -72,8 +72,8 @@ public class ExerciseService {
                             filteredQuestions.add(question);
                         }
                     }else if (type_exercise.equals("Latihan quiz 2")) {
-                        // add your code for "Latihan quiz 2" here
-                        if ((lastTwoChars.equals("-9") || lastTwoChars.equals("-10") || lastTwoChars.equals("-11") || lastTwoChars.equals("-12")) && question.getExamType() == Question.ExamType.EXERCISE) {
+                          // add your code for "Latihan quiz 2" here
+                        if ((lastTwoChars.equals("-9") || lastTwoChars.equals("10") || lastTwoChars.equals("11") || lastTwoChars.equals("12")) && question.getExamType() == Question.ExamType.EXERCISE) {
                             // Add the current Question to filteredQuestions
                             filteredQuestions.add(question);
                         }

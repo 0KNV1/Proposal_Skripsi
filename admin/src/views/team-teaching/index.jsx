@@ -54,7 +54,7 @@ class TeamTeaching extends Component {
     handleDeleteTeamTeaching = (row) => {
         const {id} = row;
         if (id === "admin") {
-            message.error("不能删除管理员用户！");
+            message.error("不能menghapusoleh  Admin！");
             return;
         }
         deleteTeamTeaching({id}).then((res) => {
@@ -168,7 +168,7 @@ class TeamTeaching extends Component {
                                 type="primary"
                                 shape="circle"
                                 icon="edit"
-                                title="编辑"
+                                title="mengedit"
                                 onClick={this.handleEditTeamTeaching.bind(null, row)}
                             />
                             <Divider type="vertical" />
@@ -176,7 +176,7 @@ class TeamTeaching extends Component {
                                 type="primary"
                                 shape="circle"
                                 icon="delete"
-                                title="删除"
+                                title="menghapus"
                                 onClick={this.handleDeleteTeamTeaching.bind(null, row)}
                             />
                             </span>

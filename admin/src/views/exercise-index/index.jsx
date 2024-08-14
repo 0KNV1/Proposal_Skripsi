@@ -109,11 +109,11 @@ class exerciseIndex extends Component{
                 addExerciseModalVisible: false,
                 addExerciseModalLoading: false,
               });
-              message.success("添加成功!");
+              message.success("Berhasil!");
               this.getExercise();
             })
             .catch((e) => {
-              message.success("添加失败,请重试!");
+              message.success("Gagal menambahkan, coba lagi!");
             });
         });
       };

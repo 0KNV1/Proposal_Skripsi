@@ -101,7 +101,7 @@ class CriteriaValue extends Component {
   handleDeleteRPS = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     deleteRPS({ id }).then((res) => {
@@ -124,11 +124,11 @@ class CriteriaValue extends Component {
             editRPSModalVisible: false,
             editRPSModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getRPS();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -160,11 +160,11 @@ class CriteriaValue extends Component {
             addRPSModalVisible: false,
             addRPSModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getRPS();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };
@@ -221,7 +221,7 @@ class CriteriaValue extends Component {
                         type="primary"
                         shape="circle"
                         icon="diff"
-                        title="删除"
+                        title="menghapus"
                     />
                     </Link>
                     <Divider type="vertical" />

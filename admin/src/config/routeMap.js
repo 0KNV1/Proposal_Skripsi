@@ -222,6 +222,10 @@ const QuizGenerateQuizStep5 = Loadable({
   loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/quiz-generate-step5"),
   loading: Loading,
 })
+const QuizGenerateQuizStep6 = Loadable({
+  loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/quiz-generate-step6"),
+  loading: Loading,
+})
 const CriteriaIndex = Loadable({
   loader: () => import(/*webpackChunkName:'questionIndex'*/ "@/views/criteria-index"),
   loading: Loading,
@@ -614,6 +618,11 @@ export default [
   {
     path: "/setting-quiz/generate-quiz-step5/:id",
     component: QuizGenerateQuizStep5,
+    roles: ["ROLE_ADMINISTRATOR", "ROLE_LECTURE"],
+  },
+  {
+    path: "/setting-quiz/generate-quiz-step6/:id",
+    component: QuizGenerateQuizStep6,
     roles: ["ROLE_ADMINISTRATOR", "ROLE_LECTURE"],
   },
   {

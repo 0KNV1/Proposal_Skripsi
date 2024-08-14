@@ -94,7 +94,7 @@ class Exam extends Component {
   handleDeleteExam = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     deleteExam({ id }).then((res) => {
@@ -117,11 +117,11 @@ class Exam extends Component {
             editExamModalVisible: false,
             editExamModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getExam();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -153,11 +153,11 @@ class Exam extends Component {
             addExamModalVisible: false,
             addExamModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getExam();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };

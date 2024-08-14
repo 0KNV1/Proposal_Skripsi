@@ -20,6 +20,7 @@ class QuizGenerate extends Component {
           rps: [],
           quiz: [],
           userInfo: [],
+          quizId:'',
           questionsWithCriteria: [], // Ensure this is initialized
           devLecturerIds: [],
           devLecturers: [],
@@ -27,7 +28,18 @@ class QuizGenerate extends Component {
           
       };
   }
-    
+  handleNextPage = ( quizId) => {
+  
+    const { history } = this.props;
+  
+    history.push(`/setting-quiz/generate-quiz-step6/${quizId}`);
+  };
+
+  handlePreviousPage = ( quizId) => {
+    const { history } = this.props;
+  
+    history.push(`/setting-quiz/generate-quiz-step4/${quizId}`);
+  };
 
     
   async componentDidMount() {
@@ -61,6 +73,10 @@ class QuizGenerate extends Component {
           } else {
             console.log(`No matching RPS found for quiz ${quiz.id}`);
           }
+          this.setState({
+            quizId: quiz.id,
+            // other state properties if any
+          });
         });
       }
 
@@ -68,8 +84,11 @@ class QuizGenerate extends Component {
         this.setState({ devLecturers });
       }
 
-      if (quizStatusCode === 200) {
-        const rpsID = rpsContent[0].id;
+      if (quizStatusCode === 200 && rpsStatusCode === 200) {
+        quizContent.forEach(async (quiz) => {
+        const matchingRPS = rpsContent.find(rps => rps.id === quiz.rps.id);
+        const rpsID = matchingRPS.id;
+  
         const result = await getQuestionsByRPSQuiz1(rpsID);
         const { content, statusCode } = result.data;
 
@@ -133,6 +152,8 @@ class QuizGenerate extends Component {
             });
           }
         }
+      });
+
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -196,11 +217,11 @@ class QuizGenerate extends Component {
       };
 
       const minMaxValues = this.calculateMinMax(questionsWithCriteria);
-      const results = Array.from({ length: 7 }, () => []);
+      const results = Array.from({ length: questionsWithCriteria.length }, () => []);
 
       for (let i = 1; i <= 9; i++) {
         const averagesArray = questionsWithCriteria.map(question => question[`avgOfAvgValue${i}`]);
-        for (let j = 0; j < 7; j++) {
+        for (let j = 0; j < questionsWithCriteria.length; j++) {
           const result = calculateResultForArray(averagesArray, j, minMaxValues[`minValue${i}`], minMaxValues[`maxValue${i}`]);
           results[j].push(result);
         }
@@ -212,7 +233,7 @@ class QuizGenerate extends Component {
     }
   
 render() {
-  const { questionsWithCriteria, devLecturers, devLecturerIds, matchingRPS } = this.state;
+  const { questionsWithCriteria, quizId, devLecturerIds, matchingRPS } = this.state;
 
 
 const results =this.calculateResult(questionsWithCriteria);
@@ -222,8 +243,21 @@ const results =this.calculateResult(questionsWithCriteria);
     <div>
             
 
-      <TypingCard source="Hasil Akhir IVIHF-VIKOR dengan perankingan nya" />
-     
+      <TypingCard source="Hasil Nilai S dan R IVIHF-VIKOR untuk perhitungan perankingan nya" />
+      <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
+          <div>
+            <Button type="primary" onClick={() => this.handlePreviousPage(quizId)}>
+              Tahap 4
+            </Button>
+          </div>
+          <div>
+            <Button type="primary" onClick={() => this.handleNextPage(quizId)}>
+                Hasil Akhir
+            </Button>
+          </div>
+      </div>
+      <br />
+      <br />
       <div>
         <table style={{ width: '100%', borderCollapse: 'collapse', margin: '20px 0' }}>
             <thead>
@@ -279,79 +313,6 @@ const results =this.calculateResult(questionsWithCriteria);
                                     <td colSpan="3" style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f9f9f9' }}>Nilai maximal S: {Smax.toFixed(3)}</td>
                                     <td colSpan="3" style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f9f9f9' }}>Nilai minimal S: {Smin.toFixed(3)}</td>
                                 </tr>
-                            </>
-                        );
-                    })()
-                ) : (
-                    <tr>
-                        <td colSpan="3" style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>No results available</td>
-                    </tr>
-                )}
-            </tbody>
-        </table>
-        <table style={{ width: '100%', borderCollapse: 'collapse', margin: '20px 0' }}>
-            <thead>
-                <tr>
-                    <th style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f2f2f2' }}>Question</th>
-                    <th style={{ border: '1px solid #ddd', padding: '8px', backgroundColor: '#f2f2f2' }}>Nilai Q</th>
-                </tr>
-            </thead>
-            <tbody>
-                {results.length > 0 ? (
-                    (() => {
-                        const chunks = results.reduce((acc, result, index) => {
-                            const chunkIndex = Math.floor(index / 9);
-                            if (!acc[chunkIndex]) {
-                                acc[chunkIndex] = [];
-                            }
-                            acc[chunkIndex].push(result);
-                            return acc;
-                        }, []);
-                        
-                        const maxValues = [];
-                        const sumValues = [];
-                        
-                        const rows = chunks.map((chunk, chunkIndex) => {
-                            const maxResult = Math.max(...chunk);
-                            maxValues.push(maxResult);
-                            const sumResult = chunk.reduce((sum, value) => sum + value, 0);
-                            sumValues.push(sumResult);
-                            const questionTitle = questionsWithCriteria[chunkIndex]?.title || `Question ${chunkIndex + 1}`;
-                            return (
-                                <tr key={chunkIndex}>
-                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{questionTitle}</td>
-                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{maxResult.toFixed(3)}</td>
-                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{sumResult.toFixed(3)}</td>
-                                </tr>
-                            );
-                        });
-                        
-                        const overallMax = Math.max(...maxValues);
-                        const overallMin = Math.min(...maxValues);
-                        const Smax = Math.max(...sumValues);
-                        const Smin = Math.min(...sumValues);
-                        
-                        const finalRows = chunks.map((chunk, chunkIndex) => {
-                            const maxResult = Math.max(...chunk);
-                            const sumResult = chunk.reduce((sum, value) => sum + value, 0);
-                            const questionTitle = questionsWithCriteria[chunkIndex]?.title || `Question ${chunkIndex + 1}`;
-                        
-                            const normalizedMax = overallMax !== overallMin ? (maxResult - overallMin) / (overallMax - overallMin) : 0;
-                            const normalizedSum = Smax !== Smin ? (sumResult - Smin) / (Smax - Smin) : 0;
-                        
-                            const result = (0.5 * normalizedSum +( 1 - 0.5) * normalizedMax).toFixed(3);
-                        
-                            return (
-                                <tr key={chunkIndex}>
-                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{questionTitle}</td>
-                                    <td style={{ border: '1px solid #ddd', padding: '8px' }}>{result}</td>
-                                </tr>
-                            );
-                        });
-                        
-                        return (
-                            <>
-                                {finalRows}
                             </>
                         );
                     })()

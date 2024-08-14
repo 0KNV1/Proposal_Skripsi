@@ -33,7 +33,7 @@ class AddTeamTeachingForm extends Component {
         return (
             <Modal
                 visible={visible}
-                title="Add Team Teaching"
+                title="Berikan Nilai Untuk Soal"
                 okText="Add"
                 onCancel={onCancel}
                 onOk={onOk}

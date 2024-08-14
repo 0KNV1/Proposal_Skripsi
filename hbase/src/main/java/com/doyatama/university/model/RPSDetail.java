@@ -1,8 +1,12 @@
 package com.doyatama.university.model;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RPSDetail {
     private String id;
     private Integer week;
@@ -20,6 +24,7 @@ public class RPSDetail {
     private Float weight;
     private Instant created_at;
     private String weekLabel;
+
 
     public RPSDetail() {
     }
@@ -97,12 +102,12 @@ public class RPSDetail {
 
 
 
-    public List<String> getLearning_materials() {
-        return learning_materials;
+   public List<String> getLearning_materials() {
+        return learning_materials != null ? learning_materials : new ArrayList<>();
     }
 
     public void setLearning_materials(List<String> learning_materials) {
-        this.learning_materials = learning_materials;
+        this.learning_materials = learning_materials != null ? learning_materials : new ArrayList<>();
     }
 
     public FormLearning getForm_learning() {
@@ -114,59 +119,59 @@ public class RPSDetail {
     }
 
     public List<LearningMethod> getLearning_methods() {
-        return learning_methods;
+        return learning_methods != null ? learning_methods : new ArrayList<>();
     }
 
     public void setLearning_methods(List<LearningMethod> learning_methods) {
-        this.learning_methods = learning_methods;
+        this.learning_methods = learning_methods != null ? learning_methods : new ArrayList<>();
     }
 
     public List<String> getAssignments() {
-        return assignments;
+        return assignments != null ? assignments : new ArrayList<>();
     }
 
     public void setAssignments(List<String> assignments) {
-        this.assignments = assignments;
+        this.assignments = assignments != null ? assignments : new ArrayList<>();
     }
 
     public List<String> getEstimated_times() {
-        return estimated_times;
+        return estimated_times != null ? estimated_times : new ArrayList<>();
     }
 
     public void setEstimated_times(List<String> estimated_times) {
-        this.estimated_times = estimated_times;
+        this.estimated_times = estimated_times != null ? estimated_times : new ArrayList<>();
     }
 
     public List<String> getStudent_learning_experiences() {
-        return student_learning_experiences;
+        return student_learning_experiences != null ? student_learning_experiences : new ArrayList<>();
     }
 
     public void setStudent_learning_experiences(List<String> student_learning_experiences) {
-        this.student_learning_experiences = student_learning_experiences;
+        this.student_learning_experiences = student_learning_experiences != null ? student_learning_experiences : new ArrayList<>();
     }
 
     public List<AssessmentCriteria> getAssessment_criterias() {
-        return assessment_criterias;
+        return assessment_criterias != null ? assessment_criterias : new ArrayList<>();
     }
 
     public void setAssessment_criterias(List<AssessmentCriteria> assessment_criterias) {
-        this.assessment_criterias = assessment_criterias;
+        this.assessment_criterias = assessment_criterias != null ? assessment_criterias : new ArrayList<>();
     }
 
     public List<AppraisalForm> getAppraisal_forms() {
-        return appraisal_forms;
+        return appraisal_forms != null ? appraisal_forms : new ArrayList<>();
     }
 
     public void setAppraisal_forms(List<AppraisalForm> appraisal_forms) {
-        this.appraisal_forms = appraisal_forms;
+        this.appraisal_forms = appraisal_forms != null ? appraisal_forms : new ArrayList<>();
     }
 
     public List<String> getAssessment_indicators() {
-        return assessment_indicators;
+        return assessment_indicators != null ? assessment_indicators : new ArrayList<>();
     }
 
     public void setAssessment_indicators(List<String> assessment_indicators) {
-        this.assessment_indicators = assessment_indicators;
+        this.assessment_indicators = assessment_indicators != null ? assessment_indicators : new ArrayList<>();
     }
 
     public Float getWeight() {

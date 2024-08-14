@@ -365,7 +365,7 @@ getUserInfoJson = async (userId) => {
                             type="primary"
                             shape="circle"
                             icon="delete"
-                            title="删除"
+                            title="menghapus"
                             onClick={() => this.handleDeleteCriteriaValue(row)}                        />
                         </span>
                     )}
@@ -374,7 +374,7 @@ getUserInfoJson = async (userId) => {
                 </Card>
                 <h3>{`Nilai dalam bentuk numerik`}</h3>
 
-                <Table dataSource={criteriaValues} rowKey="id">
+                {/* <Table dataSource={criteriaValues} rowKey="id">
                     {columns2}
                 </Table>
                 <table>
@@ -396,7 +396,7 @@ getUserInfoJson = async (userId) => {
                         ))}
                     </tr>
                     </tbody>
-                </table>
+                </table> */}
 
                 <AddCriteriaValueForm
                 wrappedComponentRef={(formRef) => (this.addCriteriaValueFormRef = formRef)}

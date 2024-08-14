@@ -8,6 +8,20 @@ export function addRPS(data) {
   });
 }
 
+export function importRPS(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return request({
+    url: "/rps/import",
+    method: "post",
+    data: formData,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+}
+
 export function getRPS() {
   return request({
     url: "/rps",
@@ -36,4 +50,5 @@ export function deleteRPS(data) {
     method: "delete",
     data,
   });
+  
 }

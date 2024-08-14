@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Card, Button, Table, message, Divider } from "antd";
-import { getRPS, deleteRPS, editRPS, addRPS } from "@/api/rps";
+import { getRPS, deleteRPS, editRPS, addRPS,importRPS } from "@/api/rps";
+import {importRPSDetail } from "@/api/rpsDetail";
+
 import { getSubjects } from "@/api/subject";
 import { getStudyPrograms } from "@/api/studyProgram";
 import { getLectures } from "@/api/lecture";
@@ -9,6 +11,8 @@ import {
   getLearningMediasSoftware,
   getLearningMediasHardware,
 } from "@/api/learningMedia";
+import * as XLSX from 'xlsx';
+
 import TypingCard from "@/components/TypingCard";
 import EditRPSForm from "./forms/edit-rps-form";
 import AddRPSForm from "./forms/add-rps-form";
@@ -97,7 +101,7 @@ class RPS extends Component {
   handleDeleteRPS = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("Berhasil Dibuat");
       return;
     }
     deleteRPS({ id }).then((res) => {
@@ -120,11 +124,11 @@ class RPS extends Component {
             editRPSModalVisible: false,
             editRPSModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getRPS();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -156,13 +160,56 @@ class RPS extends Component {
             addRPSModalVisible: false,
             addRPSModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getRPS();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
+  };
+ 
+  handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    console.log('File selected:', file);
+  
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        console.log('File reading started');
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: "array" });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+        this.setState({ rps: jsonData });
+        console.log('File reading completed and state updated');
+  
+        // Call both importRPS and importRPSDetail
+        const [responseRPS, responseRPSDetail] = await Promise.all([
+          importRPS(file),
+          importRPSDetail(file)
+        ]);
+  
+        console.log('File import responses:', responseRPS, responseRPSDetail);
+  
+        if (responseRPS.status === 200 && responseRPSDetail.status === 200) {
+          console.log('File imported successfully:', responseRPS.data, responseRPSDetail.data);
+          // Reload the page
+          window.location.reload();
+        } else {
+          console.error('Failed to import file:', responseRPS.data, responseRPSDetail.data);
+        }
+      } catch (error) {
+        console.error('Error during file upload process:', error);
+      }
+    };
+  
+    reader.onerror = (error) => {
+      console.error('Error reading file:', error);
+    };
+  
+    reader.readAsArrayBuffer(file);
   };
   componentDidMount() {
     this.getRPS();
@@ -192,6 +239,10 @@ class RPS extends Component {
     return (
       <div className="app-container">
         <TypingCard title="Manajemen RPS" source={cardContent} />
+        <div className="file-upload-container">
+          <label htmlFor="fileUpload" className="file-upload-label">Upload File RPS:</label>
+          <input type="file" id="fileUpload" className="file-upload-input" onChange={this.handleFileUpload} />
+        </div>
         <br />
         <Card title={title}>
           <Table bordered rowKey="id" dataSource={rps} pagination={false}>
@@ -229,7 +280,7 @@ class RPS extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditRPS.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -238,7 +289,7 @@ class RPS extends Component {
                       type="primary"
                       shape="circle"
                       icon="diff"
-                      title="删除"
+                      title="menghapus"
                     />
                   </Link>
                   <Divider type="vertical" />
@@ -246,7 +297,7 @@ class RPS extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteRPS.bind(null, row)}
                   />
                 </span>

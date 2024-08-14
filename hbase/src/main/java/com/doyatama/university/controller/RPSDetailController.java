@@ -5,11 +5,13 @@ import com.doyatama.university.payload.ApiResponse;
 import com.doyatama.university.payload.DefaultResponse;
 import com.doyatama.university.payload.RPSDetailRequest;
 import com.doyatama.university.payload.PagedResponse;
+import com.doyatama.university.service.ExcelUploadService;
 import com.doyatama.university.service.RPSDetailService;
 import com.doyatama.university.util.AppConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -27,7 +29,20 @@ public class RPSDetailController {
                                       @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size, @RequestParam(value = "rpsID", defaultValue = "*") String rpsID) throws IOException {
         return rpsDetailService.getAllRPSDetail(page, size, rpsID);
     }
+    @CrossOrigin
+    @PostMapping("/import")
+        public ResponseEntity<?> importRPSDetailFromExcel(@RequestParam("file") MultipartFile file) {
+            if (!ExcelUploadService.isValidExcelFile(file)) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid file format. Please upload an Excel file.");
+            }
 
+            try {
+                List<RPSDetail> rpsDetailList =  rpsDetailService.importRPSDetailFromExcel(file);
+                return ResponseEntity.status(HttpStatus.OK).body(rpsDetailList);
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to import data from Excel file.");
+            }
+    }
     @PostMapping
     public ResponseEntity<?> createRPSDetail(@Valid @RequestBody RPSDetailRequest rpsDetailRequest) throws IOException {
         RPSDetail rpsDetail = rpsDetailService.createRPSDetail(rpsDetailRequest);

@@ -12,6 +12,7 @@ import com.doyatama.university.util.AppConstants;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -43,6 +44,19 @@ public class RPSDetailService {
         }
 
         return new PagedResponse<>(rpsDetailResponse, rpsDetailResponse.size(), "Successfully get data", 200);
+    }
+
+    
+    public List<RPSDetail> importRPSDetailFromExcel(MultipartFile file) throws IOException {
+        if (!ExcelUploadService.isValidExcelFile(file)) {
+            throw new BadRequestException("Invalid Excel file");
+        }
+
+        List<RPSDetail> rpsDetailList = ExcelUploadService.getRPSDetailDataFromExcel(file.getInputStream());
+        for (RPSDetail rpsDetail : rpsDetailList) {
+            rpsDetailRepository.save(rpsDetail);
+        }
+        return rpsDetailList;
     }
 
     public RPSDetail createRPSDetail(RPSDetailRequest rpsDetailRequest) throws IOException {

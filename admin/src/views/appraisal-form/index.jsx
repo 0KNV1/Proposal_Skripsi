@@ -39,7 +39,7 @@ class AppraisalForm extends Component {
   handleDeleteAppraisalForm = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     console.log(id);
@@ -63,11 +63,11 @@ class AppraisalForm extends Component {
             editAppraisalFormModalVisible: false,
             editAppraisalFormModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getAppraisalForms();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -99,11 +99,11 @@ class AppraisalForm extends Component {
             addAppraisalFormModalVisible: false,
             addAppraisalFormModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getAppraisalForms();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };
@@ -155,7 +155,7 @@ class AppraisalForm extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditAppraisalForm.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -163,7 +163,7 @@ class AppraisalForm extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteAppraisalForm.bind(null, row)}
                   />
                 </span>

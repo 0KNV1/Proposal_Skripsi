@@ -120,6 +120,7 @@ class StudentQuiz extends Component {
   }
   render() {
     const { quiz } = this.state;
+    const filteredQuiz = quiz.filter(q => q.questions !== null);
     const title = <span></span>;
     const cardContent = `Di sini, Anda dapat mengelola Quiz sesuai dengan mata kuliah yang diampu. Di bawah ini dapat menampilkan list Quiz yang ada.`;
     return (
@@ -127,7 +128,7 @@ class StudentQuiz extends Component {
         <TypingCard title="Ujian" source={cardContent} />
         <br />
         <Card title={title}>
-          <Table bordered rowKey="id" dataSource={quiz} pagination={false}>
+        <Table bordered rowKey="id" dataSource={filteredQuiz} pagination={false}>
             <Column
               title="RPS"
               dataIndex="rps.name"

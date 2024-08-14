@@ -88,7 +88,7 @@ class LinguisticValue extends Component {
                 addLinguisticValueModalVisible: false,
                 addLinguisticValueModalLoading: false,
             });
-            message.success("添加成功!");
+            message.success("Berhasil!");
             this.getLinguisticValues();
             })
             .catch((error) => {
@@ -105,12 +105,12 @@ class LinguisticValue extends Component {
         }
         this.setState({ editLinguisticValueModalLoading: true });
         editLinguisticValue(values, this.state.currentRowData.id).then((res) => {
-            message.success("编辑成功");
+            message.success("berhasi;");
             this.setState({
                 editLinguisticValueModalVisible: false,
                 editLinguisticValueModalLoading: false,
             });
-            message.success("编辑成功!");
+            message.success("berhasi;!");
             this.getLinguisticValues();
             
         });
@@ -177,7 +177,7 @@ class LinguisticValue extends Component {
                                 type="primary"
                                 shape="circle"
                                 icon="edit"
-                                title="编辑"
+                                title="mengedit"
                                 onClick={() => this.handleEditLinguisticValue(row)}
                             />
                             <Divider type="vertical" />
@@ -185,7 +185,7 @@ class LinguisticValue extends Component {
                                 type="primary"
                                 shape="circle"
                                 icon="delete"
-                                title="删除"
+                                title="menghapus"
                                 onClick={() => this.handleDeleteLinguisticValue(row)}
                             />
                         </span>

@@ -33,7 +33,7 @@
   - Screenfull全屏
   - 自适应收缩侧边栏
 
-- 编辑器
+- mengedit器
   - 富文本
   - Markdown
 

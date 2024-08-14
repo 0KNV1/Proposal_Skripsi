@@ -33,7 +33,7 @@ class User extends Component {
   handleDeleteUser = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     deleteUser({ id }).then((res) => {
@@ -60,7 +60,7 @@ class User extends Component {
           this.getUsers();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -158,7 +158,7 @@ class User extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditUser.bind(null, row)}
                   /> */}
                   {/* <Divider type="vertical" /> */}
@@ -166,7 +166,7 @@ class User extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteUser.bind(null, row)}
                   />
                 </span>

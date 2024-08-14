@@ -41,7 +41,7 @@ class QuestionCriteria extends Component {
     handleDeleteQuestionCriteria = (row) => {
         const { id } = row;
         if (id === "admin") {
-        message.error("不能删除管理员用户！");
+        message.error("不能menghapusoleh  Admin！");
         return;
         }
         deleteQuestionCriteria({ id }).then((res) => {
@@ -68,7 +68,7 @@ class QuestionCriteria extends Component {
         }
         this.setState({ addQuestionCriteriaModalLoading: true });
         addQuestionCriteria(values).then((res) => {
-            message.success("添加成功");
+            message.success("Berhasil");
             this.setState({
             addQuestionCriteriaModalLoading: false,
             addQuestionCriteriaModalVisible: false,
@@ -85,7 +85,7 @@ class QuestionCriteria extends Component {
         }
         this.setState({ editQuestionCriteriaModalLoading: true });
         editQuestionCriteria(values, this.state.currentRowData.id).then((res) => {
-            message.success("编辑成功");
+            message.success("berhasi;");
             this.setState({
             editQuestionCriteriaModalLoading: false,
             editQuestionCriteriaModalVisible: false,
@@ -148,7 +148,7 @@ class QuestionCriteria extends Component {
                             type="primary"
                             shape="circle"
                             icon="edit"
-                            title="编辑"
+                            title="mengedit"
                             onClick={this.handleEditQuestionCriteria.bind(null, row)}
                         />
                         <Divider type="vertical" />
@@ -156,7 +156,7 @@ class QuestionCriteria extends Component {
                             type="primary"
                             shape="circle"
                             icon="delete"
-                            title="删除"
+                            title="menghapus"
                             onClick={this.handleDeleteQuestionCriteria.bind(null, row)}
                         />
                         </span>

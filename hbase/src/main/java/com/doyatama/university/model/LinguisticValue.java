@@ -102,7 +102,6 @@ public class LinguisticValue {
          this.avg = (this.value1 + this.value2 + this.value3 + this.value4) / 4.0f;
         this.average = Float.toString(this.avg);
         return this.average;
-
     }
 
     public void setAvarage(String average) {

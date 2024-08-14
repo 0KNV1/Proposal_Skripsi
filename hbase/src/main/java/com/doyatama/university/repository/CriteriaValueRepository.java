@@ -43,30 +43,49 @@ public class CriteriaValueRepository {
         columnMapping.put("value7", "value7");
         columnMapping.put("value8", "value8");
         columnMapping.put("value9", "value9");
+        columnMapping.put("user_id", "user_id");
 
         columnMapping.put("avgOfAvgValue9", "avgOfAvgValue9");
 
         columnMapping.put("question", "question");
+        columnMapping.put("user", "user");
         columnMapping.put("team_teaching", "team_teaching");
         columnMapping.put("lecture", "lecture");
         columnMapping.put("linguistic_value", "linguistic_value");
 
-        // Use the questionId as the filter and sort by id
-          return client.getDataListByColumn(tableUsers.toString(), columnMapping, "main",  "questionId",questionId, CriteriaValue.class, size);
+        // Use the questionId as the filter and afsort by id
+        List<CriteriaValue> criteriaValue=  client.getDataListByColumn(tableUsers.toString(), columnMapping, "question", "id", questionId, CriteriaValue.class, size);
 
-        
-        // Use the questionId as the filter and sort by id
-//        List<CriteriaValue> list = client.getDataListByColumn(tableUsers.toString(), columnMapping, "main",  "questionId",questionId, CriteriaValue.class, size);
-//
-//        // Calculate avgOfAvgValue9 for each CriteriaValue in the list
-//        for (CriteriaValue item : list) {
-//            LinguisticValue value9 = item.getValue9();
-//            if (value9 != null) {
-//                item.calculateAvgOfAvgValue9(list, questionId, value9.getId());
-//            }
-//        }
-        // return the list
-//        return list;
+        return criteriaValue;
+    }
+
+    public List<CriteriaValue> findByUser(String userID,int size)throws IOException{
+         HBaseCustomClient client = new HBaseCustomClient(conf);
+
+        TableName tableUsers = TableName.valueOf(this.tableName);
+        Map<String, String> columnMapping = new HashMap<>();
+
+        // Add the mappings to the HashMap
+        columnMapping.put("id", "id");
+        columnMapping.put("value1", "value1");
+        columnMapping.put("value2", "value2");
+        columnMapping.put("value3", "value3");
+        columnMapping.put("value4", "value4");
+        columnMapping.put("value5", "value5");
+        columnMapping.put("value6", "value6");
+        columnMapping.put("value7", "value7");
+        columnMapping.put("value8", "value8");
+        columnMapping.put("value9", "value9");
+
+        columnMapping.put("avgOfAvgValue9", "avgOfAvgValue9");
+
+        columnMapping.put("question", "question");
+        columnMapping.put("user", "user");
+        columnMapping.put("team_teaching", "team_teaching");
+        columnMapping.put("lecture", "lecture");
+        columnMapping.put("linguistic_value", "linguistic_value");
+        return client.getDataListByColumn(tableUsers.toString(), columnMapping, "user", "id", userID, CriteriaValue.class, size);
+
     }
 
     public CriteriaValue save(CriteriaValue criteriaValue, String questionId) throws IOException {
@@ -80,12 +99,13 @@ public class CriteriaValueRepository {
 
         TableName tableCriteriaValue = TableName.valueOf(this.tableName);
 
-        
         client.insertRecord(tableCriteriaValue, rowKey, "main", "id", rowKey);
 
-        client.insertRecord(tableCriteriaValue, rowKey, "main", "questionId", criteriaValue.getQuestion().getId());
+        client.insertRecord(tableCriteriaValue, rowKey, "main", "user_id", criteriaValue.getUser());
 
-      
+        client.insertRecord(tableCriteriaValue, rowKey,  "question", "id", criteriaValue.getQuestion().getId());
+        client.insertRecord(tableCriteriaValue, rowKey, "question", "title", criteriaValue.getQuestion().getTitle());
+
         // Save each LinguisticValue with its average
         for (int i = 1; i <= 9; i++) {
             LinguisticValue value = null;

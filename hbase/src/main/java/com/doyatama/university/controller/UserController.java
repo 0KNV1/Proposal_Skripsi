@@ -35,6 +35,12 @@ public class UserController {
         return userSummary;
     }
 
+    
+    @GetMapping("/users/{userId}")
+    public PagedResponse<User> getUserById(@PathVariable String userId) throws IOException {
+        return userService.getUserById(userId);
+    }
+
     @GetMapping("/user/checkUsernameAvailability")
     public UserIdentityAvailability checkUsernameAvailability(@RequestParam(value = "username") String username) throws IOException {
         Boolean isAvailable = !userRepository.existsByUsername(username);

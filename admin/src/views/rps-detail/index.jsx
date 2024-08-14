@@ -113,7 +113,7 @@ class RPSDetailDetail extends Component {
   handleDeleteRPSDetail = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapus oleh Admin！");
       return;
     }
     deleteRPSDetail({ id }).then((res) => {
@@ -136,11 +136,11 @@ class RPSDetailDetail extends Component {
             editRPSDetailModalVisible: false,
             editRPSDetailModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getRPSDetail(this.state.rpsID);
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -173,11 +173,11 @@ class RPSDetailDetail extends Component {
             addRPSDetailModalVisible: false,
             addRPSDetailModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getRPSDetail(this.state.rpsID);
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };
@@ -277,7 +277,7 @@ class RPSDetailDetail extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditRPSDetail.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -286,7 +286,7 @@ class RPSDetailDetail extends Component {
                       type="primary"
                       shape="circle"
                       icon="diff"
-                      title="删除"
+                      title="menghapus"
                     />
                   </Link>
                   <Divider type="vertical" />
@@ -294,7 +294,7 @@ class RPSDetailDetail extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteRPSDetail.bind(null, row)}
                   />
                 </span>

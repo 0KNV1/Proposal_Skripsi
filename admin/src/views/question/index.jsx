@@ -59,7 +59,7 @@ class Question extends  React.Component {
   handleDeleteQuestion = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     deleteQuestion({ id }).then((res) => {
@@ -82,11 +82,11 @@ class Question extends  React.Component {
             editQuestionModalVisible: false,
             editQuestionModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getQuestions(this.state.rpsDetailID);
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -143,7 +143,7 @@ class Question extends  React.Component {
             addQuestionModalVisible: false,
             addQuestionModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getQuestions(this.state.rpsDetailID);
         })
         .catch((e) => {

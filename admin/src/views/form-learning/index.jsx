@@ -39,7 +39,7 @@ class FormLearning extends Component {
   handleDeleteFormLearning = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     console.log(id);
@@ -63,11 +63,11 @@ class FormLearning extends Component {
             editFormLearningModalVisible: false,
             editFormLearningModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getFormLearnings();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -99,11 +99,11 @@ class FormLearning extends Component {
             addFormLearningModalVisible: false,
             addFormLearningModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getFormLearnings();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };
@@ -158,7 +158,7 @@ class FormLearning extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditFormLearning.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -166,7 +166,7 @@ class FormLearning extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteFormLearning.bind(null, row)}
                   />
                 </span>

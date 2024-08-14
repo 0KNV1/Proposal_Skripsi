@@ -33,7 +33,7 @@ class Grade extends Component {
   handleDeleteUser = (row) => {
     const { id } = row
     if (id === "admin") {
-      message.error("不能删除管理员用户！")
+      message.error("不能menghapusoleh  Admin！")
       return
     }
     deleteUser({id}).then(res => {
@@ -52,10 +52,10 @@ class Grade extends Component {
       editUser(values).then((response) => {
         form.resetFields();
         this.setState({ editUserModalVisible: false, editUserModalLoading: false });
-        message.success("编辑成功!")
+        message.success("berhasi;!")
         this.getUsers()
       }).catch(e => {
-        message.success("编辑失败,请重试!")
+        message.success("gagal")
       })
       
     });
@@ -84,10 +84,10 @@ class Grade extends Component {
       addUser(values).then((response) => {
         form.resetFields();
         this.setState({ addUserModalVisible: false, addUserModalLoading: false });
-        message.success("添加成功!")
+        message.success("Berhasil!")
         this.getUsers()
       }).catch(e => {
-        message.success("添加失败,请重试!")
+        message.success("Gagal menambahkan, coba lagi!")
       })
     });
   };
@@ -114,9 +114,9 @@ class Grade extends Component {
             <Column title="Deskripsi Pengguna" dataIndex="description" key="description" align="center" />
             <Column title="Operasi" key="action" width={195} align="center"render={(text, row) => (
               <span>
-                <Button type="primary" shape="circle" icon="edit" title="编辑" onClick={this.handleEditUser.bind(null,row)}/>
+                <Button type="primary" shape="circle" icon="edit" title="mengedit" onClick={this.handleEditUser.bind(null,row)}/>
                 <Divider type="vertical" />
-                <Button type="primary" shape="circle" icon="delete" title="删除" onClick={this.handleDeleteUser.bind(null,row)}/>
+                <Button type="primary" shape="circle" icon="delete" title="menghapus" onClick={this.handleDeleteUser.bind(null,row)}/>
               </span>
             )}/>
           </Table>

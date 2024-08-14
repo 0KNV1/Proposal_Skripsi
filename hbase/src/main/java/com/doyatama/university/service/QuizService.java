@@ -134,6 +134,79 @@ public class QuizService {
         }
     }
 
+    public PagedResponse<Question> getAllQuestionsByRPSQuiz1(int page, int size, String rpsID ) throws IOException {
+        validatePageNumberAndSize(page, size);
+
+        // Define the filteredQuestions list
+        List<Question> filteredQuestions = new ArrayList<>();
+
+        // Retrieve the questions associated with the given RPS ID
+        List<Question> questions = questionRepository.findAllByRPS(rpsID,size);
+
+        // Inside your for loop where you're iterating over the questions
+        for (Question question : questions) {
+            // Get the RPSDetail of the current Question
+            RPSDetail questionRpsDetail = question.getRps_detail();
+
+            // Check if questionRpsDetail is not null
+            if (questionRpsDetail != null) {
+                // Get the ID of the RPSDetail
+                String questionRpsDetailId = questionRpsDetail.getId();
+
+                // Check if questionRpsDetailId is not null or empty
+                if (questionRpsDetailId != null && !questionRpsDetailId.isEmpty()) {
+
+                    // Get the last two characters of the ID
+                    String lastTwoChars = questionRpsDetailId.substring(questionRpsDetailId.length() - 2);
+        
+                        // Check if the last two characters are "-1", "-2", "-3", or "-4" and if ExamType is EXERCISE
+                        if ((lastTwoChars.equals("-1") || lastTwoChars.equals("-2") || lastTwoChars.equals("-3") || lastTwoChars.equals("-4")) && question.getExamType2() == Question.ExamType2.QUIZ) {
+                            // Add the current Question to filteredQuestions
+                            filteredQuestions.add(question);
+                        }
+                }
+            }
+        }
+
+        return new PagedResponse<>(filteredQuestions, filteredQuestions.size(), "Successfully get data", 200);
+    }
+
+    public PagedResponse<Question> getAllQuestionsByRPSQuiz2(int page, int size, String rpsID ) throws IOException {
+        validatePageNumberAndSize(page, size);
+
+        // Define the filteredQuestions list
+        List<Question> filteredQuestions = new ArrayList<>();
+
+        // Retrieve the questions associated with the given RPS ID
+        List<Question> questions = questionRepository.findAllByRPS(rpsID,size);
+
+        // Inside your for loop where you're iterating over the questions
+        for (Question question : questions) {
+            // Get the RPSDetail of the current Question
+            RPSDetail questionRpsDetail = question.getRps_detail();
+
+            // Check if questionRpsDetail is not null
+            if (questionRpsDetail != null) {
+                // Get the ID of the RPSDetail
+                String questionRpsDetailId = questionRpsDetail.getId();
+
+                // Check if questionRpsDetailId is not null or empty
+                if (questionRpsDetailId != null && !questionRpsDetailId.isEmpty()) {
+
+                    // Get the last two characters of the ID
+                    String lastTwoChars = questionRpsDetailId.substring(questionRpsDetailId.length() - 2);
+        
+                        // Check if the last two characters are "-1", "-2", "-3", or "-4" and if ExamType is EXERCISE
+                        if ((lastTwoChars.equals("-9") || lastTwoChars.equals("10") || lastTwoChars.equals("11") || lastTwoChars.equals("12")) && question.getExamType2() == Question.ExamType2.QUIZ) {
+                            // Add the current Question to filteredQuestions
+                            filteredQuestions.add(question);
+                        }
+                }
+            }
+        }
+
+        return new PagedResponse<>(filteredQuestions, filteredQuestions.size(), "Successfully get data", 200);
+    }
     public void deleteQuizById(String quizId) throws IOException {
         Quiz quizResponse = quizRepository.findById(quizId);
         if(quizResponse.isValid()){

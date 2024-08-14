@@ -1,6 +1,7 @@
 package com.doyatama.university.controller;
 
 import com.doyatama.university.model.StudyProgram;
+import com.doyatama.university.model.Question;
 import com.doyatama.university.model.Quiz;
 import com.doyatama.university.payload.ApiResponse;
 import com.doyatama.university.payload.DefaultResponse;
@@ -36,6 +37,21 @@ public class QuizController {
         return quizService.getAllQuiz(page, size);
     }
 
+    @GetMapping("/questionsByRPSQuiz1")
+    public PagedResponse<Question> getAllQuestionsByRPSQuiz1(
+            @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
+            @RequestParam("rpsID") String rpsID) throws IOException {
+        return quizService.getAllQuestionsByRPSQuiz1(page, size, rpsID);
+    }
+
+    @GetMapping("/questionsByRPSQuiz2")
+    public PagedResponse<Question> getAllQuestionsByRPSQuiz2(
+            @RequestParam(value = "page", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER) int page,
+            @RequestParam(value = "size", defaultValue = AppConstants.DEFAULT_PAGE_SIZE) int size,
+            @RequestParam("rpsID") String rpsID) throws IOException {
+        return quizService.getAllQuestionsByRPSQuiz2(page, size, rpsID);
+    }
     @PostMapping
     public ResponseEntity<?> createQuiz(@Valid @RequestBody QuizRequest quizRequest) throws IOException {
         Quiz quiz = quizService.createQuiz(quizRequest);

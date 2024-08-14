@@ -51,7 +51,7 @@ class Typing {
       else this.opts.done();
       return;
     }
-    let current = ele.val.shift()  //获取第一个元素，同时删除数组中的第一个元素
+    let current = ele.val.shift()  //获取第一个元素，同时menghapus数组中的第一个元素
     if (typeof current === 'string') {
       this.print(ele.dom, current, () => {
         this.play(ele); //继续打印下一个字符

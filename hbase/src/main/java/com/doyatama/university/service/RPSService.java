@@ -12,6 +12,7 @@ import com.doyatama.university.util.AppConstants;
 import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -38,6 +39,18 @@ public class RPSService {
 
 
         return new PagedResponse<>(rpsResponse, rpsResponse.size(), "Successfully get data", 200);
+    }
+
+    public List<RPS> importRPSFromExcel(MultipartFile file) throws IOException {
+        if (!ExcelUploadService.isValidExcelFile(file)) {
+            throw new BadRequestException("Invalid Excel file");
+        }
+
+        List<RPS> rpsList = ExcelUploadService.getRPSDataFromExcel(file.getInputStream());
+        for (RPS rps : rpsList) {
+            rpsRepository.save(rps);
+        }
+        return rpsList;
     }
 
     public RPS createRPS(RPSRequest rpsRequest) throws IOException {

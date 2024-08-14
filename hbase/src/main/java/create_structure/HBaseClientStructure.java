@@ -48,14 +48,14 @@ public class HBaseClientStructure {
         // Create Tabel Dosen
          TableName tableLecture= TableName.valueOf("lectures");
          String[] lectures = { "main", "study_program", "religion", "user", "detail" };
-        // client.deleteTable(tableLecture);
-        // client.createTable(tableLecture, lectures);
+         client.deleteTable(tableLecture);
+         client.createTable(tableLecture, lectures);
 
         // Create Tabel Mahasiswa
-        // TableName tableStudent = TableName.valueOf("students");
-        // String[] students = { "main", "study_program", "religion", "user", "detail" };
-        // client.deleteTable(tableStudent);
-        // client.createTable(tableStudent, students);
+         TableName tableStudent = TableName.valueOf("students");
+         String[] students = { "main", "study_program", "religion", "user", "detail" };
+         client.deleteTable(tableStudent);
+         client.createTable(tableStudent, students);
 
         // Create Tabel RPS
         TableName tableRPS = TableName.valueOf("rps");
@@ -64,10 +64,10 @@ public class HBaseClientStructure {
         client.createTable(tableRPS, RPS);
 
         // Create Tabel Detail RPS
-        // TableName tableRPSDetail = TableName.valueOf("rps_details");
-        // String[] RPSDetails = { "main", "rps", "learning_materials", "form_learning", "learning_methods", "assignments", "estimated_times", "student_learning_experiences", "assessment_criterias", "appraisal_forms", "assessment_indicators", "detail" };
-        // client.deleteTable(tableRPSDetail);
-        // client.createTable(tableRPSDetail, RPSDetails);
+         TableName tableRPSDetail = TableName.valueOf("rps_details");
+         String[] RPSDetails = { "main", "rps", "learning_materials", "form_learning", "learning_methods", "assignments", "estimated_times", "student_learning_experiences", "assessment_criterias", "appraisal_forms", "assessment_indicators", "detail" };
+         client.deleteTable(tableRPSDetail);
+         client.createTable(tableRPSDetail, RPSDetails);
 
         // Create Table Pustaka
         TableName tableReference = TableName.valueOf("references");
@@ -102,8 +102,8 @@ public class HBaseClientStructure {
          //Create Table Users
          TableName tableUser = TableName.valueOf("users");
          String[] users = { "main", "detail" };
-        // client.deleteTable(tableUser);
-        // client.createTable(tableUser, users);
+         client.deleteTable(tableUser);
+         client.createTable(tableUser, users);
 
         // Create Table Bentuk Penilaian
         TableName tableAppraisalForm = TableName.valueOf("appraisal_forms");
@@ -129,17 +129,17 @@ public class HBaseClientStructure {
         client.deleteTable(tableLearningMethod);
         client.createTable(tableLearningMethod, learningMethods);
 
-        // Create Tabel Pertanyaan
-        // TableName tableQuestion = TableName.valueOf("questions");
-        // String[] questions = { "main", "rps_detail", "detail" };
-        // client.deleteTable(tableQuestion);
-        // client.createTable(tableQuestion, questions);
+         //Create Tabel Pertanyaan
+         TableName tableQuestion = TableName.valueOf("questions");
+         String[] questions = { "main", "rps_detail", "detail" };
+         client.deleteTable(tableQuestion);
+         client.createTable(tableQuestion, questions);
 
-        // Create Tabel Jawaban
-        // TableName tableAnswer = TableName.valueOf("answers");
-        // String[] answers = { "main", "question", "detail" };
-        // client.deleteTable(tableAnswer);
-        // client.createTable(tableAnswer, answers);
+         //Create Tabel Jawaban
+         TableName tableAnswer = TableName.valueOf("answers");
+         String[] answers = { "main", "question", "detail" };
+         client.deleteTable(tableAnswer);
+         client.createTable(tableAnswer, answers);
 
         // Create Tabel Ujian
         TableName tableExam = TableName.valueOf("exams");
@@ -148,16 +148,21 @@ public class HBaseClientStructure {
         client.createTable(tableExam, exams);
 
         // Create Tabel Kuis
-        // TableName tableQuizzes = TableName.valueOf("quizzes");
-        // String[] quizzes = { "main", "rps", "questions", "detail" };
-        // client.deleteTable(tableQuizzes);
-        // client.createTable(tableQuizzes, quizzes);
+         TableName tableQuizzes = TableName.valueOf("quizzes");
+         String[] quizzes = { "main", "rps", "questions", "detail" };
+         client.deleteTable(tableQuizzes);
+         client.createTable(tableQuizzes, quizzes);
+        // Create Tabel Pengumuman Kuis
+        TableName tableQuizzesAnnouncement = TableName.valueOf("quizzes_announcement");
+        String[] quizzes_announcement = { "main", "rps", "questions", "detail" };
+        client.deleteTable(tableQuizzesAnnouncement);
+        client.createTable(tableQuizzesAnnouncement, quizzes_announcement);
 
         // Create Tabel Latihan
-        // TableName tableExcercise = TableName.valueOf("exercises");
-        // String[] exercises = { "main", "rps", "questions", "detail" };
-        // client.deleteTable(tableExcercise);
-        // client.createTable(tableExcercise, exercises);
+         TableName tableExcercise = TableName.valueOf("exercises");
+         String[] exercises = { "main", "rps", "questions", "detail" };
+         client.deleteTable(tableExcercise);
+         client.createTable(tableExcercise, exercises);
 
         // Create Tabel Percobaan pengumpulan Ujian
         TableName tableExamAttempts = TableName.valueOf("exam_attempts");
@@ -172,10 +177,10 @@ public class HBaseClientStructure {
         client.createTable(tableQuizAttempts, quizAttempts);
 
         // // Create Tabel Percobaan pengumpulan Latihan
-        // TableName tableExerciseAttempts = TableName.valueOf("exercise_attempts");
-        // String[] exerciseAttempts = { "main", "exercise", "user", "student", "student_answers", "detail" };
-        // client.deleteTable(tableExerciseAttempts);
-        // client.createTable(tableExerciseAttempts, exerciseAttempts);
+         TableName tableExerciseAttempts = TableName.valueOf("exercise_attempts");
+         String[] exerciseAttempts = { "main", "exercise", "user", "student", "student_answers", "detail" };
+         client.deleteTable(tableExerciseAttempts);
+         client.createTable(tableExerciseAttempts, exerciseAttempts);
 
         // Create Tabel Metode Pembelajaran
         TableName tableExamType = TableName.valueOf("exam_types");
@@ -185,17 +190,17 @@ public class HBaseClientStructure {
 
         // Create Tabel Krireria Penilaian Soal
 
-        // TableName tableQuestionCriteria = TableName.valueOf("question_criterias");
-        // String[] questionCriterias = { "main", "detail" };
-        // client.deleteTable(tableQuestionCriteria);
-        // client.createTable(tableQuestionCriteria, questionCriterias);
+         TableName tableQuestionCriteria = TableName.valueOf("question_criterias");
+         String[] questionCriterias = { "main", "detail" };
+         client.deleteTable(tableQuestionCriteria);
+         client.createTable(tableQuestionCriteria, questionCriterias);
 
         // Create Tabel Nilai Linguistic
 
-        // TableName tableLinguisticValue = TableName.valueOf("linguistic_values");
-        // String[] linguisticValues = { "main", "detail" };
-        // client.deleteTable(tableLinguisticValue);
-        // client.createTable(tableLinguisticValue, linguisticValues);
+         TableName tableLinguisticValue = TableName.valueOf("linguistic_values");
+         String[] linguisticValues = { "main", "detail" };
+         client.deleteTable(tableLinguisticValue);
+         client.createTable(tableLinguisticValue, linguisticValues);
 
         // Create Tabel  Team Teaching
         TableName tableTeamTeaching = TableName.valueOf("team_teachings");
@@ -205,7 +210,7 @@ public class HBaseClientStructure {
 
         // Create Tabel Penilaian Soal
         TableName tableCriteriaValue = TableName.valueOf("criteria_values");
-        String[] criteriaValues = { "main","detail","team_teaching","question","value1","value2","value3","value4","value5","value6","value7","value8","value9"};
+        String[] criteriaValues = { "main","detail","team_teaching","question","user","value1","value2","value3","value4","value5","value6","value7","value8","value9"};
         client.deleteTable(tableCriteriaValue);
         client.createTable(tableCriteriaValue, criteriaValues);
 
@@ -241,125 +246,125 @@ public class HBaseClientStructure {
         client.insertRecord(tableStudyProgram, "SP002", "department", "name", "Jurusan Teknik Mesin");
         client.insertRecord(tableStudyProgram, "SP002", "detail", "created_by", "Doyatama");
 
-        // Insert Users
-        // client.insertRecord(tableUser, "USR001", "main", "id", "USR001");
-        // client.insertRecord(tableUser, "USR001", "main", "email", "admin@gmail.com");
-        // client.insertRecord(tableUser, "USR001", "main", "username", "admin");
-        // client.insertRecord(tableUser, "USR001", "main", "password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
-        // client.insertRecord(tableUser, "USR001", "main", "roles", "1");
-        // client.insertRecord(tableUser, "USR001", "main", "created_at", "2023-05-14T04:56:23.174Z");
-        // client.insertRecord(tableUser, "USR001", "detail", "created_by", "Doyatama");
+         //Insert Users
+         client.insertRecord(tableUser, "USR001", "main", "id", "USR001");
+         client.insertRecord(tableUser, "USR001", "main", "email", "admin@gmail.com");
+         client.insertRecord(tableUser, "USR001", "main", "username", "admin");
+         client.insertRecord(tableUser, "USR001", "main", "password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
+         client.insertRecord(tableUser, "USR001", "main", "roles", "1");
+         client.insertRecord(tableUser, "USR001", "main", "created_at", "2023-05-14T04:56:23.174Z");
+         client.insertRecord(tableUser, "USR001", "detail", "created_by", "Doyatama");
 
-        // client.insertRecord(tableUser, "USR002", "main", "id", "USR002");
-        // client.insertRecord(tableUser, "USR002", "main", "email", "dosen@gmail.com");
-        // client.insertRecord(tableUser, "USR002", "main", "username", "dosen");
-        // client.insertRecord(tableUser, "USR002", "main", "password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
-        // client.insertRecord(tableUser, "USR002", "main", "roles", "2");
-        // client.insertRecord(tableUser, "USR002", "main", "created_at", "2023-05-14T04:56:23.174Z");
-        // client.insertRecord(tableUser, "USR002", "detail", "created_by", "Doyatama");
+         client.insertRecord(tableUser, "USR002", "main", "id", "USR002");
+         client.insertRecord(tableUser, "USR002", "main", "email", "dosen@gmail.com");
+         client.insertRecord(tableUser, "USR002", "main", "username", "dosen");
+         client.insertRecord(tableUser, "USR002", "main", "password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
+         client.insertRecord(tableUser, "USR002", "main", "roles", "2");
+         client.insertRecord(tableUser, "USR002", "main", "created_at", "2023-05-14T04:56:23.174Z");
+         client.insertRecord(tableUser, "USR002", "detail", "created_by", "Doyatama");
 
-        // client.insertRecord(tableUser, "USR003", "main", "id", "USR003");
-        // client.insertRecord(tableUser, "USR003", "main", "email", "dosen2@gmail.com");
-        // client.insertRecord(tableUser, "USR003", "main", "username", "dosen2");
-        // client.insertRecord(tableUser, "USR003", "main", "password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
-        // client.insertRecord(tableUser, "USR003", "main", "roles", "2");
-        // client.insertRecord(tableUser, "USR003", "main", "created_at", "2023-05-14T04:56:23.174Z");
-        // client.insertRecord(tableUser, "USR003", "detail", "created_by", "Doyatama");
+         client.insertRecord(tableUser, "USR003", "main", "id", "USR003");
+         client.insertRecord(tableUser, "USR003", "main", "email", "dosen2@gmail.com");
+         client.insertRecord(tableUser, "USR003", "main", "username", "dosen2");
+         client.insertRecord(tableUser, "USR003", "main", "password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
+         client.insertRecord(tableUser, "USR003", "main", "roles", "2");
+         client.insertRecord(tableUser, "USR003", "main", "created_at", "2023-05-14T04:56:23.174Z");
+         client.insertRecord(tableUser, "USR003", "detail", "created_by", "Doyatama");
 
-        // // Define the data
-        List<Map<String, String>> usersToInsert = Arrays.asList(
-        //     new HashMap<String, String>() {{
-        //         put("id", "Dosen1");
-        //         put("name", "Imam Fahrur Rozi, ST., MT");
-        //         put("username", "ImamFahrurRozi");
-        //         put("email", "ImamFahrurRozi@gmail.com");
-        //         put("password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2");
-        //         put("roles", "2");
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("id", "Dosen2");
-        //         put("name", "Frihandhika Permana SPd., MKom.");
-        //         put("username", "Frihandhika");
-        //         put("email", "FrihandhikaPermana@gmail.com");
-        //         put("password", "$2a$10$sSAQd8HmcdZ5GVHEH4xeSOsRvem6odZW8HPR0LmCDsW3q3DFmZpX.");
-        //         put("roles", "2");
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("id", "Dosen3");
-        //         put("name", "Milyun Ni’ma Shoumi, S.Kom., M.Kom.");
-        //         put("username", "MilyunNima");
-        //         put("email", "MilyunNi’maShoumi@gmail.com");
-        //         put("password", "$2a$10$XF8Mm59/YUYTFeunZVLTbuyEnlQ7qrK3dVhdH6QWqLrxrgdSoSqGa");
-        //         put("roles", "2");
-        //     }},
-        //      new HashMap<String, String>() {{
-        //         put("id", "Dosen4");
-        //         put("name", "Putra Prima Arhandi, ST., M.Kom.");
-        //         put("username", "PutraPrima");
-        //         put("email", "PutraPrima@gmail.com");
-        //         put("password", "$2a$10$4/500fF8xPKlfvqN5aK1ZevkSFGDdwEvnzVfbGHnY8MGhcW52WM1u");
-        //         put("roles", "2");
-        //         put("createdAt", null);
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("id", "Dosen5");
-        //         put("name", "Muhammad Shulhan Khairy, S.Kom, M.Kom");
-        //         put("username", "MuhammadShulha");
-        //         put("email", "MuhammadShulhanKhairy@gmail.com");
-        //         put("password", "$2a$10$jWiDb.ZSkDVMlVqIew5DvOd3RKW7Mo1i9L807UEP8.YdsST8zENxm");
-        //         put("roles", "2");
-        //         put("createdAt", null);
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("id", "Dosen6");
-        //         put("name", "Gunawan Budiprasetyo, S.T., M.MT., Ph.D.");
-        //         put("username", "GunawanBudi");
-        //         put("email", "GunawanBudi@gmaill.com");
-        //         put("password", "$2a$10$c3zoMKVwq/kRDi7ijjzeROCZCUZHLcoVSUnzMsCxl/7Pt3oJDkNB6");
-        //         put("roles", "2");
-        //         put("createdAt", null);
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("id", "Dosen7");
-        //         put("name", "Banni Satria Andoko, S. Kom., M.MSI");
-        //         put("username", "BanniSatria");
-        //         put("email", "BanniSatriaAndoko@gmail.com");
-        //         put("password", "$2a$10$x.8n7a53Z8zHd7raFwvwveTP6qZqck.F/PutSt4ughfmBH30TW6Km");
-        //         put("roles", "2");
-        //         put("createdAt", null);
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("id", "Dosen8");
-        //         put("name", "Priska Choirina, S.S.T., M.Tr.T");
-        //         put("username", "PriskaChoirina");
-        //         put("email", "PriskaChoirina@gmail.com");
-        //         put("password", "$2a$10$7mANJWMBgJs9FvNB38HWnuldiUjZJfq4c45/DgVVxInBctnfdVrCG");
-        //         put("roles", "3");
-        //         put("createdAt", null);
-        //     }}
+         // Define the data
+       List<Map<String, String>> usersToInsert = Arrays.asList(
+            new HashMap<String, String>() {{
+                put("id", "Dosen1");
+                put("name", "Imam Fahrur Rozi, ST., MT");
+                put("username", "ImamFahrurRozi");
+                put("email", "ImamFahrurRozi@gmail.com");
+                put("password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2");
+                put("roles", "2");
+            }},
+            new HashMap<String, String>() {{
+                put("id", "Dosen2");
+                put("name", "Frihandhika Permana SPd., MKom.");
+                put("username", "Frihandhika");
+                put("email", "FrihandhikaPermana@gmail.com");
+                put("password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2");
+                put("roles", "2");
+            }},
+            new HashMap<String, String>() {{
+                put("id", "Dosen3");
+                put("name", "Milyun Ni’ma Shoumi, S.Kom., M.Kom.");
+                put("username", "MilyunNima");
+                put("email", "MilyunNi’maShoumi@gmail.com");
+                put("password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2");
+                put("roles", "2");
+            }},
              new HashMap<String, String>() {{
-                put("id", "Dosen10");
-                put("name", "ranpo123");
-                put("username", "ranpo123");
-                put("email", "ranpo@gmail.com");
-                put("password","$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
+                put("id", "Dosen4");
+                put("name", "Putra Prima Arhandi, ST., M.Kom.");
+                put("username", "PutraPrima");
+                put("email", "PutraPrima@gmail.com");
+                put("password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2");
                 put("roles", "2");
                 put("createdAt", null);
-            }}
-            
-            
-        );
+            }},
+            new HashMap<String, String>() {{
+                put("id", "Dosen5");
+                put("name", "Muhammad Shulhan Khairy, S.Kom, M.Kom");
+                put("username", "MuhammadShulha");
+                put("email", "MuhammadShulhanKhairy@gmail.com");
+                put("password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2");
+                put("roles", "2");
+                put("createdAt", null);
+            }},
+            new HashMap<String, String>() {{
+                put("id", "Dosen6");
+                put("name", "Gunawan Budiprasetyo, S.T., M.MT., Ph.D.");
+                put("username", "GunawanBudi");
+                put("email", "GunawanBudi@gmaill.com");
+                put("password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2");
+                put("roles", "2");
+                put("createdAt", null);
+            }},
+            new HashMap<String, String>() {{
+                put("id", "Dosen7");
+                put("name", "Banni Satria Andoko, S. Kom., M.MSI");
+                put("username", "BanniSatria");
+                put("email", "BanniSatriaAndoko@gmail.com");
+                put("password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2");
+                put("roles", "2");
+                put("createdAt", null);
+            }},
+            new HashMap<String, String>() {{
+                put("id", "Dosen8");
+                put("name", "Priska Choirina, S.S.T., M.Tr.T");
+                put("username", "PriskaChoirina");
+                put("email", "PriskaChoirina@gmail.com");
+                put("password", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2");
+                put("roles", "3");
+                put("createdAt", null);
+            }},
+            new HashMap<String, String>() {{
+               put("id", "Dosen10");
+               put("name", "ranpo123");
+               put("username", "ranpo123");
+               put("email", "ranpo@gmail.com");
+               put("password","$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
+               put("roles", "2");
+               put("createdAt", null);
+           }}
 
-        // Loop over the data and insert each user
-        for (Map<String, String> user : usersToInsert) {
-            client.insertRecord(tableUser, user.get("id"), "main", "id", user.get("id"));
-            client.insertRecord(tableUser, user.get("id"), "main", "name", user.get("name"));
-            client.insertRecord(tableUser, user.get("id"), "main", "username", user.get("username"));
-            client.insertRecord(tableUser, user.get("id"), "main", "email", user.get("email"));
-            client.insertRecord(tableUser, user.get("id"), "main", "password", user.get("password"));
-            client.insertRecord(tableUser, user.get("id"), "main", "roles", user.get("roles"));
-            client.insertRecord(tableUser, user.get("id"), "detail", "created_by", "Doyatama");
-        }
+
+       );
+
+       // Loop over the data and insert each user
+       for (Map<String, String> user : usersToInsert) {
+           client.insertRecord(tableUser, user.get("id"), "main", "id", user.get("id"));
+           client.insertRecord(tableUser, user.get("id"), "main", "name", user.get("name"));
+           client.insertRecord(tableUser, user.get("id"), "main", "username", user.get("username"));
+           client.insertRecord(tableUser, user.get("id"), "main", "email", user.get("email"));
+           client.insertRecord(tableUser, user.get("id"), "main", "password", user.get("password"));
+           client.insertRecord(tableUser, user.get("id"), "main", "roles", user.get("roles"));
+           client.insertRecord(tableUser, user.get("id"), "detail", "created_by", "Doyatama");
+       }
         
         // Insert Religions
         client.insertRecord(tableReligion, "RLG001", "main", "id", "RLG001");
@@ -415,20 +420,20 @@ public class HBaseClientStructure {
         client.insertRecord(tableLearningMethod, "MP002", "detail", "created_by", "Doyatama");
 
          // Insert Tipe ujian
-        client.insertRecord(tableExamType, "EX001", "main", "id", "EX001");
-        client.insertRecord(tableExamType, "EX001", "main", "name", "EXERCISE");
-        client.insertRecord(tableExamType, "EX001", "main", "description", "Untuk latihan siswa");
-        client.insertRecord(tableExamType, "EX001", "detail", "created_by", "Alfa");
-
-        client.insertRecord(tableExamType, "EX002", "main", "id", "EX002");
-        client.insertRecord(tableExamType, "EX002", "main", "name", "QUIZ");
-        client.insertRecord(tableExamType, "EX002", "main", "description", "Untuk perssiapan ujian siswa");
-        client.insertRecord(tableExamType, "EX002", "detail", "created_by", "Alfa");
-
-        client.insertRecord(tableExamType, "EX003", "main", "id", "EX003");
-        client.insertRecord(tableExamType, "EX003", "main", "name", "EXAM");
-        client.insertRecord(tableExamType, "EX003", "main", "description", "Untuk ujian siswa");
-        client.insertRecord(tableExamType, "EX003", "detail", "created_by", "Alfa");
+//        client.insertRecord(tableExamType, "EX001", "main", "id", "EX001");
+//        client.insertRecord(tableExamType, "EX001", "main", "name", "EXERCISE");
+//        client.insertRecord(tableExamType, "EX001", "main", "description", "Untuk latihan siswa");
+//        client.insertRecord(tableExamType, "EX001", "detail", "created_by", "Alfa");
+//
+//        client.insertRecord(tableExamType, "EX002", "main", "id", "EX002");
+//        client.insertRecord(tableExamType, "EX002", "main", "name", "QUIZ");
+//        client.insertRecord(tableExamType, "EX002", "main", "description", "Untuk perssiapan ujian siswa");
+//        client.insertRecord(tableExamType, "EX002", "detail", "created_by", "Alfa");
+//
+//        client.insertRecord(tableExamType, "EX003", "main", "id", "EX003");
+//        client.insertRecord(tableExamType, "EX003", "main", "name", "EXAM");
+//        client.insertRecord(tableExamType, "EX003", "main", "description", "Untuk ujian siswa");
+//        client.insertRecord(tableExamType, "EX003", "detail", "created_by", "Alfa");
 
         // Insert Kriteria Penilaian
         client.insertRecord(tableAssessmentCriteria, "KP001", "main", "id", "KP001");
@@ -492,193 +497,122 @@ public class HBaseClientStructure {
         client.insertRecord(tableSubject, "SB002", "detail", "created_by", "Doyatama");
 
         // Insert Lectures
-        // client.insertRecord(tableLecture, "LEC001", "main", "id", "LEC001");
-        // client.insertRecord(tableLecture, "LEC001", "main", "address", "dosen@gmail.com");
-        // client.insertRecord(tableLecture, "LEC001", "main", "date_born", "dosen");
-        // client.insertRecord(tableLecture, "LEC001", "main", "gender", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
-        // client.insertRecord(tableLecture, "LEC001", "main", "name", "2");
-        // client.insertRecord(tableLecture, "LEC001", "main", "nidn", "2");
-        // client.insertRecord(tableLecture, "LEC001", "main", "phone", "2");
-        // client.insertRecord(tableLecture, "LEC001", "main", "place_born", "2");
-        // client.insertRecord(tableLecture, "LEC001", "main", "status", "Dosen");
-        // client.insertRecord(tableLecture, "LEC001", "religion", "id", "RLG001");
-        // client.insertRecord(tableLecture, "LEC001", "religion", "name", "Islam");
-        // client.insertRecord(tableLecture, "LEC001", "study_program", "id", "SP001");
-        // client.insertRecord(tableLecture, "LEC001", "study_program", "name", "D4 Teknik Informatika");
-        // client.insertRecord(tableLecture, "LEC001", "user", "id", "USR001");
-        // client.insertRecord(tableLecture, "LEC001", "user", "name", "dosen");
-        // client.insertRecord(tableLecture, "LEC001", "user", "email", "dosen@gmail.com");
-        // client.insertRecord(tableLecture, "LEC001", "user", "username", "dosen");
-        // client.insertRecord(tableLecture, "LEC001", "detail", "created_by", "Doyatama");
+        client.insertRecord(tableLecture, "LEC001", "main", "id", "LEC001");
+        client.insertRecord(tableLecture, "LEC001", "main", "address", "dosen@gmail.com");
+        client.insertRecord(tableLecture, "LEC001", "main", "date_born", "dosen");
+        client.insertRecord(tableLecture, "LEC001", "main", "gender", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
+        client.insertRecord(tableLecture, "LEC001", "main", "name", "2");
+        client.insertRecord(tableLecture, "LEC001", "main", "nidn", "2");
+        client.insertRecord(tableLecture, "LEC001", "main", "phone", "2");
+        client.insertRecord(tableLecture, "LEC001", "main", "place_born", "2");
+        client.insertRecord(tableLecture, "LEC001", "main", "status", "Dosen");
+        client.insertRecord(tableLecture, "LEC001", "religion", "id", "RLG001");
+        client.insertRecord(tableLecture, "LEC001", "religion", "name", "Islam");
+        client.insertRecord(tableLecture, "LEC001", "study_program", "id", "SP001");
+        client.insertRecord(tableLecture, "LEC001", "study_program", "name", "D4 Teknik Informatika");
+        client.insertRecord(tableLecture, "LEC001", "user", "id", "USR001");
+        client.insertRecord(tableLecture, "LEC001", "user", "name", "dosen");
+        client.insertRecord(tableLecture, "LEC001", "user", "email", "dosen@gmail.com");
+        client.insertRecord(tableLecture, "LEC001", "user", "username", "dosen");
+        client.insertRecord(tableLecture, "LEC001", "detail", "created_by", "Doyatama");
 
-        // client.insertRecord(tableLecture, "LEC002", "main", "id", "LEC002");
-        // client.insertRecord(tableLecture, "LEC002", "main", "address", "dosen2@gmail.com");
-        // client.insertRecord(tableLecture, "LEC002", "main", "date_born", "dosen2");
-        // client.insertRecord(tableLecture, "LEC002", "main", "gender", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
-        // client.insertRecord(tableLecture, "LEC002", "main", "name", "2");
-        // client.insertRecord(tableLecture, "LEC002", "main", "nidn", "2");
-        // client.insertRecord(tableLecture, "LEC002", "main", "phone", "2");
-        // client.insertRecord(tableLecture, "LEC002", "main", "place_born", "2");
-        // client.insertRecord(tableLecture, "LEC002", "main", "status", "Dosen");
-        // client.insertRecord(tableLecture, "LEC002", "religion", "id", "RLG001");
-        // client.insertRecord(tableLecture, "LEC002", "religion", "name", "Islam");
-        // client.insertRecord(tableLecture, "LEC002", "study_program", "id", "SP001");
-        // client.insertRecord(tableLecture, "LEC002", "study_program", "name", "D4 Teknik Informatika");
-        // client.insertRecord(tableLecture, "LEC002", "user", "id", "USR002");
-        // client.insertRecord(tableLecture, "LEC002", "user", "name", "dosen");
-        // client.insertRecord(tableLecture, "LEC002", "user", "email", "dosen@gmail.com");
-        // client.insertRecord(tableLecture, "LEC002", "user", "username", "dosen");
-        // client.insertRecord(tableLecture, "LEC002", "detail", "created_by", "Doyatama");
+        client.insertRecord(tableLecture, "LEC002", "main", "id", "LEC002");
+        client.insertRecord(tableLecture, "LEC002", "main", "address", "dosen2@gmail.com");
+        client.insertRecord(tableLecture, "LEC002", "main", "date_born", "dosen2");
+        client.insertRecord(tableLecture, "LEC002", "main", "gender", "$2a$10$SDRWMUk.2fnli0GTmqodJexjRksTw0En98dU8fdKsw7nTbZzMrj.2"); // password
+        client.insertRecord(tableLecture, "LEC002", "main", "name", "2");
+        client.insertRecord(tableLecture, "LEC002", "main", "nidn", "2");
+        client.insertRecord(tableLecture, "LEC002", "main", "phone", "2");
+        client.insertRecord(tableLecture, "LEC002", "main", "place_born", "2");
+        client.insertRecord(tableLecture, "LEC002", "main", "status", "Dosen");
+        client.insertRecord(tableLecture, "LEC002", "religion", "id", "RLG001");
+        client.insertRecord(tableLecture, "LEC002", "religion", "name", "Islam");
+        client.insertRecord(tableLecture, "LEC002", "study_program", "id", "SP001");
+        client.insertRecord(tableLecture, "LEC002", "study_program", "name", "D4 Teknik Informatika");
+        client.insertRecord(tableLecture, "LEC002", "user", "id", "USR002");
+        client.insertRecord(tableLecture, "LEC002", "user", "name", "dosen");
+        client.insertRecord(tableLecture, "LEC002", "user", "email", "dosen@gmail.com");
+        client.insertRecord(tableLecture, "LEC002", "user", "username", "dosen");
+        client.insertRecord(tableLecture, "LEC002", "detail", "created_by", "Doyatama");
 
-        // Define the data
-        List<Map<String, String>> lecturersToInsert = Arrays.asList (
-        //     new HashMap<String, String>() {{
-        //         put("id", "Dosen4");
-        //         put("nidn", "dummy");
-        //         put("name", "Putra Prima Arhandi, ST., M.Kom.");
-        //         put("place_born", "dummy");
-        //         put("date_born", "2024-06-21T17:10:48.134Z");
-        //         put("gender", "L");
-        //         put("status", "dosen");
-        //         put("address", "dummy");
-        //         put("phone", "6123123");
-        //         put("religion_id", "RLG001");
-        //         put("religion_name", "Islam");
-        //         put("study_program_id", "SP001");
-        //         put("study_program_name", "D4 Teknik Informatika");
-        //         put("user_id", "Dosen4");
-        //         put("user_name", "Putra Prima Arhandi, ST., M.Kom.");
-        //         put("created_by", "Doyatama");
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("id", "Dosen3");
-        //         put("nidn", "dummy");
-        //         put("name", "Milyun Ni’ma Shoumi, S.Kom., M.Kom.");
-        //         put("place_born", "dummy");
-        //         put("date_born", "2024-06-21T17:10:48.134Z");
-        //         put("gender", "L");
-        //         put("status", "dosen");
-        //         put("address", "dummy");
-        //         put("phone", "6123123");
-        //         put("religion_id", "RLG001");
-        //         put("religion_name", "Islam");
-        //         put("study_program_id", "SP001");
-        //         put("study_program_name", "D4 Teknik Informatika");
-        //         put("user_id", "Dosen3");
-        //         put("user_name", "Milyun Ni’ma Shoumi, S.Kom., M.Kom.");
-        //         put("created_by", "Doyatama");
-        // }},
-        //     new HashMap<String, String>() {{
-        //         put("id", "Dosen1");
-        //         put("nidn", "dummy");
-        //         put("name", "Imam Fahrur Rozi, ST., MT");
-        //         put("place_born", "dummy");
-        //         put("date_born", "2024-06-21T17:10:48.134Z");
-        //         put("gender", "L");
-        //         put("status", "dosen");
-        //         put("address", "dummy");
-        //         put("phone", "6123123");
-        //         put("religion_id", "RLG001");
-        //         put("religion_name", "Islam");
-        //         put("study_program_id", "SP001");
-        //         put("study_program_name", "D4 Teknik Informatika");
-        //         put("user_id", "Dosen1");
-        //         put("user_name", "Imam Fahrur Rozi, ST., MT");
-        //         put("created_by", "Doyatama");
-        // }},
-        // new HashMap<String, String>() {{
-        //         put("id", "Dosen2");
-        //         put("nidn", "dummy");
-        //         put("name", "Frihandhika Permana SPd., MKom.");
-        //         put("place_born", "dummy");
-        //         put("date_born", "2024-06-21T17:10:48.134Z");
-        //         put("gender", "L");
-        //         put("status", "dosen");
-        //         put("address", "dummy");
-        //         put("phone", "6123123");
-        //         put("religion_id", "RLG001");
-        //         put("religion_name", "Islam");
-        //         put("study_program_id", "SP001");
-        //         put("study_program_name", "D4 Teknik Informatika");
-        //         put("user_id", "Dosen2");
-        //         put("user_name", "Frihandhika Permana SPd., MKom.");
-        //         put("created_by", "Doyatama");
-        // }},
-        // new HashMap<String, String>() {{
-        //     put("id", "Dosen5");
-        //     put("nidn", "dummy");
-        //     put("name", "Muhammad Shulhan Khairy, S.Kom, M.Kom");
-        //     put("place_born", "dummy");
-        //     put("date_born", "2024-06-21T17:10:48.134Z");
-        //     put("gender", "L");
-        //     put("status", "dosen");
-        //     put("address", "dummy");
-        //     put("phone", "6123123");
-        //     put("religion_id", "RLG001");
-        //     put("religion_name", "Islam");
-        //     put("study_program_id", "SP001");
-        //     put("study_program_name", "D4 Teknik Informatika");
-        //     put("user_id", "MuhammadShulha");
-        //     put("user_name", "Dosen5");
-        //     put("created_by", "Doyatama");
-        // }},
-        // new HashMap<String, String>() {{
-        //     put("id", "Dosen6");
-        //     put("nidn", "dummy");
-        //     put("name", "Gunawan Budiprasetyo, S.T., M.MT., Ph.D.");
-        //     put("place_born", "dummy");
-        //     put("date_born", "2024-06-21T17:10:48.134Z");
-        //     put("gender", "L");
-        //     put("status", "dosen");
-        //     put("address", "dummy");
-        //     put("phone", "6123123");
-        //     put("religion_id", "RLG001");
-        //     put("religion_name", "Islam");
-        //     put("study_program_id", "SP001");
-        //     put("study_program_name", "D4 Teknik Informatika");
-        //     put("user_id", "Dosen6");
-        //     put("user_name", "Gunawan Budiprasetyo, S.T., M.MT., Ph.D.");
-        //     put("created_by", "Doyatama");
-        // }},
-        // new HashMap<String, String>() {{
-        //     put("id", "Dosen7");
-        //     put("nidn", "dummy");
-        //     put("name", "Banni Satria Andoko, S. Kom., M.MSI");
-        //     put("place_born", "dummy");
-        //     put("date_born", "2024-06-21T17:10:48.134Z");
-        //     put("gender", "L");
-        //     put("status", "dosen");
-        //     put("address", "dummy");
-        //     put("phone", "6123123");
-        //     put("religion_id", "RLG001");
-        //     put("religion_name", "Islam");
-        //     put("study_program_id", "SP001");
-        //     put("study_program_name", "D4 Teknik Informatika");
-        //     put("user_id", "Dosen7");
-        //     put("user_name", "Banni Satria Andoko, S. Kom., M.MSI");
-        //     put("created_by", "Doyatama");
-        // }},
-        // new HashMap<String, String>() {{
-        //     put("id", "Dosen8");
-        //     put("nidn", "dummy");
-        //     put("name", "Priska Choirina, S.S.T., M.Tr.T");
-        //     put("place_born", "dummy");
-        //     put("date_born", "2024-06-21T17:10:48.134Z");
-        //     put("gender", "L");
-        //     put("status", "dosen");
-        //     put("address", "dummy");
-        //     put("phone", "6123123");
-        //     put("religion_id", "RLG001");
-        //     put("religion_name", "Islam");
-        //     put("study_program_id", "SP001");
-        //     put("study_program_name", "D4 Teknik Informatika");
-        //     put("user_id", "Dosen8");
-        //     put("user_name", "Priska Choirina, S.S.T., M.Tr.T");
-        //     put("created_by", "Doyatama");
+       // Define the data
+       List<Map<String, String>> lecturersToInsert = Arrays.asList (
+            new HashMap<String, String>() {{
+                put("id", "Dosen4");
+                put("nidn", "dummy");
+                put("name", "Putra Prima Arhandi, ST., M.Kom.");
+                put("place_born", "dummy");
+                put("date_born", "2024-06-21T17:10:48.134Z");
+                put("gender", "L");
+                put("status", "dosen");
+                put("address", "dummy");
+                put("phone", "6123123");
+                put("religion_id", "RLG001");
+                put("religion_name", "Islam");
+                put("study_program_id", "SP001");
+                put("study_program_name", "D4 Teknik Informatika");
+                put("user_id", "Dosen4");
+                put("user_name", "Putra Prima Arhandi, ST., M.Kom.");
+                put("created_by", "Doyatama");
+            }},
+            new HashMap<String, String>() {{
+                put("id", "Dosen3");
+                put("nidn", "dummy");
+                put("name", "Milyun Ni’ma Shoumi, S.Kom., M.Kom.");
+                put("place_born", "dummy");
+                put("date_born", "2024-06-21T17:10:48.134Z");
+                put("gender", "L");
+                put("status", "dosen");
+                put("address", "dummy");
+                put("phone", "6123123");
+                put("religion_id", "RLG001");
+                put("religion_name", "Islam");
+                put("study_program_id", "SP001");
+                put("study_program_name", "D4 Teknik Informatika");
+                put("user_id", "Dosen3");
+                put("user_name", "Milyun Ni’ma Shoumi, S.Kom., M.Kom.");
+                put("created_by", "Doyatama");
+        }},
+            new HashMap<String, String>() {{
+                put("id", "Dosen1");
+                put("nidn", "dummy");
+                put("name", "Imam Fahrur Rozi, ST., MT");
+                put("place_born", "dummy");
+                put("date_born", "2024-06-21T17:10:48.134Z");
+                put("gender", "L");
+                put("status", "dosen");
+                put("address", "dummy");
+                put("phone", "6123123");
+                put("religion_id", "RLG001");
+                put("religion_name", "Islam");
+                put("study_program_id", "SP001");
+                put("study_program_name", "D4 Teknik Informatika");
+                put("user_id", "Dosen1");
+                put("user_name", "Imam Fahrur Rozi, ST., MT");
+                put("created_by", "Doyatama");
+        }},
         new HashMap<String, String>() {{
-            put("id", "Dosen10");
+                put("id", "Dosen2");
+                put("nidn", "dummy");
+                put("name", "Frihandhika Permana SPd., MKom.");
+                put("place_born", "dummy");
+                put("date_born", "2024-06-21T17:10:48.134Z");
+                put("gender", "L");
+                put("status", "dosen");
+                put("address", "dummy");
+                put("phone", "6123123");
+                put("religion_id", "RLG001");
+                put("religion_name", "Islam");
+                put("study_program_id", "SP001");
+                put("study_program_name", "D4 Teknik Informatika");
+                put("user_id", "Dosen2");
+                put("user_name", "Frihandhika Permana SPd., MKom.");
+                put("created_by", "Doyatama");
+        }},
+        new HashMap<String, String>() {{
+            put("id", "Dosen5");
             put("nidn", "dummy");
-            put("name", "ranpo123");
+            put("name", "Muhammad Shulhan Khairy, S.Kom, M.Kom");
             put("place_born", "dummy");
             put("date_born", "2024-06-21T17:10:48.134Z");
             put("gender", "L");
@@ -689,33 +623,105 @@ public class HBaseClientStructure {
             put("religion_name", "Islam");
             put("study_program_id", "SP001");
             put("study_program_name", "D4 Teknik Informatika");
-            put("user_id", "Dosen10");
-            put("user_name", "ranpo123");
+            put("user_id", "MuhammadShulha");
+            put("user_name", "Dosen5");
             put("created_by", "Doyatama");
-    
-        }}
+        }},
+        new HashMap<String, String>() {{
+            put("id", "Dosen6");
+            put("nidn", "dummy");
+            put("name", "Gunawan Budiprasetyo, S.T., M.MT., Ph.D.");
+            put("place_born", "dummy");
+            put("date_born", "2024-06-21T17:10:48.134Z");
+            put("gender", "L");
+            put("status", "dosen");
+            put("address", "dummy");
+            put("phone", "6123123");
+            put("religion_id", "RLG001");
+            put("religion_name", "Islam");
+            put("study_program_id", "SP001");
+            put("study_program_name", "D4 Teknik Informatika");
+            put("user_id", "Dosen6");
+            put("user_name", "Gunawan Budiprasetyo, S.T., M.MT., Ph.D.");
+            put("created_by", "Doyatama");
+        }},
+        new HashMap<String, String>() {{
+            put("id", "Dosen7");
+            put("nidn", "dummy");
+            put("name", "Banni Satria Andoko, S. Kom., M.MSI");
+            put("place_born", "dummy");
+            put("date_born", "2024-06-21T17:10:48.134Z");
+            put("gender", "L");
+            put("status", "dosen");
+            put("address", "dummy");
+            put("phone", "6123123");
+            put("religion_id", "RLG001");
+            put("religion_name", "Islam");
+            put("study_program_id", "SP001");
+            put("study_program_name", "D4 Teknik Informatika");
+            put("user_id", "Dosen7");
+            put("user_name", "Banni Satria Andoko, S. Kom., M.MSI");
+            put("created_by", "Doyatama");
+        }},
+        new HashMap<String, String>() {{
+            put("id", "Dosen8");
+            put("nidn", "dummy");
+            put("name", "Priska Choirina, S.S.T., M.Tr.T");
+            put("place_born", "dummy");
+            put("date_born", "2024-06-21T17:10:48.134Z");
+            put("gender", "L");
+            put("status", "dosen");
+            put("address", "dummy");
+            put("phone", "6123123");
+            put("religion_id", "RLG001");
+            put("religion_name", "Islam");
+            put("study_program_id", "SP001");
+            put("study_program_name", "D4 Teknik Informatika");
+            put("user_id", "Dosen8");
+            put("user_name", "Priska Choirina, S.S.T., M.Tr.T");
+            put("created_by", "Doyatama");
+        }},
+       new HashMap<String, String>() {{
+           put("id", "Dosen10");
+           put("nidn", "dummy");
+           put("name", "ranpo123");
+           put("place_born", "dummy");
+           put("date_born", "2024-06-21T17:10:48.134Z");
+           put("gender", "L");
+           put("status", "dosen");
+           put("address", "dummy");
+           put("phone", "6123123");
+           put("religion_id", "RLG001");
+           put("religion_name", "Islam");
+           put("study_program_id", "SP001");
+           put("study_program_name", "D4 Teknik Informatika");
+           put("user_id", "Dosen10");
+           put("user_name", "ranpo123");
+           put("created_by", "Doyatama");
 
-        );
+       }}
 
-        // Loop over the data and insert each lecturer
-        for (Map<String, String> lecturer : lecturersToInsert) {
-            client.insertRecord(tableLecture, lecturer.get("id"), "main", "id", lecturer.get("id"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "main", "nidn", lecturer.get("nidn"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "main", "name", lecturer.get("name"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "main", "place_born", lecturer.get("place_born"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "main", "date_born", lecturer.get("date_born"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "main", "gender", lecturer.get("gender"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "main", "status", lecturer.get("status"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "main", "address", lecturer.get("address"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "main", "phone", lecturer.get("phone"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "religion", "id", lecturer.get("religion_id"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "religion", "name", lecturer.get("religion_name"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "study_program", "id", lecturer.get("study_program_id"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "study_program", "name", lecturer.get("study_program_name"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "user", "id", lecturer.get("user_id"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "user", "name", lecturer.get("user_name"));
-            client.insertRecord(tableLecture, lecturer.get("id"), "detail", "created_by", lecturer.get("created_by"));
-        }
+       );
+
+       // Loop over the data and insert each lecturer
+       for (Map<String, String> lecturer : lecturersToInsert) {
+           client.insertRecord(tableLecture, lecturer.get("id"), "main", "id", lecturer.get("id"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "main", "nidn", lecturer.get("nidn"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "main", "name", lecturer.get("name"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "main", "place_born", lecturer.get("place_born"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "main", "date_born", lecturer.get("date_born"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "main", "gender", lecturer.get("gender"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "main", "status", lecturer.get("status"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "main", "address", lecturer.get("address"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "main", "phone", lecturer.get("phone"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "religion", "id", lecturer.get("religion_id"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "religion", "name", lecturer.get("religion_name"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "study_program", "id", lecturer.get("study_program_id"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "study_program", "name", lecturer.get("study_program_name"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "user", "id", lecturer.get("user_id"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "user", "name", lecturer.get("user_name"));
+           client.insertRecord(tableLecture, lecturer.get("id"), "detail", "created_by", lecturer.get("created_by"));
+       }
        
         // Learning Media
         // Software
@@ -822,314 +828,314 @@ public class HBaseClientStructure {
         client.insertRecord(tableRPS, id, "detail", "created_at", "2024-06-03T17:21:19.853011600Z");
         
         // RPS Detail
-        // List<Map<String, String>> rpsDetailsToInsert = Arrays.asList(
-        //     new HashMap<String, String>() {{
-        //         put("main_id", "RPS-PBO-001-1");
-        //         put("main_week", "1");
-        //         put("rps_id", "RPS-PBO-001");
-        //         put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //         put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //         put("learning_materials_lm_1", "Penjelasan silabus dan kontrak kuliah; ●Pengantar Konsep Dasar PBO; ●Penjelasan tentang perbedaan paradigma berorientasi objek dengan paradigma struktural");
-        //         put("form_learning_id", "BP002");
-        //         put("form_learning_name", "Luring");
-        //         put("assignments_lm_1", "-");
-        //         put("estimated_times_et_1", "150");
-        //         put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //         put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //         put("main_weight", "1.0");
-        //         put("detail_created_by", "Doyatama");
-        //         put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("main_id", "RPS-PBO-001-2");
-        //         put("main_week", "2");
-        //         put("rps_id", "RPS-PBO-001");
-        //         put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //         put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //         put("learning_materials_lm_1", "Konsep Dasar PBO: •Pengenalan PBO e Perbedaan paradigma berorientasi objek dengan paradigma struktural Konsep dasar PBO: a. Class b. Object c. Enkapsulasi d. Inheritance e. Polimorfisme • Pengenalan pemodelan UML");
-        //         put("form_learning_id", "BP002");
-        //         put("form_learning_name", "Luring");
-        //         put("assignments_lm_1", "-");
-        //         put("estimated_times_et_1", "150");
-        //         put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //         put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //         put("main_weight", "1.0");
-        //         put("detail_created_by", "Doyatama");
-        //         put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("main_id", "RPS-PBO-001-3");
-        //         put("main_week", "3");
-        //         put("rps_id", "RPS-PBO-001");
-        //         put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //         put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //         put("learning_materials_lm_1", "Enkapsulasi: e Konstruktor •Access modifier •Atribut/Method Class •Atribut/Method Instansiasi •Setter dan Getter •UML: Notasi access modifier dan notasi static");
-        //         put("form_learning_id", "BP002");
-        //         put("form_learning_name", "Luring");
-        //         put("assignments_lm_1", "-");
-        //         put("estimated_times_et_1", "150");
-        //         put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //         put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //         put("main_weight", "1.0");
-        //         put("detail_created_by", "Doyatama");
-        //         put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("main_id", "RPS-PBO-001-4");
-        //         put("main_week", "4");
-        //         put("rps_id", "RPS-PBO-001");
-        //         put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //         put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //         put("learning_materials_lm_1", "Relasi Class: •Relasi Has-A (Studi kasus class 1 memiliki hubungan has-a dengan 1 objek dari klass lain) •Penggambaran relasi class dengan diagram class •Relasi Has-A (Studi kasus class 1 memiliki hubungan has-a dengan lebih dari 1 objek dari klass lain)");
-        //         put("form_learning_id", "BP002");
-        //         put("form_learning_name", "Luring");
-        //         put("assignments_lm_1", "-");
-        //         put("estimated_times_et_1", "150");
-        //         put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //         put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //         put("main_weight", "1.0");
-        //         put("detail_created_by", "Doyatama");
-        //         put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //     }},
-        //     new HashMap<String, String>() {{
-        //         put("main_id", "RPS-PBO-001-5");
-        //         put("main_week", "5");
-        //         put("rps_id", "RPS-PBO-001");
-        //         put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //         put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //         put("learning_materials_lm_1", "Kuis 1 Materi pertemuan 1- 4");
-        //         put("form_learning_id", "BP002");
-        //         put("form_learning_name", "Luring");
-        //         put("assignments_lm_1", "-");
-        //         put("estimated_times_et_1", "150");
-        //         put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //         put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //         put("main_weight", "1.0");
-        //         put("detail_created_by", "Doyatama");
-        //         put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //     }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-6");
-        //             put("main_week", "6");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "Inheritance: Pengertian Inheritance 'Single dan Multilevell Inheritance 'Super keyword eUML:relasi inheritance");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-7");
-        //             put("main_week", "7");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "Inheritance: Pengertian Inheritance 'Single dan Multilevell Inheritance 'Super keyword eUML:relasi inheritance");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-8");
-        //             put("main_week", "8");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "UTS •Materi 6-8 pertemuan •Overriding •Overloading");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-9");
-        //             put("main_week", "9");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "Overriding & Overloading");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-10");
-        //             put("main_week", "10");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "Abstract Class: Abstract Konsep Class Abstract method UML:notasi abstract");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-11");
-        //             put("main_week", "11");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "Interface: • Konsep Interface •Beda Interface dan Abstract Class Pembuatan interface implements interface •UML:notasi yang ke interface dan relasi implements");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-12");
-        //             put("main_week", "12");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "Polimorfisme: Konsep polimorfisme oheterogeneous collection polymorphic arguments evirtual method invocation •casting object");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-13");
-        //             put("main_week", "13");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "Materi 09-12 pertemuan");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-14");
-        //             put("main_week", "14");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "GUI: Fra me, Textfield, Menu, Button, Label, Combobox, Radiobutton, Checkbox Event Handling (actionperformed)");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-15");
-        //             put("main_week", "15");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "GUi, Database, dan Java API: 'JDBC MySQL 'CRUD dengan GUI •Java Docs");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-16");
-        //             put("main_week", "16");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "Tugas Besar: Perancangan diagram class dari kasus diberikan. yang diberikan");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }},
-        //         new HashMap<String, String>() {{
-        //             put("main_id", "RPS-PBO-001-17");
-        //             put("main_week", "17");
-        //             put("rps_id", "RPS-PBO-001");
-        //             put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
-        //             put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
-        //             put("learning_materials_lm_1", "UAS: e Materi mulai pertemuan 1-16");
-        //             put("form_learning_id", "BP002");
-        //             put("form_learning_name", "Luring");
-        //             put("assignments_lm_1", "-");
-        //             put("estimated_times_et_1", "150");
-        //             put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
-        //             put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
-        //             put("main_weight", "1.0");
-        //             put("detail_created_by", "Doyatama");
-        //             put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
-        //         }}
-        // );
-        // for (Map<String, String> rpsDetail : rpsDetailsToInsert) {
-        //     String RPSDetailid = rpsDetail.get("main_id");
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "main", "id", rpsDetail.get("main_id"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "main", "week", rpsDetail.get("main_week"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "rps", "id", rpsDetail.get("rps_id"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "rps", "name", rpsDetail.get("rps_name"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "main", "sub_cp_mk", rpsDetail.get("main_sub_cp_mk"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "learning_materials", "lm_1", rpsDetail.get("learning_materials_lm_1"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "form_learning", "id", rpsDetail.get("form_learning_id"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "form_learning", "name", rpsDetail.get("form_learning_name"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "assignments", "lm_1", rpsDetail.get("assignments_lm_1"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "estimated_times", "et_1", rpsDetail.get("estimated_times_et_1"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "student_learning_experiences", "sle_1", rpsDetail.get("student_learning_experiences_sle_1"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "assessment_indicators", "ai_1", rpsDetail.get("assessment_indicators_ai_1"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "main", "weight", rpsDetail.get("main_weight"));
-        //     client.insertRecord(tableRPSDetail, RPSDetailid, "detail", "created_by", rpsDetail.get("detail_created_by"));
-        // }
+         List<Map<String, String>> rpsDetailsToInsert = Arrays.asList(
+             new HashMap<String, String>() {{
+                 put("main_id", "RPS-PBO-001-1");
+                 put("main_week", "1");
+                 put("rps_id", "RPS-PBO-001");
+                 put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                 put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                 put("learning_materials_lm_1", "Penjelasan silabus dan kontrak kuliah; ●Pengantar Konsep Dasar PBO; ●Penjelasan tentang perbedaan paradigma berorientasi objek dengan paradigma struktural");
+                 put("form_learning_id", "BP002");
+                 put("form_learning_name", "Luring");
+                 put("assignments_lm_1", "-");
+                 put("estimated_times_et_1", "150");
+                 put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                 put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                 put("main_weight", "1.0");
+                 put("detail_created_by", "Doyatama");
+                 put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+             }},
+             new HashMap<String, String>() {{
+                 put("main_id", "RPS-PBO-001-2");
+                 put("main_week", "2");
+                 put("rps_id", "RPS-PBO-001");
+                 put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                 put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                 put("learning_materials_lm_1", "Konsep Dasar PBO: •Pengenalan PBO e Perbedaan paradigma berorientasi objek dengan paradigma struktural Konsep dasar PBO: a. Class b. Object c. Enkapsulasi d. Inheritance e. Polimorfisme • Pengenalan pemodelan UML");
+                 put("form_learning_id", "BP002");
+                 put("form_learning_name", "Luring");
+                 put("assignments_lm_1", "-");
+                 put("estimated_times_et_1", "150");
+                 put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                 put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                 put("main_weight", "1.0");
+                 put("detail_created_by", "Doyatama");
+                 put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+             }},
+             new HashMap<String, String>() {{
+                 put("main_id", "RPS-PBO-001-3");
+                 put("main_week", "3");
+                 put("rps_id", "RPS-PBO-001");
+                 put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                 put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                 put("learning_materials_lm_1", "Enkapsulasi: e Konstruktor •Access modifier •Atribut/Method Class •Atribut/Method Instansiasi •Setter dan Getter •UML: Notasi access modifier dan notasi static");
+                 put("form_learning_id", "BP002");
+                 put("form_learning_name", "Luring");
+                 put("assignments_lm_1", "-");
+                 put("estimated_times_et_1", "150");
+                 put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                 put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                 put("main_weight", "1.0");
+                 put("detail_created_by", "Doyatama");
+                 put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+             }},
+             new HashMap<String, String>() {{
+                 put("main_id", "RPS-PBO-001-4");
+                 put("main_week", "4");
+                 put("rps_id", "RPS-PBO-001");
+                 put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                 put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                 put("learning_materials_lm_1", "Relasi Class: •Relasi Has-A (Studi kasus class 1 memiliki hubungan has-a dengan 1 objek dari klass lain) •Penggambaran relasi class dengan diagram class •Relasi Has-A (Studi kasus class 1 memiliki hubungan has-a dengan lebih dari 1 objek dari klass lain)");
+                 put("form_learning_id", "BP002");
+                 put("form_learning_name", "Luring");
+                 put("assignments_lm_1", "-");
+                 put("estimated_times_et_1", "150");
+                 put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                 put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                 put("main_weight", "1.0");
+                 put("detail_created_by", "Doyatama");
+                 put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+             }},
+             new HashMap<String, String>() {{
+                 put("main_id", "RPS-PBO-001-5");
+                 put("main_week", "5");
+                 put("rps_id", "RPS-PBO-001");
+                 put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                 put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                 put("learning_materials_lm_1", "Kuis 1 Materi pertemuan 1- 4");
+                 put("form_learning_id", "BP002");
+                 put("form_learning_name", "Luring");
+                 put("assignments_lm_1", "-");
+                 put("estimated_times_et_1", "150");
+                 put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                 put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                 put("main_weight", "1.0");
+                 put("detail_created_by", "Doyatama");
+                 put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+             }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-6");
+                     put("main_week", "6");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "Inheritance: Pengertian Inheritance 'Single dan Multilevell Inheritance 'Super keyword eUML:relasi inheritance");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-7");
+                     put("main_week", "7");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "Inheritance: Pengertian Inheritance 'Single dan Multilevell Inheritance 'Super keyword eUML:relasi inheritance");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-8");
+                     put("main_week", "8");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "UTS •Materi 6-8 pertemuan •Overriding •Overloading");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-9");
+                     put("main_week", "9");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "Overriding & Overloading");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-10");
+                     put("main_week", "10");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "Abstract Class: Abstract Konsep Class Abstract method UML:notasi abstract");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-11");
+                     put("main_week", "11");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "Interface: • Konsep Interface •Beda Interface dan Abstract Class Pembuatan interface implements interface •UML:notasi yang ke interface dan relasi implements");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-12");
+                     put("main_week", "12");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "Polimorfisme: Konsep polimorfisme oheterogeneous collection polymorphic arguments evirtual method invocation •casting object");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-13");
+                     put("main_week", "13");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "Materi 09-12 pertemuan");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-14");
+                     put("main_week", "14");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "GUI: Fra me, Textfield, Menu, Button, Label, Combobox, Radiobutton, Checkbox Event Handling (actionperformed)");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-15");
+                     put("main_week", "15");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "GUi, Database, dan Java API: 'JDBC MySQL 'CRUD dengan GUI •Java Docs");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-16");
+                     put("main_week", "16");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "Tugas Besar: Perancangan diagram class dari kasus diberikan. yang diberikan");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }},
+                 new HashMap<String, String>() {{
+                     put("main_id", "RPS-PBO-001-17");
+                     put("main_week", "17");
+                     put("rps_id", "RPS-PBO-001");
+                     put("rps_name", "PEMROGRAMAN BERBASIS OBJEK");
+                     put("main_sub_cp_mk", ".Mahasiswa mampu memahami isi silabus\ndan kontrak kuliah;\n•Mahasiswa\nmemahami\ndasar PBO;\n• Mahasiswa\nmembedakan\nmampu\nkonsep\nmampu\nparadigma berorientasi\nobjek\ndengan\nparadigma struktural.");
+                     put("learning_materials_lm_1", "UAS: e Materi mulai pertemuan 1-16");
+                     put("form_learning_id", "BP002");
+                     put("form_learning_name", "Luring");
+                     put("assignments_lm_1", "-");
+                     put("estimated_times_et_1", "150");
+                     put("student_learning_experiences_sle_1", "en engar an materi dari dosen dan berdiskusi; Diskusi menerapkan konsep dasar PBO dipandu materi dosen dengan presentasi pengampu mata kuliah");
+                     put("assessment_indicators_ai_1", "• Ketepatan menjelaskan dasar PBO; Ketepatan menjelaskan konsep dan memberi studi kasus perbedaan tentang paradigma berorientasi objek denga n paradigma struktural;");
+                     put("main_weight", "1.0");
+                     put("detail_created_by", "Doyatama");
+                     put("detail_created_at", "2024-06-03T17:21:19.853011600Z");
+                 }}
+         );
+         for (Map<String, String> rpsDetail : rpsDetailsToInsert) {
+             String RPSDetailid = rpsDetail.get("main_id");
+             client.insertRecord(tableRPSDetail, RPSDetailid, "main", "id", rpsDetail.get("main_id"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "main", "week", rpsDetail.get("main_week"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "rps", "id", rpsDetail.get("rps_id"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "rps", "name", rpsDetail.get("rps_name"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "main", "sub_cp_mk", rpsDetail.get("main_sub_cp_mk"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "learning_materials", "lm_1", rpsDetail.get("learning_materials_lm_1"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "form_learning", "id", rpsDetail.get("form_learning_id"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "form_learning", "name", rpsDetail.get("form_learning_name"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "assignments", "lm_1", rpsDetail.get("assignments_lm_1"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "estimated_times", "et_1", rpsDetail.get("estimated_times_et_1"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "student_learning_experiences", "sle_1", rpsDetail.get("student_learning_experiences_sle_1"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "assessment_indicators", "ai_1", rpsDetail.get("assessment_indicators_ai_1"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "main", "weight", rpsDetail.get("main_weight"));
+             client.insertRecord(tableRPSDetail, RPSDetailid, "detail", "created_by", rpsDetail.get("detail_created_by"));
+         }
 
 //         //insert question
 //         for (int i = 0; i <100; i++) {

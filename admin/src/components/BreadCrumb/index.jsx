@@ -20,10 +20,10 @@ const getPath = (menuList, pathname) => {
         for (var i = 0; i < node.children.length; i++) {
           getNodePath(node.children[i]);
         }
-        //当前节点的子节点遍历完依旧没找到，则删除路径中的该节点
+        //当前节点的子节点遍历完依旧没找到，则menghapus路径中的该节点
         temppath.pop();
       } else {
-        //找到叶子节点时，删除路径当中的该叶子节点
+        //找到叶子节点时，menghapus路径当中的该叶子节点
         temppath.pop();
       }
     }

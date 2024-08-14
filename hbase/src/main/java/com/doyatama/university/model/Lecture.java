@@ -1,5 +1,7 @@
 package com.doyatama.university.model;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Lecture {
     private String id;
     private String nidn;

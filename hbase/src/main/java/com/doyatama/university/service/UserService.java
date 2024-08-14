@@ -10,6 +10,10 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class UserService {
 
@@ -28,6 +32,19 @@ public class UserService {
         return new PagedResponse<>(userResponse, userResponse.size(), "Successfully get data", 200);
     }
 
+     public PagedResponse<User> getUserById(String userId) throws IOException {
+        // Retrieve User
+        User userResponse = userRepository.findById(userId);
+
+        List<User> users = userResponse != null ? Collections.singletonList(userResponse) : Collections.emptyList();
+
+        long totalElements = users.size();
+        String message = userResponse != null ? "Successfully get data" : "User not found";
+        long statusCode = userResponse != null ? 200 : 404;
+
+        return new PagedResponse<>(users, totalElements, message, statusCode);
+    }
+
     public PagedResponse<User> getUserNotUsedAccount(int page, int size) throws IOException {
         validatePageNumberAndSize(page, size);
 
@@ -36,6 +53,8 @@ public class UserService {
 
         return new PagedResponse<>(userResponse, userResponse.size(), "Successfully get data", 200);
     }
+
+
 
 
     private void validatePageNumberAndSize(int page, int size) {

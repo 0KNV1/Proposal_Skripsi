@@ -138,10 +138,10 @@ class TableComponent extends Component {
       editItem(values).then((response) => {
         form.resetFields();
         this.setState({ editModalVisible: false, editModalLoading: false });
-        message.success("编辑成功!")
+        message.success("berhasi;!")
         this.fetchData()
       }).catch(e => {
-        message.success("编辑失败,请重试!")
+        message.success("gagal")
       })
       
     });
@@ -211,9 +211,9 @@ class TableComponent extends Component {
           <Column title="时间" dataIndex="date" key="date" width={195} align="center"/>
           <Column title="Operasi" key="action" width={195} align="center"render={(text, row) => (
             <span>
-              <Button type="primary" shape="circle" icon="edit" title="编辑" onClick={this.handleEdit.bind(null,row)}/>
+              <Button type="primary" shape="circle" icon="edit" title="mengedit" onClick={this.handleEdit.bind(null,row)}/>
               <Divider type="vertical" />
-              <Button type="primary" shape="circle" icon="delete" title="删除" onClick={this.handleDelete.bind(null,row)}/>
+              <Button type="primary" shape="circle" icon="delete" title="menghapus" onClick={this.handleDelete.bind(null,row)}/>
             </span>
           )}/>
         </Table>

@@ -66,7 +66,7 @@ class Subject extends Component {
   handleDeleteSubject = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     console.log(id);
@@ -90,11 +90,11 @@ class Subject extends Component {
             editSubjectModalVisible: false,
             editSubjectModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getSubjects();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -130,7 +130,7 @@ class Subject extends Component {
           this.getSubjects();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };
@@ -179,7 +179,7 @@ class Subject extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditSubject.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -187,7 +187,7 @@ class Subject extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteSubject.bind(null, row)}
                   />
                 </span>

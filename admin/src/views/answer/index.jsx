@@ -63,11 +63,11 @@ class Answer extends Component {
             editAnswerModalVisible: false,
             editAnswerModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getAnswers(this.state.questionID);
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -109,7 +109,7 @@ class Answer extends Component {
               addAnswerModalVisible: false,
               addAnswerModalLoading: false,
             });
-            message.success("添加成功!");
+            message.success("Berhasil!");
             this.getAnswers(this.state.questionID);
           })
           .catch((e) => {
@@ -129,7 +129,7 @@ class Answer extends Component {
               addAnswerModalVisible: false,
               addAnswerModalLoading: false,
             });
-            message.success("添加成功!");
+            message.success("Berhasil!");
             this.getAnswers(this.state.questionID);
           })
           .catch((e) => {
@@ -196,7 +196,7 @@ class Answer extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditAnswer.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -204,7 +204,7 @@ class Answer extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteAnswer.bind(null, row)}
                   />
                 </span>

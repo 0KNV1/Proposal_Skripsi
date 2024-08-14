@@ -40,7 +40,7 @@ class SubjectGroup extends Component {
   handleDeleteSubjectGroup = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     console.log(id);
@@ -64,11 +64,11 @@ class SubjectGroup extends Component {
             editSubjectGroupModalVisible: false,
             editSubjectGroupModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getSubjectGroups();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -100,11 +100,11 @@ class SubjectGroup extends Component {
             addSubjectGroupModalVisible: false,
             addSubjectGroupModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getSubjectGroups();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };
@@ -156,7 +156,7 @@ class SubjectGroup extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditSubjectGroup.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -164,7 +164,7 @@ class SubjectGroup extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteSubjectGroup.bind(null, row)}
                   />
                 </span>

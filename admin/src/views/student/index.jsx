@@ -79,7 +79,7 @@ class Student extends Component {
   handleDeleteStudent = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     deleteStudent({ id }).then((res) => {
@@ -103,12 +103,12 @@ class Student extends Component {
             editStudentModalVisible: false,
             editStudentModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getStudents();
           this.getUsers();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -140,12 +140,12 @@ class Student extends Component {
             addStudentModalVisible: false,
             addStudentModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getStudents();
           this.getUsers();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };
@@ -196,7 +196,7 @@ class Student extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditStudent.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -204,7 +204,7 @@ class Student extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteStudent.bind(null, row)}
                   />
                 </span>

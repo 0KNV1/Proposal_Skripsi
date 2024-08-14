@@ -50,7 +50,7 @@ class StudyProgram extends Component {
   handleDeleteStudyProgram = (row) => {
     const { id } = row;
     if (id === "admin") {
-      message.error("不能删除管理员用户！");
+      message.error("不能menghapusoleh  Admin！");
       return;
     }
     deleteStudyProgram({ id }).then((res) => {
@@ -73,11 +73,11 @@ class StudyProgram extends Component {
             editStudyProgramModalVisible: false,
             editStudyProgramModalLoading: false,
           });
-          message.success("编辑成功!");
+          message.success("berhasi;!");
           this.getStudyPrograms();
         })
         .catch((e) => {
-          message.success("编辑失败,请重试!");
+          message.success("gagal");
         });
     });
   };
@@ -109,11 +109,11 @@ class StudyProgram extends Component {
             addStudyProgramModalVisible: false,
             addStudyProgramModalLoading: false,
           });
-          message.success("添加成功!");
+          message.success("Berhasil!");
           this.getStudyPrograms();
         })
         .catch((e) => {
-          message.success("添加失败,请重试!");
+          message.success("Gagal menambahkan, coba lagi!");
         });
     });
   };
@@ -172,7 +172,7 @@ class StudyProgram extends Component {
                     type="primary"
                     shape="circle"
                     icon="edit"
-                    title="编辑"
+                    title="mengedit"
                     onClick={this.handleEditStudyProgram.bind(null, row)}
                   />
                   <Divider type="vertical" />
@@ -180,7 +180,7 @@ class StudyProgram extends Component {
                     type="primary"
                     shape="circle"
                     icon="delete"
-                    title="删除"
+                    title="menghapus"
                     onClick={this.handleDeleteStudyProgram.bind(null, row)}
                   />
                 </span>

@@ -15,7 +15,7 @@ const users = {
   "lecture-token": {
     id: "lecture",
     role: "lecture",
-    name: "编辑员",
+    name: "mengedit员",
     avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
     description:"可以看到除户管理页面之外的所有页面",
   },

@@ -4,13 +4,15 @@ import com.doyatama.university.model.LearningMedia;
 import com.doyatama.university.model.Lecture;
 import com.doyatama.university.model.StudyProgram;
 import com.doyatama.university.model.Subject;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
 
 public class RPSRequest {
-    private String name;
+       private String name;
     private Integer sks;
     private Integer semester;
     private String cpl_prodi;
@@ -24,7 +26,10 @@ public class RPSRequest {
     private List<String> teaching_lecturers;
     private List<String> coordinator_lecturers;
     private String ka_study_program;
-    
+
+    // Default constructor
+    public RPSRequest() {
+    }
 
     public RPSRequest(String name, Integer sks, Integer semester, String cpl_prodi, String cpl_mk, List<String> learning_media_softwares, List<String> learning_media_hardwares, List<String> requirement_subjects, String study_program_id, String subject_id, List<String> dev_lecturers, List<String> teaching_lecturers, List<String> coordinator_lecturers, String ka_study_program) {
         this.name = name;
@@ -42,6 +47,7 @@ public class RPSRequest {
         this.coordinator_lecturers = coordinator_lecturers;
         this.ka_study_program = ka_study_program;
     }
+
 
     public String getName() {
         return name;

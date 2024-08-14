@@ -77,7 +77,13 @@ public class RPSDetailRepository {
         HBaseCustomClient client = new HBaseCustomClient(conf);
         ObjectMapper mapper = new ObjectMapper(); // Define ObjectMapper instance here
         String week = rpsDetail.getWeek().toString();
-        String rowKey = UUID.randomUUID().toString().substring(0, 20 - week.length()) + "-" + week;
+        // String rowKey = UUID.randomUUID().toString().substring(0, 20 - week.length()) + "-" + week;
+        String rowKey;
+            if (rpsDetail.getId() != null && !rpsDetail.getId().isEmpty()) {
+                rowKey = rpsDetail.getId()+ "-" + week;
+            } else {
+                rowKey = UUID.randomUUID().toString().substring(0, 10)+ "-" + week;
+            }
 
         TableName tableRPSDetail = TableName.valueOf(tableName);
         client.insertRecord(tableRPSDetail, rowKey, "main", "id", rowKey);
@@ -94,9 +100,11 @@ public class RPSDetailRepository {
             client.insertRecord(tableRPSDetail, rowKey, "learning_materials", "lm_" + i, learningMaterial);
         }
 
-        client.insertRecord(tableRPSDetail, rowKey, "form_learning", "id", rpsDetail.getForm_learning().getId());
-        client.insertRecord(tableRPSDetail, rowKey, "form_learning", "name", rpsDetail.getForm_learning().getName());
-
+        // form_learning (make nullable)
+            if (rpsDetail.getForm_learning() != null) {
+                client.insertRecord(tableRPSDetail, rowKey, "form_learning", "id", rpsDetail.getForm_learning().getId());
+                client.insertRecord(tableRPSDetail, rowKey, "form_learning", "name", rpsDetail.getForm_learning().getName());
+            }
 
         // learning_method
         for (int i = 0; i < rpsDetail.getLearning_methods().size(); i++) {

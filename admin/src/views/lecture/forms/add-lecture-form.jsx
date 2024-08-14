@@ -26,7 +26,7 @@ class AddLectureForm extends Component {
     };
     return (
       <Modal
-        title="编辑"
+        title="mengedit"
         visible={visible}
         onCancel={onCancel}
         onOk={onOk}
